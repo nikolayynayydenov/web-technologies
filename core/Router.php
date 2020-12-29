@@ -26,17 +26,57 @@ class Router
 
     public function get(string $path, string $controller): void
     {
-        $this->checkMethodMatches('GET');
-
         if ($this->routeMatched) {
             return;
         }
+
+        $this->handleRequest($path, $controller, 'GET');
+    }
+
+    public function post(string $path, string $controller): void
+    {
+        if ($this->routeMatched) {
+            return;
+        }
+
+        $this->handleRequest($path, $controller, 'POST');
+    }
+
+    public function put(string $path, string $controller): void
+    {
+        if ($this->routeMatched) {
+            return;
+        }
+
+        $this->handleRequest($path, $controller, 'PUT');
+    }
+
+    public function patch(string $path, string $controller): void
+    {
+        if ($this->routeMatched) {
+            return;
+        }
+
+        $this->handleRequest($path, $controller, 'PATCH');
+    }
+
+    public function delete(string $path, string $controller): void
+    {
+        if ($this->routeMatched) {
+            return;
+        }
+
+        $this->handleRequest($path, $controller, 'DELETE');
+    }
+
+    public function handleRequest(string $path, string $controller, string $httpMethod): void
+    {
         // TODO: check if route params contain unusual characters
         $this->setPathSegments($path);
 
         [$controllerName, $method] = explode(self::SEPARATOR, $controller);
 
-        if ($this->pathMatches($path)) {
+        if ($this->pathMatches() && $this->methodMatches($httpMethod)) {
             $this->routeMatched = true;
 
             $controllerClassName = "\App\Controllers\\$controllerName";
@@ -46,19 +86,31 @@ class Router
         }
     }
 
+    public function fallback()
+    {
+        if (!$this->routeMatched) {
+            response('404. The page was not found.', 404);
+        }
+    }
+
     protected function setPathSegments(string $path): void
     {
         $this->pathSegments = explode('/', $path);
     }
 
-    protected function checkMethodMatches(string $method): void
+    protected function methodMatches(string $method): bool
     {
-        if ($_SERVER['REQUEST_METHOD'] != $method) {
-            throw new \Exception('Invalid method');
+        if (
+            array_key_exists('_method', $_POST) &&
+            strtolower($method) === strtolower($_POST['_method'])
+        ) {
+            return true;
         }
+
+        return strtolower($_SERVER['REQUEST_METHOD']) === strtolower($method);
     }
 
-    protected function pathMatches(string $path): bool
+    protected function pathMatches(): bool
     {
 
         $pathSegmentsCount = count($this->pathSegments);
@@ -92,7 +144,7 @@ class Router
         foreach ($paramKeys as $key) {
             $result[] = $this->requestPathSegments[$key];
         }
-        
+
         return $result;
     }
 }
