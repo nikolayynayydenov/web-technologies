@@ -1,12 +1,14 @@
 <?php require_once('includes/header.php'); ?>
 
-    
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
-    <div class="d-flex justify-content-center">
-        <div class="border border-success rounded m-5">
+<div class="d-flex justify-content-center">
+        <div class="border border-warning rounded m-5">
             <div class="d-flex justify-content-center px-5 pt-5">
                 <h1>
-                    Регистрация
+                    Регистрация на събитие
                 </h1>
             </div>
             <div class="d-flex flex-column">
@@ -14,16 +16,12 @@
                 <form class="px-5">
                     <div class="form-row">
                         <div class="form-group col-md-4 mb-3">
-                            <label for="firstName">Име</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Име">
+                            <label for="datettime">Date & Time</label>
+                            <input type="text" class="form-control" id="datetime" placeholder="Date & Time">
                         </div>
                         <div class="form-group col-md-4 mb-3">
-                            <label for="secondName">Презиме</label>
-                            <input type="text" class="form-control" id="secondName" placeholder="Презиме">
-                        </div>
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="LastName">Фамилия</label>
-                            <input type="text" class="form-control" id="LastName" placeholder="Фамилия">
+                            <label for="timepicker">Date & Time</label>
+                            <input type="text" class="form-control" id="timepicker" placeholder="Time">
                         </div>
                     </div>
 
@@ -78,6 +76,7 @@
                                 <option value="C">В</option>
                             </select>
                         </div>
+
                     </div>
 
                     <div class="form-row d-none" id="if_teacher">
@@ -88,17 +87,46 @@
                     </div>
 
                     
+                    <!-- </div> -->
+                    
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success mx-5 my-4">Регистрирай събитието</button>
+                        <button type="submit" class="btn btn-warning mx-5 my-4">Регистрирай събитиeто</button>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-secondary mb-5 mx-5" onclick="window.location='front_page.html';">Върни се към заглавната страница</button>
+                        <button type="button" class="btn btn-secondary mb-5 mx-5" onclick="window.location='front_page.php';">Върни се към заглавната страница</button>
                     </div>
                   </form>
             </div>
         
         </div>
     </div>
-    <script src="registerScript.js"></script>
 
-    <?php require_once('includes/footer.php'); ?>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+    <div class="datetime-group">
+        <label for="producedOn">Produced On</label>
+        <input id="producedOn" type="text" placeholder="Date & Time...">
+    </div>
+
+    <!-- <script src="jquery.datetimepicker.full.js"></script> -->
+    <script>
+        $('#datetime').datepicker({
+            //startDate:'+2018/01/01'
+        });
+        $('#timepicker').timepicker({
+    timeFormat: 'h:mm p',
+    interval: 60,
+    minTime: '10',
+    maxTime: '6:00pm',
+    defaultTime: '11',
+    startTime: '10:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true
+});
+    </script>
+    
+
+<?php require_once('includes/footer.php'); ?>
