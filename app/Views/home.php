@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello from home</title>
-</head>
-<body>
-    Hello, <?= $data['name'] ?>!
-</body>
-</html>
+<?php require_once('includes/header.php'); ?>
+
+Welcome!
+
+<?php require_once('includes/footer.php'); ?>

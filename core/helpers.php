@@ -17,7 +17,7 @@ function response($text = '', $statusCode = 200, $redirectPath = null)
     if (!$redirectPath) {
         $redirectPath = $_SERVER['REQUEST_URI'];
     }
-    header('Location: ' . $redirectPath);
+    header('Location: ' . $redirectPath); // TODO: check if this works corerctly
     http_response_code($statusCode);
     die($text);
 }

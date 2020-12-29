@@ -4,4 +4,8 @@ use Core\Router;
 
 $router = new Router();
 
-$router->get('/home/{name}', 'HomeController@index');
+$router->get('/', 'HomeController@index');
+$router->get('/import', 'UsersController@import');
+
+
+$router->fallback();
