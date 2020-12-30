@@ -3,7 +3,6 @@
     crossorigin="anonymous"></script>
 
     <!-- <script src="jquery-3.5.1.min.js"></script> -->
-    <script src="public/registerScript.js"></script>
     <script src="public/jquery.datetiempicker.full.js"></script>
 
     <script src="Bootstrap/js/bootstrap.min.js"></script>

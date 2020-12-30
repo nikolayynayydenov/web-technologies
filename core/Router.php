@@ -2,9 +2,9 @@
 
 namespace Core;
 
-/**
- * TODO: implement fallback routing
- */
+use Core\Exceptions\NotFoundException;
+use \Exception;
+
 class Router
 {
     const SEPARATOR = '@';
@@ -80,9 +80,8 @@ class Router
             $this->routeMatched = true;
 
             $controllerClassName = "\App\Controllers\\$controllerName";
-            (new $controllerClassName())->$method(
-                ...$this->extractRouteParams($path)
-            );
+
+            $this->executeWithExceptionHandling($controllerClassName, $method, $path);
         }
     }
 
@@ -90,6 +89,23 @@ class Router
     {
         if (!$this->routeMatched) {
             response('404. The page was not found.', 404);
+        }
+    }
+
+    protected function executeWithExceptionHandling($controllerClassName, $method, $path)
+    {
+        try {
+            (new $controllerClassName())->$method(
+                ...$this->extractRouteParams($path)
+            );
+        } catch (NotFoundException $exception) {
+            view('core/exceptions/not-found-exception', [
+                'exception' => $exception
+            ]);
+        } catch (Exception $exception) {
+            view('core/exceptions/general-exception', [
+                'exception' => $exception
+            ]);
         }
     }
 
