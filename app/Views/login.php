@@ -1,6 +1,15 @@
-
-<?php require_once('includes/header.php'); ?>
-
+<?php //require_once('includes/header.php'); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
+    <title>TheSystem</title>
+</head>
+<body>
 
     <div class="d-flex justify-content-center">
         <div class="border border-primary rounded m-5">
@@ -37,7 +46,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-secondary mb-5 mx-5" onclick="window.location='front_page.html';">Върни се към заглавната страница</button>
+                        <button type="button" class="btn btn-secondary mb-5 mx-5" onclick="window.location='front_page';">Върни се към заглавната страница</button>
                     </div>
                   </form>
             </div>
@@ -45,5 +54,13 @@
     </div>
 
     
-<?php require_once('includes/footer.php'); ?>
+<?php //require_once('includes/footer.php'); ?>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+    integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+    crossorigin="anonymous"></script>
 
+
+    <script src="Bootstrap/js/bootstrap.min.js"></script>
+    <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

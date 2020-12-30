@@ -12,6 +12,22 @@ class UsersController
         view('users/import');
     }
 
+    public function showFrontPage()
+    {
+        //echo realpath(dirname(__FILE__));
+        //echo dirname(__FILE__) . '/../includes/header.php';
+        //die();
+        view('front_page');
+    }
+
+    public function frontPage_method()
+    {
+        //echo realpath(dirname(__FILE__));
+        //echo dirname(__FILE__) . '/../includes/header.php';
+        //die();
+        view('front_page');
+    }
+
     public function showLogin()
     {
         //echo realpath(dirname(__FILE__));
