@@ -23,11 +23,15 @@
             </div>
         
             <div class="d-flex justify-content-center"> 
-                <button type="button" class="btn btn-primary m-5" onclick="window.location='login.html';">Влез в профила си</button>
-                <button type="button" class="btn btn-success m-5" onclick="window.location='register.html';">Регистрирай се</button>
+                <button type="button" class="btn btn-primary m-5" onclick="window.location='login';">Влез в профила си</button>
+                <button type="button" class="btn btn-success m-5" onclick="window.location='register';">Регистрирай се</button>
             </div>
         </div>
     </div>
+
+
+        
+<?php //require_once('includes/footer.php'); ?>
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"
     integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
@@ -37,5 +41,3 @@
     <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-    
-<?php //require_once('includes/footer.php'); ?>

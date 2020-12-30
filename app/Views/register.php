@@ -66,14 +66,14 @@
                     </div>
 
                     <div class="form-row d-none" id="if_student">
-                        <div class="form-group col-md-3 mb-3">
-                            <label for="Number">Факултетен номер</label>
+                        <div class="form-group col-md-2 mb-3">
+                            <label for="Number">ФН</label>
                             <input type="text" class="form-control" id="Number" placeholder="Номер">
                         </div>
                         
-                        <div class="form-group col-md-3 mb-3">
+                        <div class="form-group col-md-5 mb-3">
                             <label for="Specialnost">Специалност</label>
-                            <select id="Specialnost" class="form-control" required>
+                            <select id="Specialnost" class="form-control">
                                 <option value="mathematics">Математика</option>
                                 <option value="pmath">Приложна математика</option>
                                 <option value="stat">Статистика</option>
@@ -85,9 +85,9 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-md-3 mb-3">
+                        <div class="form-group col-md-2 mb-3">
                             <label for="Year">Курс</label>
-                            <select id="Year" class="form-control" required>
+                            <select id="Year" class="form-control">
                                 <option value="1">I</option>
                                 <option value="2">II</option>
                                 <option value="3">III</option>
@@ -97,7 +97,7 @@
 
                         <div class="form-group col-md-3 mb-3">
                             <label for="Group">Група</label>
-                            <select id="Group" class="form-control" required>
+                            <select id="Group" class="form-control">
                                 <option value="1">Първа</option>
                                 <option value="2">Втора</option>
                                 <option value="3">Трета</option>

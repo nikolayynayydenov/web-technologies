@@ -7,8 +7,8 @@ $router = new Router();
 $router->get('/', 'HomeController@index');
 $router->get('/import', 'UsersController@import');
 
-$router->get('/front_page', 'UserController@showFrontPage');
-$router->post('/front_page', 'UserController@frontPage_method');
+$router->get('/front_page', 'UsersController@showFrontPage');
+$router->post('/front_page', 'UsersController@frontPage_method');
 
 $router->get('/login', 'UsersController@showLogin');
 $router->post('/login', 'UsersController@login_method');
