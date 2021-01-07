@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `faculty_number` mediumint(8) unsigned NOT NULL,
   `logged_at` datetime DEFAULT NULL,
   `event_id` int(10) unsigned NOT NULL,
+  `thrust` tinyint(3) unsigned DEFAULT NULL,
+  `check_description` varchar(50) DEFAULT NULL,
+  `enroll_source` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_attendance_event_id_events_id` (`event_id`),
   CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
