@@ -7,7 +7,7 @@ abstract class Model
     /**
      * @var string The name of the DB table
      */
-    protected $table;
+    protected static $table;
     protected $conn;
     protected $attributes = [];
 
@@ -23,12 +23,12 @@ abstract class Model
 
     /**
      * @param int $id
-     * @return bool success or not
+     * @return self|null
      */
-    public function getById(int $id): bool
+    public static function getById(int $id)
     {
-        $stmt = $this->conn->prepare(
-            'SELECT * FROM ' . $this->getTableName() . ' WHERE id = ?'
+        $stmt = Database::getConnection()->prepare(
+            'SELECT * FROM ' . self::getTableName() . ' WHERE id = ?'
         );
 
         $stmt->execute([$id]);
@@ -36,10 +36,13 @@ abstract class Model
         $result = $stmt->fetch();
 
         if ($result !== false) {
-            $this->attributes = $result;
+            $modelClass = get_called_class();
+            $model = new $modelClass();
+            $model->attributes = $result;
+            return $model;
         }
 
-        return (bool) $result;
+        return null;
     }
 
     public function update(array $data): void
@@ -52,10 +55,10 @@ abstract class Model
         //
     }
 
-    protected function getTableName()
+    protected static function getTableName()
     {
-        if (isset($this->table)) {
-            return $this->table;
+        if (isset(get_called_class()::$table)) {
+            return get_called_class()::$table;
         }
 
         throw new \Exception('Unknown table');

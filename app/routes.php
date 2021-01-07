@@ -18,6 +18,8 @@ $router->post('/register', 'UsersController@register_method');
 $router->get('/event/create', 'EventsController@create');
 $router->post('/event', 'EventsController@registerEvent_method');
 
+$router->get('/event/{id}', 'EventsController@show');
+$router->post('/event/{id}/import', 'EventsController@import');
 
 
 $router->fallback();

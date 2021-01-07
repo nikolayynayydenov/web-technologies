@@ -6,5 +6,5 @@ use Core\Model;
  
 class Event extends Model
 {
-    protected $table = 'events';
+    protected static $table = 'events';
 }

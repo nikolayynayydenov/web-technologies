@@ -22,6 +22,15 @@ function response($text = '', $statusCode = 200, $redirectPath = null)
     die($text);
 }
 
+function redirect($redirectPath = null)
+{
+    if (!$redirectPath) {
+        $redirectPath = $_SERVER['REQUEST_URI'];
+    }
+    header('Location: ' . $redirectPath); // TODO: check if this works corerctly
+    die;
+}
+
 function d($data)
 {
     if (is_null($data)) {
@@ -59,7 +68,8 @@ function dnl($data)
     echo d($data) . "<br>\n";
 }
 
-function dd($data){
+function dd($data)
+{
     echo dnl($data);
     exit;
 }
