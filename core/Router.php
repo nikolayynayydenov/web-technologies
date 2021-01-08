@@ -4,6 +4,7 @@ namespace Core;
 
 use Core\Exceptions\NotFoundException;
 use \Exception;
+use PDOException;
 
 class Router
 {
@@ -100,6 +101,10 @@ class Router
             );
         } catch (NotFoundException $exception) {
             view('core/exceptions/not-found-exception', [
+                'exception' => $exception
+            ]);
+        } catch (PDOException $exception) {
+            view('core/exceptions/database-exception', [
                 'exception' => $exception
             ]);
         } catch (Exception $exception) {

@@ -6,5 +6,5 @@ use Core\Model;
  
 class Comment extends Model
 {
-    protected $table = 'comments';
+    protected static $table = 'comments';
 }

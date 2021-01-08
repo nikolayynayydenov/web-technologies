@@ -16,9 +16,22 @@ abstract class Model
         $this->conn = Database::getConnection();
     }
 
-    public function insert(array $data): void
+    /**
+     * TODO: insert multiple rows with single query
+     * 
+     * @param array $data
+     * @return void
+     */
+    public static function insert(array $data)
     {
-        //
+        $sql =  'INSERT INTO ' . self::getTableName() .
+            ' (' . implode(', ', array_keys($data)) .
+            ') VALUES (' .
+            implode(', ', array_fill(0, count($data), '?')) . ');';
+
+        $stmt = Database::getConnection()->prepare($sql);
+
+        $stmt->execute(array_values($data));
     }
 
     /**
@@ -28,7 +41,7 @@ abstract class Model
     public static function getById(int $id)
     {
         $stmt = Database::getConnection()->prepare(
-            'SELECT * FROM ' . self::getTableName() . ' WHERE id = ?'
+            'SELECT * FROM ' . self::getTableName() . ' WHERE id = ?;'
         );
 
         $stmt->execute([$id]);

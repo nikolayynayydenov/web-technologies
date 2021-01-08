@@ -17,18 +17,27 @@ function response($text = '', $statusCode = 200, $redirectPath = null)
     if (!$redirectPath) {
         $redirectPath = $_SERVER['REQUEST_URI'];
     }
-    header('Location: ' . $redirectPath); // TODO: check if this works corerctly
+    header('Location: ' . config('app')['url'] . $redirectPath);
     http_response_code($statusCode);
     die($text);
 }
 
 function redirect($redirectPath = null)
 {
-    if (!$redirectPath) {
-        $redirectPath = $_SERVER['REQUEST_URI'];
+    response('', 302, $redirectPath);
+}
+
+function sessionFlash($message)
+{
+    if (array_key_exists($message, $_SESSION)) {
+        echo p($_SESSION[$message]);
+        unset($_SESSION[$message]);
     }
-    header('Location: ' . $redirectPath); // TODO: check if this works corerctly
-    die;
+}
+
+function p($text)
+{
+    return htmlspecialchars($text);
 }
 
 function d($data)

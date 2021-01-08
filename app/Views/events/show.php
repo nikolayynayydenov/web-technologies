@@ -3,9 +3,11 @@
 <?= $data['event']->name ?>
 <br>
 <?= $data['event']->description ?>
+<br>
+<?= sessionFlash('message') ?>
 
-<form action="/event/<?= $data['event']->id ?>/import" method="post">
-    <input type="file" name="csv_file">
+<form action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
+    <input type="file" name="attendance_file">
     <input type="submit" value="Импортиране на присъствия">
 </form>
 
