@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Core\Model;
 
-require_once "DB.php";
-
  
 class Event extends Model
 {
@@ -26,7 +24,7 @@ class Event extends Model
         $this->eventStart = $eventStart;
         $this->eventEnd = $eventEnd;
         $this->description = $description;
-        $this->conn = DB::getConnection();
+        $this->conn = \Core\Database::getConnection();
     }
 
     public function getEventName(){

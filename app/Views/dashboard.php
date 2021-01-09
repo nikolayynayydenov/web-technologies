@@ -11,7 +11,6 @@
 <?php require_once('includes/header.php'); ?>
 <link rel="stylesheet" href="/dashboard.css">
 
-    <!-- <main onload="my_function()"> -->
     <main>
         <h2 id="name">Иван Иванов: преподавател</h1>
         <button onclick="window.location='registerEvent'" id="createEventBtn">
@@ -24,22 +23,22 @@
                 Статистика за събития
             </h4>
             <ul id="eventsList">
-                <li class="event"><p>JavaScript, 01/12/2020, 10:15 - 12:00</p>
-                    <div>
-                        <h5>Списък с присъствали студенти</h5>
+                <li class="event">JavaScript, 01/12/2020, 10:15 - 12:00
+                    <div class="hidden">
+                        <h6>Списък със студенти, които са участвали</h6>
                         <ol>
-                            <li>81580 Ралица Димитрова</li>
-                            <li>81888 Николай Найденов</li>
+                            <li>81888 Петя Иванова</li>
+                            <li>81555 Стефан Стефанов</li>
                         </ol>
                     </div>
                 </li>
 
-                <li class="event"><p>CSS, 02/12/2020, 13:15- 15:00</p>
-                    <div>
-                        <h5>Списък с присъствали студенти</h5>
+                <li class="event">CSS, 02/12/2020, 13:15- 15:00
+                    <div class="hidden">
+                        <h6>Списък със студенти, които са участвали</h6>
                         <ol>
-                            <li>81888 Иван Иванов</li>
-                            <li>81555 Петя Тодорова</li>
+                            <li>81678 Камелия Петрова</li>
+                            <li>81456 Петър Георгиев</li>
                         </ol>
                     </div>
                 </li>
@@ -51,7 +50,26 @@
         <section id="studentsStatistics">
             <h4>Статистика за студенти</h4>
             <ol id="studentsList">
-                <li>81580 Ралица Димитрова</li>
+                <li class="student">81580 Ралица Димитрова
+                    <div class="hidden">
+                        <h6>Списък със събития, в които е участвал</h6>
+                        <ol>
+                            <li>JavaScript, 01/12/2020, 10:15 - 12:00</li>
+                            <li>CSS, 02/12/2020, 13:15 - 15:00</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <li class="student">
+                    81888 Николай Найденов
+                    <div class="hidden">
+                        <h6>Списък със събития, в които е уачствал</h6>
+                        <ol>
+                            <li>JavaScript, 01/12/2020, 10:15 - 12:00</li>
+                            <li>CSS, 02/12/2020, 13:15 - 15:00</li>
+                        </ol>
+                    </div>
+                </li>
             </ol>
         </section>
     

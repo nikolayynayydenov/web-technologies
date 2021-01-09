@@ -68,10 +68,6 @@ main{
     color: white;
 }
 
-#eventsStatistics li div{
-    display: none;
-    background: red;
-}
 
 #studentsStatistics li{
     margin: 1%;
@@ -85,4 +81,12 @@ main{
     background: rgb(149, 163, 186);
     text-decoration: underline;
     color:white;
+}
+
+.event div{
+    background: red;
+}
+
+.student div{
+    background: red;
 }
