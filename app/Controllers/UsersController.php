@@ -52,4 +52,13 @@ class UsersController
     {
         view('registerEvent');
     }
+    public function showStudentsLogin()
+    {
+        view('studentsLogin');
+    }
+
+    public function studentsLogin_method()
+    {
+        view('studentsLogin');
+    }
 }

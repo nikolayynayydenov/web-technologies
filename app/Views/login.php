@@ -11,21 +11,15 @@
             <form class="px-5">
                 <div class="form-row">
                     <div class="form-group col-md-12 mb-3">
-                        <label for="firstName">Име</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Име">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12 mb-3">
-                        <label for="LastName">Фамилия</label>
-                        <input type="text" class="form-control" id="LastName" placeholder="Фамилия">
+                        <label for="email">Имейл</label>
+                        <input type="email" class="form-control" id="email">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-12 mb-3">
                         <label for="pass">Парола</label>
-                        <input type="password" class="form-control" id="pass" placeholder="Парола">
+                        <input type="password" class="form-control" id="pass">
                     </div>
                 </div>
 

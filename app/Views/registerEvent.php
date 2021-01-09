@@ -4,7 +4,7 @@
     <main>
         <h2>Създаване на събитие</h2>
         <hr>
-        <form action="POST">
+        <form action="enterEventIntoDB.php" method="POST">
             <div class="field">
                 <label for="name">Име</label>
                 <input type="text" id="name" placeholder="Име на събитието">

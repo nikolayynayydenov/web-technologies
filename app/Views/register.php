@@ -8,19 +8,22 @@
             </h1>
         </div>
         <div class="d-flex flex-column">
-            <form class="px-5">
+            <form action="enterTeacherIntoDB.php" method="POST" class="px-5">
                 <div class="form-row">
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-6 mb-3">
                         <label for="firstName">Име</label>
                         <input type="text" class="form-control" id="firstName" placeholder="Име">
                     </div>
-                    <div class="form-group col-md-4 mb-3">
-                        <label for="secondName">Презиме</label>
-                        <input type="text" class="form-control" id="secondName" placeholder="Презиме">
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-6 mb-3">
                         <label for="LastName">Фамилия</label>
                         <input type="text" class="form-control" id="LastName" placeholder="Фамилия">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="email">Имейл</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                 </div>
 
@@ -35,14 +38,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="email">Имейл</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
-                    </div>
-                </div>
-
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="form-check form-check-inline col-md-2 mb-3">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Student">
                         <label class="form-check-label" for="inlineRadio1">Студент</label>
@@ -96,7 +92,7 @@
                             <option value="8">Осма</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="form-row d-none" id="if_teacher">
                         <div class="form-group col-md-4 mb-3">

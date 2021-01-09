@@ -27,4 +27,7 @@ $router->post('/dashboard', 'UsersController@dashboard_method');
 $router->get('/registerEvent', 'UsersController@showRegisterEvent');
 $router->post('/registerEvent', 'UsersController@registerEvent_method');
 
+$router->get('/studentsLogin', 'UsersController@showStudentsLogin');
+$router->post('/studentsLogin', 'UsersController@studentsLogin_method');
+
 $router->fallback();

@@ -29,7 +29,10 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Вход <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/studentsLogin">Вход за студенти <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Вход за преподаватели<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Регистрация <span class="sr-only">(current)</span></a>
