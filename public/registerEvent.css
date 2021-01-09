@@ -1,0 +1,56 @@
+main{
+    margin-top: 2%
+}
+h2{
+    text-align: center;
+}
+
+form{
+    margin: auto;
+    width: 50%;
+}
+
+input[type=text], textarea {
+    width: 100%;
+    padding: 1%;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+
+select {
+    width: 42%;
+    padding: 1%;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+#selectField1 {
+    display: inline;
+}
+
+#selectField2{
+    display: inline;
+}
+
+input[type=submit] {
+    margin: 1% 35%;
+    width: 30%;
+    padding: 8px 15px;
+    background: white;
+    color: rgb(149, 163, 186);
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid rgb(149, 163, 186);
+    border-radius: 10px;
+    outline: none;
+}
+input[type=submit]:hover{
+    color: white;
+    background: rgb(149, 163, 186);
+}
+
+

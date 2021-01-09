@@ -34,4 +34,22 @@ class UsersController
     {
         view('register');
     }
+    public function showDashboard()
+    {
+        view('dashboard');
+    }
+
+    public function dashboard_method()
+    {
+        view('dashboard');
+    }
+    public function showRegisterEvent()
+    {
+        view('registerEvent');
+    }
+
+    public function registerEvent_method()
+    {
+        view('registerEvent');
+    }
 }

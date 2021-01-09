@@ -21,5 +21,10 @@ $router->post('/event', 'EventsController@registerEvent_method');
 $router->get('/event/{id}', 'EventsController@show');
 $router->post('/event/{id}/import', 'EventsController@import');
 
+$router->get('/dashboard', 'UsersController@showDashboard');
+$router->post('/dashboard', 'UsersController@dashboard_method');
+
+$router->get('/registerEvent', 'UsersController@showRegisterEvent');
+$router->post('/registerEvent', 'UsersController@registerEvent_method');
 
 $router->fallback();
