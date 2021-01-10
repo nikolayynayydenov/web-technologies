@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   PRIMARY KEY (`id`),
   KEY `FK_attendance_event_id_events_id` (`event_id`),
   CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Изнасянето на данните беше деселектирано.
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` text DEFAULT NULL,
+  `date` datetime NOT NULL,
   `start` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `teacher_id` int(10) unsigned NOT NULL,
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `teachers` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,
-  `middle_name` varchar(255) DEFAULT NULL,
+  -- `middle_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
