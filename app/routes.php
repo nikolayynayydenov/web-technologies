@@ -30,4 +30,6 @@ $router->post('/registerEvent', 'UsersController@registerEvent_method');
 $router->get('/studentsLogin', 'UsersController@showStudentsLogin');
 $router->post('/studentsLogin', 'UsersController@studentsLogin_method');
 
+$router->post('/enter-teacher', 'UsersController@enterTeacher');
+
 $router->fallback();
