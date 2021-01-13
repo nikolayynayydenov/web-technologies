@@ -21,19 +21,30 @@ input[type=text]:focus {
     border: 3px solid #555;
 }
 
-select {
+/* select {
     width: 42%;
     padding: 1%;
+    margin: 8px 0;
     border-radius: 4px;
     background-color: #f1f1f1;
-}
+} */
 
 #selectField1 {
     display: inline;
+    width: 42%;
+    padding: 1%;
+    margin: 8px 0;
+    border-radius: 4px;
+    /* background-color: #f1f1f1; */
 }
 
 #selectField2{
     display: inline;
+    width: 42%;
+    padding: 1%;
+    margin: 8px 0;
+    border-radius: 4px;
+    /* background-color: #f1f1f1; */
 }
 
 input[type=submit] {

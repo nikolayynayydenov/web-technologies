@@ -1,6 +1,23 @@
 <?php require_once('includes/header.php'); ?>
+<link rel="stylesheet" href="/teachersLogin.css">
 
-<div class="d-flex justify-content-center">
+<h1>Вход за преподаватели</h1>
+<hr>
+<form action="">
+    <div>
+        <label for="email">Имейл</label>
+        <input type="email" id="email">
+    </div>
+    <div>
+        <label for="password">Парола</label>
+        <input type="password" id="password">
+    </div>
+    <div>
+        <input type="submit" value="Влез">
+    </div>
+</form>
+
+<!-- <div class="d-flex justify-content-center">
     <div class="border border-primary rounded m-5">
         <div class="d-flex justify-content-center px-5 pt-5">
             <h1>
@@ -34,7 +51,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <?php require_once('includes/footer.php'); ?>

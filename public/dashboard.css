@@ -1,4 +1,4 @@
-main{
+#header{
     margin-left: 5%;
     margin-right: 5%; 
     margin-top: 2%;
@@ -30,26 +30,26 @@ main{
 
 #eventsStatistics{
     display: inline-block;
-    width: 45%;
+    width: 46%;
     float: right;
-    margin-right: 3%;
+    /* margin-right: 3%; */
     padding-top: 1%;
     text-align: center;
-    padding-left: 3%;
-    padding-right: 3%;
+    /* padding-left: 3%;
+    padding-right: 3%; */
     border: 1px solid;
 }
 
 
 #studentsStatistics{
     display: inline-block;
-    width: 45%;
+    width: 46%;
     float: left;
-    margin-left: 3%;
+    /* margin-left: 3%; */
     padding-top: 1%;
     text-align: center;
-    padding-left: 3%;
-    padding-right: 3%;
+    /* padding-left: 3%;
+    padding-right: 3%; */
     border: 1px solid;
 }
 
@@ -84,9 +84,9 @@ main{
 }
 
 .event div{
-    background: red;
+    /* background: red; */
 }
 
 .student div{
-    background: red;
+    /* background: red; */
 }

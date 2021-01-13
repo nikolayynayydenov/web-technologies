@@ -1,6 +1,39 @@
 <?php require_once('includes/header.php'); ?>
+<link rel="stylesheet" href="/teachersRegister.css">
 
-<div class="d-flex justify-content-center">
+    <h1>Регистрация на преподаватели</h1>
+    <hr>
+    <form action="" method="">
+        <div>
+            <label for="firstName">Име</label>
+            <input type="text" id="firstName">
+        </div>
+        <div>
+            <label for="lastName">Фамилия</label>
+            <input type="text" id="lastName">
+        </div>
+        <div>
+            <label for="email">Имейл</label>
+            <input type="text" id="email">
+        </div>
+        <div>
+            <label for="password">Парола</label>
+            <input type="password" id="password">
+        </div>
+        <div>
+            <label for="confirmPassword">Потвърди паролата</label>
+            <input type="password" id="confirmPassword">
+        </div>
+        <div>
+            <input type="submit" value="Регистрирай се">
+        </div>
+    </form>
+</body>
+</html>
+
+
+
+<!-- <div class="d-flex justify-content-center">
     <div class="border border-success rounded m-5">
         <div class="d-flex justify-content-center px-5 pt-5">
             <h1>
@@ -36,7 +69,11 @@
                         <label for="confirmPass">Потвърди паролата</label>
                         <input type="password" class="form-control" id="confirmPass" placeholder="Потвърди паролата">
                     </div>
-                </div>
+                </div> -->
+
+
+
+
 
                 <!-- <div class="form-row">
                     <div class="form-check form-check-inline col-md-2 mb-3">
@@ -102,7 +139,7 @@
                     </div> -->
 
 
-                <div class="d-flex justify-content-center">
+                <!-- <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-success mx-5 my-4">Регистрирай се</button>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -112,9 +149,10 @@
         </div>
 
     </div>
-</div>
-<script src="registerScript.js"></script>
+</div> -->
 
+
+<script src="registerScript.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 

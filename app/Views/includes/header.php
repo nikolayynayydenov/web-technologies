@@ -24,7 +24,10 @@
                     <a class="nav-link" href="/">Начало <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/event/create">Създаване на събитие <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/registerEvent">Създаване на събитие <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/dashboard">Основна страница <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -35,7 +38,7 @@
                     <a class="nav-link" href="/login">Вход за преподаватели<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">Регистрация <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/register">Регистрация на преподаватели <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>

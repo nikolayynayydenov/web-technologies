@@ -12,11 +12,14 @@
 <link rel="stylesheet" href="/dashboard.css">
 
     <main>
-        <h2 id="name">Иван Иванов: преподавател</h1>
-        <button onclick="window.location='registerEvent'" id="createEventBtn">
-            Създай събитие
-        </button>
-        <hr>
+        <div id="header">
+            <h2 id="name">Иван Иванов: преподавател</h1>
+            <button onclick="window.location='registerEvent'" id="createEventBtn">
+                Създай събитие
+            </button>
+            <hr>
+        </div>
+        
 
         <section id="eventsStatistics">
             <h4>

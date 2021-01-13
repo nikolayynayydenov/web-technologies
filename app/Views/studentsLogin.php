@@ -10,11 +10,11 @@
 <?php require_once('includes/header.php'); ?>
 <link rel="stylesheet" href="/studentsLogin.css">
 
-    <h1>Вход</h1>
+    <h1>Вход за студенти</h1>
     <hr>
     <form action="" method="">
         <div>
-            <label for="fn">Факултетен Номер</label>
+            <label for="fn">Факултетен номер</label>
             <input type="text" id="fn" placeholder="81000">
         </div>
         <div>
