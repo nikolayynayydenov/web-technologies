@@ -15,7 +15,7 @@
     <form action="" method="">
         <div>
             <label for="fn">Факултетен номер</label>
-            <input type="text" id="fn" placeholder="81000">
+            <input type="text" id="fn" placeholder="81000" name="fn">
         </div>
         <div>
             <input type="submit" value="Влез">

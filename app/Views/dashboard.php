@@ -8,15 +8,29 @@
 </head>
 <body> -->
 
+<?php 
+    //session_start(); 
+?>
+
 <?php require_once('includes/header.php'); ?>
 <link rel="stylesheet" href="/dashboard.css">
 
     <main>
         <div id="header">
-            <h2 id="name">Иван Иванов: преподавател</h1>
-            <button onclick="window.location='registerEvent'" id="createEventBtn">
-                Създай събитие
-            </button>
+            <h2 id="name"> Иван Иванов
+                <?php 
+                    //session_start();
+                    //echo $_SESSION["firstName"]." ".$_SESSION["lastName"];
+                ?>
+            </h1>
+            <div id="buttons">
+                <button onclick="window.location='registerEvent';" id="createEventBtn">
+                    Създай събитие
+                </button>
+                <form action="logout.php" method="POST">
+                    <input type="submit" value="Изход" id="logout">
+                </form>
+            </div>
             <hr>
         </div>
         

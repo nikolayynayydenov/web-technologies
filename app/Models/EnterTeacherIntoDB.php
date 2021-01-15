@@ -45,9 +45,9 @@
             $errors[] = "Паролата не е потвърдена!";
         }
 
-        if($firstName && strlen($firstName)<=50 && $lastName && strlen($lastname)<=50 && 
+        if($firstName && strlen($firstName)<=50 && $lastName && strlen($lastName)<=50 && 
             $email && $password && $confirmPassword && $password == $confirmPassword){
-            $teacher = new Teacher($firstName, $lastname, $email, $password);
+            $teacher = new App\Models\Teacher($email, $password); // преди се конструираше и с имената
             $exists = $teacher->teacherExists();
             if($exists["successfullyExecuted"] == false){
                 $errors[] = "Неуспешна заявка - error message: " . $exists["errMessage"];

@@ -40,12 +40,12 @@ class Comment extends Model
         $preparedStmt = $this->getConn()->prepare($sql);
         try{
             $preparedStmt->execute(["textContent" => $this->getTextContent(), "fn" => $this->getFN()]);
-        }catch(PDOException $e){
+        }catch(\PDOException $e){
             $errMsg = $e->getMessage();
             $query = ["sucessfullyExecuted" => false, "errMessage" => $errMsg];
             return $query;
         }
-        $comments_assoc = $preparedStmt->fetch(PDO::FETCH_ASSOC);
+        $comments_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
         if($comments_assoc){
             $query = ["sucessfullyExecuted" => true, "commentExists" => true];
             return $query;
@@ -67,7 +67,7 @@ class Comment extends Model
                                     "fn" => $this->getFN(), 
                                     "isVisible" => $this->getIsVisible]);
             $query = ["successfullyExecuted" => true]; 
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
         }

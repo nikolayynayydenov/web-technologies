@@ -26,7 +26,7 @@
         }
 
         if($textContent && strlen($fn) == 5 && is_numeric($fn)){
-            $comment = new Comment($textContent, $fn, $isVisible);
+            $comment = new App\Models\Comment($textContent, $fn, $isVisible);
             $exists = $comment->exists();
             if($exists["successfullyExecuted"] == false){
                 $errors[] = "Неуспешна заявка - error message: " . $exists["errMessage"];

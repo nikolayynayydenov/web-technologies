@@ -60,13 +60,13 @@ class Event extends Model
             "eventStart" => $this->getEventStart(), "eventEnd" => $this->getEventEnd()]);
 
             //$query = ["sucessfullyExecuted" => true];
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["sucessfullyExecuted" => false, "errMessage" => $errMsg];
             return $query;
         }
 
-        $event_assoc = $preparedStmt->fetch(PDO::FETCH_ASSOC);
+        $event_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
         if($event_assoc){
             $query = ["sucessfullyExecuted" => true, "eventOverlapsWithAnotherEvent" => true];
             return $query;
@@ -91,7 +91,7 @@ class Event extends Model
                                     "eventEnd" => $this->getEventDate(), 
                                     "description" => $this->getDescription()]);
             $query = ["successfullyExecuted" => true]; 
-        } catch(PDOException $e) {
+        } catch(\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
         }
@@ -107,13 +107,13 @@ class Event extends Model
         try{
             $preparedStmt->execute();
             $query = ["successfullyExecuted" => true];
-        } catch(PDOException $e){
+        } catch(\PDOException $e){
             $errMsg  =$e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
         }
 
         $arrayEvents = [];
-        $events_assoc = $preparedStmt->fetch(PDO::FETCH_ASSOC);
+        $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
         if($events_assoc){
             $query = ["sucessfullyExecuted" => true];
             //foreach($events_assoc as $event){

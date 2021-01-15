@@ -3,14 +3,14 @@
 
 <h1>Вход за преподаватели</h1>
 <hr>
-<form action="">
+<form action="TeacherLogin.php" method="POST">
     <div>
         <label for="email">Имейл</label>
-        <input type="email" id="email">
+        <input type="email" id="email" name="email">
     </div>
     <div>
         <label for="password">Парола</label>
-        <input type="password" id="password">
+        <input type="password" id="password" name="password">
     </div>
     <div>
         <input type="submit" value="Влез">

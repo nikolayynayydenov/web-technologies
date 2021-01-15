@@ -39,7 +39,7 @@
         }
 
         if($eventName && strlen($eventName)<=150 && $eventDate && $eventStart && $eventEnd){
-            $event = new Event($eventName, $teacher, $eventDate, $eventStart, $eventEnd, $description);
+            $event = new App\Models\Event($eventName, $teacher, $eventDate, $eventStart, $eventEnd, $description);
             $overlaps = $event->eventOverlapsWithAnotherEvent();
             if($ovelaps["successfullyExecuted"] == false){
                 $errors[] = "Неуспешна заявка - error message: " . $overlaps["errMessage"];

@@ -3,26 +3,26 @@
 
     <h1>Регистрация на преподаватели</h1>
     <hr>
-    <form action="" method="">
+    <form action="enterTeacherIntoDB.php" method="POST">
         <div>
             <label for="firstName">Име</label>
-            <input type="text" id="firstName">
+            <input type="text" id="firstName" name="firstName">
         </div>
         <div>
             <label for="lastName">Фамилия</label>
-            <input type="text" id="lastName">
+            <input type="text" id="lastName" name="lastName">
         </div>
         <div>
             <label for="email">Имейл</label>
-            <input type="text" id="email">
+            <input type="email" id="email" name="email">
         </div>
         <div>
             <label for="password">Парола</label>
-            <input type="password" id="password">
+            <input type="password" id="password" name="password">
         </div>
         <div>
             <label for="confirmPassword">Потвърди паролата</label>
-            <input type="password" id="confirmPassword">
+            <input type="password" id="confirmPassword" name="confirmPassword">
         </div>
         <div>
             <input type="submit" value="Регистрирай се">

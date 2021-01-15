@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="icon" href="/NiRa logo.png"> -->
+    <link rel="icon" href="/green_dot.png">
     <title>TheSystem</title>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,4 +44,17 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
+
+    
+
+    <link rel="stylesheet" href="/navbar.css">
+
+    <ul id="nav_ul">
+        <li class="nav_li1"><a href="/">Начало</a></li>
+        <li class="nav_li1"><a href="/registerEvent">Създаване на събитие</a></li>
+        <li class="nav_li1"><a href="/dashboard">Основна страница</a></li>
+        <li class="nav_li2"><a href="/studentsLogin">Вход за студенти</a></li>
+        <li class="nav_li2"><a href="/login">Вход за преподаватели</a></li>
+        <li class="nav_li2"><a href="/register">Регистрация</a></li>
+    </ul>

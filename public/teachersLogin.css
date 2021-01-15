@@ -1,11 +1,15 @@
 h1{
     text-align: center;
     margin-top:2%;
+    color: rgb(35, 150, 71);
 }
 
 form{
     margin: auto;
     width: 30%;
+    padding: 2rem;
+    border: 4px solid rgb(35, 150, 71);
+    border-radius: 10px;
 }
 input[type=email] {
     width: 100%;
@@ -20,19 +24,27 @@ input[type="password"]{
     box-sizing: border-box;
 }
 
+input[type=email]:focus, input[type=password]:focus {
+    outline: none;
+    border: 3px solid rgb(35, 150, 71);
+}
+
 input[type=submit] {
     margin: 2% 30%;
     width: 40%;
     padding: 2% 2%;
     background: white;
-    color: rgb(149, 163, 186);
+    color: rgb(35, 150, 71);
+    /* color: rgb(149, 163, 186); */
     text-transform: uppercase;
     font-weight: bold;
-    border: 2px solid rgb(149, 163, 186);
+    border: 2px solid rgb(35, 150, 71);
+    /* border: 2px solid rgb(149, 163, 186); */
     border-radius: 10px;
     outline: none;
 }
 input[type=submit]:hover{
     color: white;
-    background: rgb(149, 163, 186);
+    /* background: rgb(149, 163, 186); */
+    background: rgb(35, 150, 71);
 }

@@ -7,12 +7,12 @@
         <form action="enterEventIntoDB.php" method="POST">
             <div class="field">
                 <label for="name">Име</label>
-                <input type="text" id="name" placeholder="Име на събитието">
+                <input type="text" id="name" placeholder="Име на събитието" name="name">
             </div>
 
             <div class="field">
                 <label for="date">Дата</label>
-                <input type="text" id="data" placeholder="01/01/2021">
+                <input type="text" id="date" placeholder="01/01/2021" name="date">
             </div>
 
             <div class="field" id="selectField1">
