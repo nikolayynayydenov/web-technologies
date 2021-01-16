@@ -17,7 +17,7 @@
 
     <main>
         <div id="header">
-            <h2 id="name"> Иван Иванов
+            <h1 id="name"> Иван Иванов
                 <?php 
                     //session_start();
                     //echo $_SESSION["firstName"]." ".$_SESSION["lastName"];
