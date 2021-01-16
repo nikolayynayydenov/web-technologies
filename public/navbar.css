@@ -33,6 +33,31 @@
     text-decoration: none;
 }
 
-.nav_li1 a:hover, .nav_li2 a:hover {
+/* .nav_li1 a:hover, .nav_li2 a:hover {
     background-color: #111;
+} */
+
+
+#li1 a:hover{
+    background-color:rgb(247, 82, 49);
+}
+
+#li2 a:hover{
+    background-color:rgb(255, 173, 20);
+}
+
+#li3 a:hover{
+    background-color:rgb(0, 166, 8);
+}
+
+#li4 a:hover{
+    background-color:rgb(0, 176, 212);
+}
+
+#li5 a:hover{
+    background-color:rgb(255, 120, 250);
+}
+
+#li6 a:hover{
+    background-color:rgb(214, 13, 53);
 }

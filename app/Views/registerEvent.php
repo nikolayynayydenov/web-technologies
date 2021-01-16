@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/registerEvent.css">
 
     <main>
-        <h2>Създаване на събитие</h2>
+        <h1>Създаване на събитие</h1>
         <hr>
         <form action="enterEventIntoDB.php" method="POST">
             <div class="field">
@@ -15,7 +15,7 @@
                 <input type="text" id="date" placeholder="01/01/2021" name="date">
             </div>
 
-            <div class="field" id="selectField1">
+            <div class="field" id="selectFields">
                 <label for="start">Начало</label>
                 <select name="start" id="start">
                     <option value="8">8:15</option>
@@ -32,9 +32,7 @@
                     <option value="19">19:15</option>
                     <option value="20">20:15</option>
                 </select>
-            </div>
-
-            <div class="field" id="selectField2">
+            
                 <label for="end">Край</label>
                 <select name="end" id="end">
                     <option value="9">9:00</option>

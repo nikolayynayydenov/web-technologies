@@ -1,5 +1,5 @@
 <?php
-    include_once "Teacher.php";
+    
 
     $errors = [];
     $result;

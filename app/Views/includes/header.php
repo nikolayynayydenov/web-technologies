@@ -51,10 +51,10 @@
     <link rel="stylesheet" href="/navbar.css">
 
     <ul id="nav_ul">
-        <li class="nav_li1"><a href="/">Начало</a></li>
-        <li class="nav_li1"><a href="/registerEvent">Създаване на събитие</a></li>
-        <li class="nav_li1"><a href="/dashboard">Основна страница</a></li>
-        <li class="nav_li2"><a href="/studentsLogin">Вход за студенти</a></li>
-        <li class="nav_li2"><a href="/login">Вход за преподаватели</a></li>
-        <li class="nav_li2"><a href="/register">Регистрация</a></li>
+        <li class="nav_li1" id="li1"><a href="/">Начало</a></li>
+        <li class="nav_li1" id="li2"><a href="/registerEvent">Създаване на събитие</a></li>
+        <li class="nav_li1" id="li3"><a href="/dashboard">Основна страница</a></li>
+        <li class="nav_li2" id="li6"><a href="/register">Регистрация</a></li>
+        <li class="nav_li2" id="li5"><a href="/login">Вход за преподаватели</a></li>
+        <li class="nav_li2" id="li4"><a href="/studentsLogin">Вход за студенти</a></li>
     </ul>

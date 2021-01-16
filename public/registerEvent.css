@@ -1,7 +1,7 @@
 main{
     margin-top: 2%
 }
-h2{
+h1{
     text-align: center;
     color: rgb(255, 138, 36);
 }
@@ -30,21 +30,26 @@ input[type=text]:focus, select:focus, textarea:focus {
     border: 3px solid rgb(255, 138, 36);
 }
 
-/* select {
-    width: 42%;
+#selectFields {
+    display: inline-block;
+    width: 100%;
     padding: 1%;
     margin: 8px 0;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-} */
+}
 
-#selectField1 {
+select{
+    width: 40%;
+    padding: 1% 2%;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+/* #selectField1 {
     display: inline;
     width: 42%;
     padding: 1%;
     margin: 8px 0;
     border-radius: 4px;
-    /* background-color: #f1f1f1; */
 }
 
 #selectField2{
@@ -53,8 +58,7 @@ input[type=text]:focus, select:focus, textarea:focus {
     padding: 1%;
     margin: 8px 0;
     border-radius: 4px;
-    /* background-color: #f1f1f1; */
-}
+} */
 
 input[type=submit] {
     margin: 1% 35%;

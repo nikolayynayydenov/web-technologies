@@ -13,25 +13,34 @@
 
 
 -- Дъмп на структурата на БД web-technologies
+DROP DATABASE `web-technologies`;
 CREATE DATABASE IF NOT EXISTS `web-technologies` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `web-technologies`;
 
--- Дъмп структура за таблица web-technologies.attendance
-CREATE TABLE IF NOT EXISTS `attendance` (
+
+-- Дъмп структура за таблица web-technologies.teachers
+CREATE TABLE IF NOT EXISTS `teachers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `faculty_number` mediumint(8) unsigned NOT NULL,
-  `logged_at` datetime DEFAULT NULL,
-  `event_id` int(10) unsigned NOT NULL,
-  `thrust` tinyint(3) unsigned DEFAULT NULL,
-  `check_description` varchar(50) DEFAULT NULL,
-  `enroll_source` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_attendance_event_id_events_id` (`event_id`),
-  CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
-  
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Изнасянето на данните беше деселектирано.
+-- Дъмп структура за таблица web-technologies.events
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` text DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `start` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
+  `teacher_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_events_teacher_id_teachers_id` (`teacher_id`),
+  CONSTRAINT `FK_events_teacher_id_teachers_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дъмп структура за таблица web-technologies.comments
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -47,32 +56,25 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 -- Изнасянето на данните беше деселектирано.
 
--- Дъмп структура за таблица web-technologies.events
-CREATE TABLE IF NOT EXISTS `events` (
+
+
+-- Дъмп структура за таблица web-technologies.attendance
+CREATE TABLE IF NOT EXISTS `attendance` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` text DEFAULT NULL,
-  `date` datetime NOT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
-  `teacher_id` int(10) unsigned NOT NULL,
+  `faculty_number` mediumint(8) unsigned NOT NULL,
+  `logged_at` datetime DEFAULT NULL,
+  `event_id` int(10) unsigned NOT NULL,
+  `thrust` tinyint(3) unsigned DEFAULT NULL,
+  `check_description` varchar(50) DEFAULT NULL,
+  `enroll_source` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_events_teacher_id_teachers_id` (`teacher_id`),
-  CONSTRAINT `FK_events_teacher_id_teachers_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `FK_attendance_event_id_events_id` (`event_id`),
+  CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Изнасянето на данните беше деселектирано.
 
--- Дъмп структура за таблица web-technologies.teachers
-CREATE TABLE IF NOT EXISTS `teachers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  -- `middle_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 
 -- Изнасянето на данните беше деселектирано.
 
