@@ -48,15 +48,7 @@ class UsersController
     {
         view('dashboard');
     }
-    public function showRegisterEvent()
-    {
-        view('registerEvent');
-    }
-
-    public function registerEvent_method()
-    {
-        view('registerEvent');
-    }
+    
     public function showStudentsLogin()
     {
         view('studentsLogin');

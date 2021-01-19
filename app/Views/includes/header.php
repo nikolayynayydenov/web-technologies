@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css"> -->
     <!-- <link rel="icon" href="/NiRa logo.png"> -->
     <link rel="icon" href="/green_dot.png">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/css/app.css">
     <title>TheSystem</title>
 </head>
 
@@ -48,13 +50,13 @@
 
     
 
-    <link rel="stylesheet" href="/navbar.css">
+    
 
     <ul id="nav_ul">
         <li class="nav_li1" id="li1"><a href="/">Начало</a></li>
-        <li class="nav_li1" id="li2"><a href="/registerEvent">Създаване на събитие</a></li>
+        <li class="nav_li1" id="li2"><a href="/event/create">Създаване на събитие</a></li>
         <li class="nav_li1" id="li3"><a href="/dashboard">Основна страница</a></li>
         <li class="nav_li2" id="li6"><a href="/register">Регистрация</a></li>
         <li class="nav_li2" id="li5"><a href="/login">Вход за преподаватели</a></li>
-        <li class="nav_li2" id="li4"><a href="/studentsLogin">Вход за студенти</a></li>
+        <li class="nav_li2" id="li4"><a href="/attendance/check">Проверка на присъствия</a></li>
     </ul>

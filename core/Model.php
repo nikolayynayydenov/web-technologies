@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Exceptions\DbException;
+
 abstract class Model
 {
     /**
@@ -31,7 +33,16 @@ abstract class Model
 
         $stmt = Database::getConnection()->prepare($sql);
 
-        $stmt->execute(array_values($data));
+        $result = $stmt->execute(array_values($data));
+
+        if (!$result) {
+            throw new DbException('DB problem');
+        }
+    }
+
+    public function save()
+    {
+        self::insert($this->attributes);
     }
 
     /**
