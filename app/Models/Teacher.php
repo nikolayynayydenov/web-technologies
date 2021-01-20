@@ -63,6 +63,16 @@ class Teacher extends Model
     public function getTeacherId(){
         return $this->teacherId;
     }
+    public function setEmail($email1){
+        $this->email = $email1;
+    }
+    public function setFirstName($firstName1){
+        $this->firstName = $firstName1;
+    }
+    public function setLastName($lastName1){
+        $this->lastName = $lastName1;
+    }
+
 
     public function teacherExists()
     {
@@ -88,25 +98,50 @@ class Teacher extends Model
         }
     }
 
-    public function createTeacher($passwordHash)
+    public function createTeacher($email1, $passwordHash, $firstName1, $lastName1)
     {
-        $sql = "INSERT INTO `teachers` (`first_name`, `last_name`, `email`, `password`) 
-                VALUES (:firstName, :lastName, :email, :passwordHash);";
+        $sql = "INSERT INTO `teachers` (`email`, `password`, `first_name`, `last_name`) 
+                VALUES (:email, :passwordHash, :firstName, :lastName);";
         $preparedStmt = $this->getConn()->prepare($sql);
         $query = [];
         try {
             $preparedStmt->execute([
-                "firstName" => $this->getFirstName(),
-                "lastName" => $this->getLastName(),
-                "email" => $this->getEmail(),
-                "passwordHash" => $passwordHash
+                "email" => $email1/*$this->getEmail()*/,
+                "passwordHash" => $passwordHash,
+                "firstName" => $firstName1/*$this->getFirstName()*/,
+                "lastName" => $lastName1/*$this->getLastName()*/
             ]);
             $query = ["successfullyExecuted" => true];
+            $this->setEmail($email1);
+            $this->setFirstName($firstName1);
+            $this->setLastName($lastName1);
             $this->setPassword($passwordHash);
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
         }
         return $query;
+    }
+
+    public function isValid(){
+        $sql = "SELECT * FROM teachers WHERE email=:email AND password=:pass";
+        $preparedStmt = $this->getConn()->prepare($sql);
+        try {
+            $preparedStmt->execute(["email" => $this->getEmail(), "pass" => $this->getPassword()]);
+            //$query = ["successfullyExecuted" => true];
+        } catch (\PDOException $e) {
+            $errMsg = $e->getMessage();
+            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
+            return $query;
+        }
+
+        $teacher_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
+        if ($teacher_assoc) {
+            $query = ["successfullyExecuted" => true, "teacherIsValid" => true];
+            return $query;
+        } else {
+            $query = ["successfullyExecuted" => true, "teacherIsValid" => false];
+            return $query;
+        }
     }
 }

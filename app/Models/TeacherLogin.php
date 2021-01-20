@@ -24,12 +24,12 @@
             $errors[] = "Input password!";
         }
 
-        if ($username && $password) {
+        if ($email && $password) {
             $teacher = new App\Models\Teacher($email, $password);
             $isValid = $teacher->isValid();
 
             if ($isValid["successfullyExecuted"]) {
-                if($isValid["success"]){
+                if($isValid["teacherIsValid"]){
                     $_SESSION["email"] = $email;
                     $_SESSION["firstName"] = $teacher->getFirstName();
                     $_SESSION["lastName"] = $teacher->getLastName();

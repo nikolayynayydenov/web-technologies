@@ -36,6 +36,28 @@ class UsersController
     }
     public function showDashboard()
     {
+        // $sql = "SELECT * FROM `events` WHERE 1";
+        // $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+        // try {
+        //     $preparedStmt->execute();
+        // } catch (\PDOException $e) {
+        //     $errMsg = $e->getMessage();
+        //     $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
+        //     return $query;
+        // }
+
+        // $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
+        // if ($events_assoc) {
+        //     $query = ["successfullyExecuted" => true, "thereAreEvents" => true];
+        //     return $query;
+        // } else {
+        //     $query = ["successfullyExecuted" => true, "thereAreEvents" => false];
+        //     return $query;
+        // }
+        
+        // $events = $events_assoc;
+
+
         // TODO: query to DB to take events
         $events = [1,2,3,4,5,6];
         view('dashboard', [
@@ -117,7 +139,7 @@ class UsersController
                     $errors[] = "Вече сте регистриран!";
                 } else if ($exists["teacherExists"] == false) {
                     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                    $create = $teacher->createTeacher($passwordHash);
+                    $create = $teacher->createTeacher($email, $passwordHash, $firstName, $lastName);
                     if ($create["successfullyExecuted"] == false) {
                         $errors[] = "Неуспешна заявка за добавяне в базата данни - error message: " . $create["errMessage"];
                     }
