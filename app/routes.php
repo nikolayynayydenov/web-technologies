@@ -5,11 +5,12 @@ use Core\Router;
 $router = new Router();
 
 // Authentication
-$router->get('/login', 'UsersController@showLogin');
-$router->post('/login', 'UsersController@login_method');
-$router->get('/register', 'UsersController@showRegister');
-$router->post('/register', 'UsersController@register_method');
-$router->post('/enter-teacher', 'UsersController@enterTeacher');
+$router->get('/login', 'AuthController@showLogin');
+$router->post('/login', 'AuthController@login_method');
+$router->get('/register', 'AuthController@showRegister');
+$router->post('/enter-teacher', 'AuthController@enterTeacher');
+$router->post('/logout', 'AuthController@register_method');
+
 
 
 // Events
@@ -24,11 +25,12 @@ $router->get('/attendance/check', 'AttendanceController@checkForm');
 $router->get('/attendance', 'AttendanceController@show');
 
 
+
 //Other
 $router->get('/', 'UsersController@showFrontPage');
-$router->post('/front_page', 'UsersController@frontPage_method');
-$router->get('/dashboard', 'UsersController@showDashboard');
-$router->post('/dashboard', 'UsersController@dashboard_method');
+$router->post('/front_page', 'HomeController@frontPage_method');
+$router->get('/dashboard', 'HomeController@showDashboard');
+$router->post('/dashboard', 'HomeController@dashboard_method');
 
 
 $router->fallback();
