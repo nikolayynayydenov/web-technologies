@@ -8,63 +8,50 @@
 </head>
 <body> -->
 
-<?php 
-    //session_start(); 
+<?php
+//session_start(); 
 ?>
 
 <?php require_once('includes/header.php'); ?>
 <link rel="stylesheet" href="/dashboard.css">
 
-    <main>
-        <div id="header">
-            <h1 id="name"> Иван Иванов
-                <?php 
-                    //session_start();
-                    //echo $_SESSION["firstName"]." ".$_SESSION["lastName"];
-                ?>
-            </h1>
-            <div id="buttons">
-                <button onclick="window.location='registerEvent';" id="createEventBtn">
-                    Създай събитие
-                </button>
-            </div>
-            <hr>
+<main>
+    <div id="header">
+        <h1 id="name">
+            <?= $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] ?>
+        </h1>
+        <div id="buttons">
+            <a href="/event/create" id="createEventBtn">
+                Създай събитие
+            </a>
+        </div>
+        <hr>
     </div>
 
-
-    <?php foreach ($data['events'] as $event) {  ?>
-
-        <ul>
-            <li>
-                <?php echo $event; ?>
-            </li>
-        </ul>
-
-    <?php } ?>
     <section id="eventsStatistics">
         <h4>
-            Статистика за събития
+            Моите събития
         </h4>
         <ul id="eventsList">
-            <li class="event">JavaScript, 01/12/2020, 10:15 - 12:00
-                <div class="hidden">
-                    <h6>Списък със студенти, които са участвали</h6>
-                    <ol>
-                        <li>81888 Петя Иванова</li>
-                        <li>81555 Стефан Стефанов</li>
-                    </ol>
-                </div>
-            </li>
+            <?php foreach ($data['events'] as $event) :  ?>
+                <li class="event">
+                    <a href="/event/<?= $event->id ?>" class="link"><?= $event->name ?></a>
 
-            <li class="event">CSS, 02/12/2020, 13:15- 15:00
-                <div class="hidden">
-                    <h6>Списък със студенти, които са участвали</h6>
-                    <ol>
-                        <li>81678 Камелия Петрова</li>
-                        <li>81456 Петър Георгиев</li>
-                    </ol>
-                </div>
-            </li>
+                    <?= ', ' . $event->date . ', ' . $event->start . ' - ' . $event->end ?>
+                    <div class="hidden">
+                        <h6>Списък със студенти, които са участвали</h6>
+                        <ol>
+                            <?php foreach ($event->attendances as $attendance) : ?>
+                                <li>
+                                    <a href="/attendance?fn=<?= $attendance->faculty_number ?>" class="link">
+                                        <?= $attendance->faculty_number ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ol>
+                    </div>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </section>
 

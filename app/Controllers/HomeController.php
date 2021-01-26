@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Event;
+use App\Services\Auth;
 
 class HomeController
 {
@@ -17,17 +19,21 @@ class HomeController
 
     public function showDashboard()
     {
+        Auth::guard();
 
-        $events = [1,2,3,4,5,6];
+        $events = Auth::check()
+            ? Event::getManyWithAttendance([
+                'teacher_id' => $_SESSION['teacherId'],
+            ])
+            : [];
+
         view('dashboard', [
             'events' => $events
-        ]); 
-
-    }    
+        ]);
+    }
 
     public function dashboard_method()
     {
         view('dashboard');
     }
-
 }

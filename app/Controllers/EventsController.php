@@ -4,19 +4,22 @@ namespace App\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Event;
+use App\Services\Auth;
 use Core\Database;
 
 class EventsController
 {
     public function create()
     {
+        Auth::guard();
         view('events/create');
     }
 
     public function store()
     {
+        Auth::guard();
+
         $errors = [];
-        $result = null;
 
         $conn = Database::getConnection();
 
@@ -28,7 +31,7 @@ class EventsController
             return $input;
         }
         $eventName = testInput($_POST['name']);
-        $teacher = 1; // TODO: трябва да го вземем от формата, с която се е логнал преподавателят
+        $teacher = $_SESSION['teacherId']; // TODO: трябва да го вземем от формата, с която се е логнал преподавателят
         $eventDate = $_POST['date'];
         $eventStart = $_POST['start'];
         $eventEnd = $_POST['end'];

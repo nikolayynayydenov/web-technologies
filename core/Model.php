@@ -13,8 +13,9 @@ abstract class Model
     protected $conn;
     protected $attributes = [];
 
-    public function __construct()
+    public function __construct($attributes = [])
     {
+        $this->attributes = $attributes;
         $this->conn = Database::getConnection();
     }
 
@@ -31,7 +32,9 @@ abstract class Model
             ') VALUES (' .
             implode(', ', array_fill(0, count($data), '?')) . ');';
 
-        $stmt = Database::getConnection()->prepare($sql);
+        $conn = Database::getConnection();
+
+        $stmt = $conn->prepare($sql);
 
         $result = $stmt->execute(array_values($data));
 
@@ -41,6 +44,7 @@ abstract class Model
 
         $modelClass = get_called_class();
         $model = new $modelClass();
+        $data['id'] = intval($conn->lastInsertId());
         $model->setAttributes($data);
         return $model;
     }

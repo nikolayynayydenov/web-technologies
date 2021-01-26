@@ -18,15 +18,16 @@
         <?= sessionFlash('message') ?>
     </p>
 
+    <?php if (App\Services\Auth::check()) : ?>
+        <form action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
+            <input type="file" name="attendance_file">
 
-    <form action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
-        <input type="file" name="attendance_file">
+            <br />
+            <br />
 
-        <br />
-        <br />
-
-        <input class="btn btn-info" type="submit" value="Импортиране на присъствия">
-    </form>
+            <input class="btn btn-info" type="submit" value="Импортиране на присъствия">
+        </form>
+    <?php endif; ?>
 
     <hr>
 

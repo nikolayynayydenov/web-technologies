@@ -23,7 +23,7 @@ class Auth
      */
     public static function check()
     {
-        return array_key_exists('teacherId', $_SESSION);
+        return array_key_exists('teacherId', $_SESSION) && is_int($_SESSION['teacherId']);
     }
 
 
@@ -36,5 +36,15 @@ class Auth
         $_SESSION['teacherId'] = $teacher->id;
         $_SESSION['firstName'] = $teacher->first_name;
         $_SESSION['lastName'] = $teacher->last_name;
+    }
+
+    /**
+     * If a user is not authenticated, redirect to login
+     */
+    public static function guard()
+    {
+        if (!self::check()) {
+            redirect('/login');
+        }
     }
 }

@@ -9,43 +9,12 @@ class Event extends Model
 {
     protected static $table = 'events';
 
-    private $eventName;
-    private $teacher;
-    private $eventDate;
-    private $eventStart;
-    private $eventEnd;
-    private $description;
-
     public function __construct($attributes = [])
     {
         $this->attributes = $attributes;
         $this->conn = Database::getConnection();
     }
 
-    public function getEventName()
-    {
-        return $this->eventName;
-    }
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-    public function getEventdate()
-    {
-        return $this->eventDate;
-    }
-    public function getEventStart()
-    {
-        return $this->eventStart;
-    }
-    public function getEventEnd()
-    {
-        return $this->eventEnd;
-    }
-    public function getDescription()
-    {
-        return $this->description;
-    }
     public function getConn()
     {
         return $this->conn;
@@ -81,31 +50,6 @@ class Event extends Model
             return $query;
         }
     }
-
-    // public function createEvent()
-    // {
-    //     $sql = "INSERT INTO `events`(`name`, `teacher_id`, `date`, `start`, `end`, `description`)
-    //             VALUE(:name, :teacher_id, :eventDate, :eventStart, :eventEnd, :description)";
-    //     $preparedStmt = $this->getConn()->prepare($sql);
-    //     $query = [];
-
-    //     try {
-    //         $preparedStmt->execute([
-    //             "eventName" => $this->getEventName(),
-    //             "teacher" => $this->getTeacher(),
-    //             "eventDate" => $this->getEventDate(),
-    //             "eventStart" => $this->getEventStart(),
-    //             "eventEnd" => $this->getEventDate(),
-    //             "description" => $this->getDescription()
-    //         ]);
-    //         $query = ["successfullyExecuted" => true];
-    //     } catch (\PDOException $e) {
-    //         $errMsg = $e->getMessage();
-    //         $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
-    //     }
-
-    //     return $query;
-    // }
 
     public function extractAllEvents()
     {
@@ -175,5 +119,22 @@ class Event extends Model
         }
 
         return $results;
+    }
+    
+    /**
+     * @param array $columns     * 
+     * @return array
+     */
+    public static function getManyWithAttendance($columns)
+    {
+        $events = self::getMany($columns);
+
+        foreach ($events as $event) {
+            $event->attendances = Attendance::getMany([
+                'event_id' => $event->id
+            ]);
+        }
+
+        return $events;
     }
 }
