@@ -27,6 +27,37 @@
 
         <input class="btn btn-info" type="submit" value="Импортиране на присъствия">
     </form>
+
+    <hr>
+
+    <h3>Присъствия</h3>
+
+    <?php if (count($data['attendances']) === 0) : ?>
+        <h5>Няма импортирани присъствия</h5>
+    <?php else : ?>
+        <table>
+            <thead>
+                <tr>
+                    <td>Факултетен номер</td>
+                    <td>Час на записване</td>
+                    <td>Процент доверие</td>
+                    <td>Описание</td>
+                    <td>Източник</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($data['attendances'] as $attendance) : ?>
+                    <tr>
+                        <td><?= $attendance->faculty_number ?></td>
+                        <td><?= $attendance->logged_at ?></td>
+                        <td><?= $attendance->thrust ?></td>
+                        <td><?= $attendance->check_description ?></td>
+                        <td><?= $attendance->enroll_source ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 </div>
 
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>

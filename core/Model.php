@@ -93,11 +93,7 @@ abstract class Model
      */
     public static function get($columns)
     {
-        $sql = 'SELECT * FROM ' . self::getTableName() . ' WHERE ';
-        foreach ($columns as $column => $value) {
-            $sql .= "$column = :$column ";
-        }
-        $sql .= ';';
+        $sql = self::generateWhereSql($columns);
         $stmt = Database::getConnection()->prepare($sql);
 
         $stmt->execute($columns);
@@ -125,12 +121,63 @@ abstract class Model
     }
 
     /**
+     * Get all records by an array of columns
+     * 
+     * @param array $columns
+     * @return array array of models
+     */
+    public static function getMany($columns)
+    {
+        $sql = self::generateWhereSql($columns);
+        $stmt = Database::getConnection()->prepare($sql);
+
+        $stmt->execute($columns);
+
+        $results = $stmt->fetchAll();
+
+        if ($results !== false) {
+            return array_map(function ($result) {
+                $modelClass = get_called_class();
+                $model = new $modelClass();
+                $model->attributes = $result;
+                return $model;
+            }, $results);
+        }
+
+        return [];
+    }
+
+    /**
      * @param @data
      * @return void
      */
     public function setAttributes(array $data)
     {
         $this->attributes = $data;
+    }
+
+    /**
+     * @param array $columns
+     * @return string
+     */
+    protected static function generateWhereSql(array $columns)
+    {
+        $sql = 'SELECT * FROM ' . self::getTableName() . ' WHERE ';
+        $colLen = count($columns);
+
+        $i = 0;
+        foreach ($columns as $column => $value) {
+            $sql .= "$column = :$column";
+
+            if ($i !== $colLen - 1) {
+                $sql .= " AND ";
+            }
+
+            $i++;
+        }
+        $sql .= ';';
+
+        return $sql;
     }
 
     protected static function getTableName()

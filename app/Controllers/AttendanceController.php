@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Event;
 
 class AttendanceController

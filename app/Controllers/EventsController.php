@@ -88,9 +88,14 @@ class EventsController
     {
         $event = Event::getById($id);
 
+        $attendances = Attendance::getMany([
+            'event_id' => $id
+        ]);
+
         if ($event) {
             view('/events/show', [
-                'event' => $event
+                'event' => $event,
+                'attendances' => $attendances,
             ]);
         } else {
             response('Event not found', 404);

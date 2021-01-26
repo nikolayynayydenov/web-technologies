@@ -13,7 +13,7 @@ class Auth
      */
     public static function user()
     {
-        //
+        // TODO
     }
 
     /**

@@ -23,9 +23,7 @@ class HomeController
             'events' => $events
         ]); 
 
-    }
-
-    
+    }    
 
     public function dashboard_method()
     {
