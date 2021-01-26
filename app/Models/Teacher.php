@@ -144,4 +144,9 @@ class Teacher extends Model
             return $query;
         }
     }
+
+    public function getOwnEvents()
+    {
+        return [];
+    }
 }
