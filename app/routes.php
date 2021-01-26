@@ -6,11 +6,10 @@ $router = new Router();
 
 // Authentication
 $router->get('/login', 'AuthController@showLogin');
-$router->post('/login', 'AuthController@login_method');
+$router->post('/login', 'AuthController@login');
 $router->get('/register', 'AuthController@showRegister');
-$router->post('/enter-teacher', 'AuthController@enterTeacher');
-$router->post('/logout', 'AuthController@register_method');
-
+$router->post('/enter-teacher', 'AuthController@register');
+$router->get('/logout', 'AuthController@logout');
 
 
 // Events

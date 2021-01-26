@@ -22,9 +22,22 @@ function response($text = '', $statusCode = 200, $redirectPath = null)
     die($text);
 }
 
-function redirect($redirectPath = null)
+function redirect($redirectPath)
 {
     response('', 302, $redirectPath);
+}
+
+/**
+ * Put a message in session and redirect
+ * 
+ * @param string $redirectPath
+ * @param array $errors
+ * @return void
+ */
+function redirectWithErrors($redirectPath, $errors)
+{
+    $_SESSION['errors'] = $errors;
+    redirect($redirectPath);
 }
 
 function sessionFlash($message)
@@ -34,6 +47,19 @@ function sessionFlash($message)
         unset($_SESSION[$message]);
     }
 }
+
+function flashErrors()
+{
+    if (array_key_exists('errors', $_SESSION) && is_array($_SESSION['errors'])) {
+        echo '<ul>';
+        foreach ($_SESSION['errors'] as $error) {
+            echo "<li class=\"list-item\">$error</li>";
+        }
+        echo '</ul>';
+        unset($_SESSION['errors']);
+    }
+}
+
 
 function p($text)
 {
@@ -81,4 +107,12 @@ function dd($data)
 {
     echo dnl($data);
     exit;
+}
+
+function testInput($input)
+{
+    $input = trim($input);
+    $input = htmlspecialchars($input);
+    $input = stripslashes($input);
+    return $input;
 }

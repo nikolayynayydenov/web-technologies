@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Controllers;
- 
+
+use App\Models\Teacher;
+use App\Services\Auth;
+
 class AuthController
 {
     public function showLogin()
@@ -9,9 +12,40 @@ class AuthController
         view('login');
     }
 
-    public function login_method()
+    public function login()
     {
-        view('login');
+        $errors = [];
+
+        $email = isset($_POST["email"]) ? testInput($_POST["email"]) : "";
+        $password = isset($_POST["password"]) ? testInput($_POST["password"]) : "";
+
+        if (!$email) {
+            $errors[] = "Моля попълнете полето email!";
+        }
+
+        if (!$password) {
+            $errors[] = "Поля попълнете полето парола!";
+        }
+
+        $teacher = Teacher::get([
+            'email' => $email
+        ]);
+
+        if (!$teacher) {
+            $errors[] = 'Невалиден email!';
+        }
+
+        if (!password_verify($password, $teacher->password)) {
+            $errors[] = 'Невалидна парола!';
+        }
+
+        if (count($errors) === 0) {
+            Auth::login($teacher);
+            $_SESSION['message'] = 'Добре дошли, ' . $_SESSION['firstName'] . ' ' . $_SESSION['lastName'];
+            redirect('/dashboard');
+        } else {
+            redirectWithErrors('/login', $errors);
+        }
     }
 
     public function showRegister()
@@ -21,22 +55,14 @@ class AuthController
 
     public function logout()
     {
-        
+        $_SESSION = [];
+        session_destroy();
+        redirect('/login');
     }
 
-    public function enterTeacher()
+    public function register()
     {
         $errors = [];
-        $result = null;
-        $conn = \Core\Database::getConnection();
-
-        function testInput($input)
-        {
-            $input = trim($input);
-            $input = htmlspecialchars($input);
-            $input = stripslashes($input);
-            return $input;
-        }
 
         $firstName = testInput($_POST['firstName']);
         $lastName = testInput($_POST['lastName']);
@@ -69,37 +95,23 @@ class AuthController
             $errors[] = "Паролата не е потвърдена!";
         }
 
-        if (
-            $firstName && strlen($firstName) <= 50 && $lastName && strlen($lastName) <= 50 &&
-            $email && $password && $confirmPassword && $password == $confirmPassword
-        ) {
-            $teacher = new \App\Models\Teacher($firstName, $lastName, $email, $password);
-            $exists = $teacher->teacherExists();
-            if ($exists["successfullyExecuted"] == false) {
-                $errors[] = "Неуспешна заявка - error message: " . $exists["errMessage"];
-            } else if ($exists["successfullyExecuted"] == true) {
-                if ($exists["teacherExists"] == true) {
-                    $errors[] = "Вече сте регистриран!";
-                } else if ($exists["teacherExists"] == false) {
-                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                    $create = $teacher->createTeacher($email, $passwordHash, $firstName, $lastName);
-                    if ($create["successfullyExecuted"] == false) {
-                        $errors[] = "Неуспешна заявка за добавяне в базата данни - error message: " . $create["errMessage"];
-                    }
-                }
-            }
+        if (Teacher::exists(['email' => $email])) {
+            $errors[] = 'Преподавател с този имейл вече съществува';
         }
 
         if ($errors) {
-            foreach ($errors as $error) {
-                echo $error;
-                echo "<br/>";
-            }
-            echo "<a href='/register'>Кликни тук, за да се върнеш към формата</a>";
+            redirectWithErrors('/register', $errors);
         } else {
-            echo "Успяша регистрация!";
-            echo "<br>";
-            echo "<a href='/register'>Кликни тук, за да се върнеш към формата</a>";
+            $teacher = Teacher::insert([
+                'email' => $email,
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'password' => password_hash($password, PASSWORD_BCRYPT),
+            ]);
+
+            Auth::login($teacher);
+
+            redirect('/dashboard');
         }
     }
 }

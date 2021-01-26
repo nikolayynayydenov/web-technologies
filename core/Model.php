@@ -22,7 +22,7 @@ abstract class Model
      * TODO: insert multiple rows with single query
      * 
      * @param array $data
-     * @return void
+     * @return self
      */
     public static function insert(array $data)
     {
@@ -38,11 +38,27 @@ abstract class Model
         if (!$result) {
             throw new DbException('DB problem');
         }
+
+        $modelClass = get_called_class();
+        $model = new $modelClass();
+        $model->setAttributes($data);
+        return $model;
     }
 
     public function save()
     {
         self::insert($this->attributes);
+    }
+
+    /**
+     * Check if a given model exists in the database,
+     * based on the current attributes
+     * 
+     * @param array $attributes
+     */
+    public static function exists(array $attributes)
+    {
+        return !is_null(self::get($attributes));
     }
 
     /**
@@ -69,6 +85,35 @@ abstract class Model
         return null;
     }
 
+    /**
+     * Get a single record by an array of columns
+     * 
+     * @param array $columns
+     * @return self|null
+     */
+    public static function get($columns)
+    {
+        $sql = 'SELECT * FROM ' . self::getTableName() . ' WHERE ';
+        foreach ($columns as $column => $value) {
+            $sql .= "$column = :$column ";
+        }
+        $sql .= ';';
+        $stmt = Database::getConnection()->prepare($sql);
+
+        $stmt->execute($columns);
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            $modelClass = get_called_class();
+            $model = new $modelClass();
+            $model->attributes = $result;
+            return $model;
+        }
+
+        return null;
+    }
+
     public function update(array $data): void
     {
         //
@@ -77,6 +122,15 @@ abstract class Model
     public function delete(): void
     {
         //
+    }
+
+    /**
+     * @param @data
+     * @return void
+     */
+    public function setAttributes(array $data)
+    {
+        $this->attributes = $data;
     }
 
     protected static function getTableName()

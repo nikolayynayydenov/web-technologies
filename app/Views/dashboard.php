@@ -27,9 +27,6 @@
                 <button onclick="window.location='registerEvent';" id="createEventBtn">
                     Създай събитие
                 </button>
-                <form action="logout.php" method="POST">
-                    <input type="submit" value="Изход" id="logout">
-                </form>
             </div>
             <hr>
     </div>

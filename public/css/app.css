@@ -19,6 +19,7 @@
 
 ul {
     list-style-type: none;
+    width: 100%;
 }
 
 a {
@@ -63,4 +64,19 @@ hr {
 
 .light {
     background-color: white;
+}
+
+.flash-message {
+    width: 80%;
+    border-radius: 5px;
+    background-color: bisque;
+    padding: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.flash-message:empty {
+    display: none;
 }

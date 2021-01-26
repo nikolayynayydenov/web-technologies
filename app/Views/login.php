@@ -3,7 +3,8 @@
 
 <h1>Вход за преподаватели</h1>
 <hr>
-<form action="TeacherLogin.php" method="POST">
+<form action="/login" method="POST">
+    <?php flashErrors(); ?>
     <div>
         <label for="email">Имейл</label>
         <input type="email" id="email" name="email">
