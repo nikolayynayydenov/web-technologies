@@ -35,7 +35,7 @@
                     $_SESSION["lastName"] = $teacher->getLastName();
                     $_SESSION["teacherId"] = $teacher->getTeacherId();
                     
-                    header("Location: dashboard.php");
+                    header("Location: App\Views\dashboard.php");
                 }
                 
             } else {
