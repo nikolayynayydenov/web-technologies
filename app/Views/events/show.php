@@ -59,6 +59,15 @@
             </tbody>
         </table>
     <?php endif; ?>
+
+    <?php foreach ($data['comments'] as $comment) {
+        if ($comment->is_approved) {
+        } else {
+            if (\App\Services\Auth::check()) {
+            }
+        }
+    }
+    ?>
 </div>
 
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>

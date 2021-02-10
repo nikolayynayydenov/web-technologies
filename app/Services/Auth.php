@@ -23,7 +23,7 @@ class Auth
      */
     public static function check()
     {
-        return array_key_exists('teacherId', $_SESSION) && is_int($_SESSION['teacherId']);
+        return array_key_exists('teacherId', $_SESSION) && is_numeric($_SESSION['teacherId']);
     }
 
 

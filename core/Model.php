@@ -48,7 +48,6 @@ abstract class Model
         $model->setAttributes($data);
         return $model;
     }
-
     public function save()
     {
         self::insert($this->attributes);

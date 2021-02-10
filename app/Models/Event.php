@@ -122,7 +122,7 @@ class Event extends Model
     }
     
     /**
-     * @param array $columns     * 
+     * @param array $columns  
      * @return array
      */
     public static function getManyWithAttendance($columns)

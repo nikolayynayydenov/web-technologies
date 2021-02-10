@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Event;
+use App\Models\Comment;
 use App\Services\Auth;
 use Core\Database;
 
@@ -31,7 +32,7 @@ class EventsController
             return $input;
         }
         $eventName = testInput($_POST['name']);
-        $teacher = $_SESSION['teacherId']; // TODO: трябва да го вземем от формата, с която се е логнал преподавателят
+        $teacher = $_SESSION['teacherId'];
         $eventDate = $_POST['date'];
         $eventStart = $_POST['start'];
         $eventEnd = $_POST['end'];
@@ -91,6 +92,10 @@ class EventsController
     {
         $event = Event::getById($id);
 
+        $comments = Comment::getMany([
+            'event_id' => $event->id
+        ]);
+
         $attendances = Attendance::getMany([
             'event_id' => $id
         ]);
@@ -98,6 +103,7 @@ class EventsController
         if ($event) {
             view('/events/show', [
                 'event' => $event,
+                'comments' => $comments,
                 'attendances' => $attendances,
             ]);
         } else {

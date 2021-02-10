@@ -20,7 +20,7 @@ class HomeController
     public function showDashboard()
     {
         Auth::guard();
-
+        
         $events = Auth::check()
             ? Event::getManyWithAttendance([
                 'teacher_id' => $_SESSION['teacherId'],
