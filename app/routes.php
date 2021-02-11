@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\CommentsController;
 use Core\Router;
 
 $router = new Router();
@@ -17,7 +18,7 @@ $router->get('/event/create', 'EventsController@create');
 $router->post('/event', 'EventsController@store');
 $router->get('/event/{id}', 'EventsController@show');
 $router->post('/event/{id}/import', 'EventsController@import');
-$router->post('/event/{id}/comment', 'CommentsController@store'); // create new comment
+//$router->post('/event/{id}/comment', 'CommentsController@store'); // create new comment
 
 
 
@@ -33,5 +34,9 @@ $router->post('/front_page', 'HomeController@frontPage_method');
 $router->get('/dashboard', 'HomeController@showDashboard');
 $router->post('/dashboard', 'HomeController@dashboard_method');
 
+//Comments
+$router->post('/event/{id}/delete-comment/{commentId}', 'CommentsController@delete');//delete
+$router->post('/event/{id}/accept-comment/{commentId}', 'CommentsController@accept');//accept
+$router->post('/event/{id}/comment', 'CommentsController@enterCommentIntoDB');
 
 $router->fallback();

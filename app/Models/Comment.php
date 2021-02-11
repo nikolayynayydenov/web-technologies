@@ -69,31 +69,32 @@ class Comment extends Model
             $preparedStmt->execute(["textContent" => $this->getTextContent(), "fn" => $this->getFN()]);
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
-            $query = ["sucessfullyExecuted" => false, "errMessage" => $errMsg];
+            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
             return $query;
         }
         $comments_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
         if ($comments_assoc) {
-            $query = ["sucessfullyExecuted" => true, "commentExists" => true];
+            $query = ["successfullyExecuted" => true, "commentExists" => true];
             return $query;
         } else {
-            $query = ["sucessfullyExecuted" => true, "commentExists" => false];
+            $query = ["successfullyExecuted" => true, "commentExists" => false];
             return $query;
         }
     }
 
-    public function createComment()
+    public function createComment($eventID)
     {
-        $sql = "INSERT INTO `comments`(`textContent`, `fn`, `pending`)
-                VALUE(:textContent, :fn, :pending)";
+        $sql = "INSERT INTO `comments`(`content`, `event_id`, `fn`, `pending`)
+                VALUE(:textContent, :eventID :fn, :pending)";
         $preparedStmt = $this->getConn()->prepare($sql);
         $query = [];
 
         try {
             $preparedStmt->execute([
                 "textContent" => $this->textContent,
+                "event_id" => $eventID,
                 "fn" => $this->fn,
-                "pending" => $this->pending
+                "pending" => 1
             ]);
             $query = ["successfullyExecuted" => true];
         } catch (\PDOException $e) {

@@ -70,29 +70,45 @@
     ?>
 
     <!-- следващият див да се визуализира само ако потребителят е преподавател -->
+    <div id="messages">
+        <?php if(isset($_SESSION["message"])) : ?>
+            <?php echo $_SESSION["message"]; ?>
+            <?php unset($_SESSION["message"]); ?>
+        <?php endif; ?>
+    </div>
 
-    <div id="pending_comments">
+    <?php if(\App\Services\Auth::check()) : ?>
+        <div id="pending_comments">
         <?php foreach($data['comments'] as $comment) : ?>
             <?php if($comment->getPending() == true) : ?>
-                <h5><?=$comment->getFN()?></h5>
-                <p><?=$comment->getTextContent()?></p>
-                <button class="btn_accept">Приеми</button>
-                <button class="btn_delete">Изтрий</button>
+                <div class="pendingComments">
+                    <h5><?=$comment->getFN()?></h5>
+                    <p><?=$comment->getTextContent()?></p>
+                    <button class="btn_accept">Приеми</button>
+                    <button class="btn_delete">Изтрий</button>
+                </div>
+                <form action="" method="">
+                    <input type="hidden" value="<?=$comment->id?>">
+                </form>
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
+    <?php endif; ?>
+
 
     <div id="visible_comments">
         <?php foreach($data['comments'] as $comment) : ?>
             <?php if($comment->getIsVisible() == true) : ?>
-                <h5><?=$comment->getFN()?></h5>
-                <p><?=$comment->getTextContent()?></p>
+                <div class="visibleComments">
+                    <h5><?=$comment->getFN()?></h5>
+                    <p><?=$comment->getTextContent()?></p>
+                </div>
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
 
     <div id="commentsForm">
-        <form action="/event/<?= $data['event']->id ?>/comment" method="POST">
+        <form action="/event/<?php echo $data['event']->id; ?>/comment" method="POST">
             <label for="fn">Факултетен номер</label>
             <input type="text" id="fn" name="fn" placeholder="81000">
             <label for="textContent">Вашият коментар</label>
@@ -101,5 +117,6 @@
     </div>
 
 </div>
+
 
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>
