@@ -20,11 +20,11 @@ class AuthController
         $password = isset($_POST["password"]) ? testInput($_POST["password"]) : "";
 
         if (!$email) {
-            $errors[] = "Моля попълнете полето email!";
+            $errors[] = "Моля, попълнете полето email!";
         }
 
         if (!$password) {
-            $errors[] = "Поля попълнете полето парола!";
+            $errors[] = "Mоля, попълнете полето парола!";
         }
 
         $teacher = Teacher::get([

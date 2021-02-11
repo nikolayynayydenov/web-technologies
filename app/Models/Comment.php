@@ -11,14 +11,15 @@ class Comment extends Model
     private $textContent;
     private $fn;
     private $isVisible;
+    private $pending;
 
    // private $conn;
 
-    public function __construct($textContent, $fn, $isVisible)
+    public function __construct($textContent, $fn)
     {
         $this->textContent = $textContent;
         $this->fn = $fn;
-        $this->isVisible = $isVisible;
+        //$this->isVisible = $isVisible;
         $this->conn = \Core\Database::getConnection();
     }
 
@@ -38,8 +39,28 @@ class Comment extends Model
     {
         return $this->conn;
     }
+    public function getPending()
+    {
+        return $this->pending;
+    }
+    public function setIsVisible($is_visible)
+    {
+        $this->isVisible = $is_visible;
+    }
+    public function setPending($is_pending)
+    {
+        $this->pending = $is_pending;
+    }
+    public function setTextContent($text_content)
+    {
+        $this->textContent = $text_content;
+    }
+    public function setFN($facultyNumber)
+    {
+        $this->fn = $facultyNumber;
+    }
 
-    public function sexists()
+    public function comment_exists()
     {
         $query = [];
         $sql = "SELECT * FROM comments WHERE textContent=:textContent AND fn=:fn";
@@ -63,16 +84,16 @@ class Comment extends Model
 
     public function createComment()
     {
-        $sql = "INSERT INTO `comments`(`textContent`, `fn`, `isVisible`)
-                VALUE(:textContent, :fn, :isVisible)";
+        $sql = "INSERT INTO `comments`(`textContent`, `fn`, `pending`)
+                VALUE(:textContent, :fn, :pending)";
         $preparedStmt = $this->getConn()->prepare($sql);
         $query = [];
 
         try {
             $preparedStmt->execute([
-                "textContent" => $this->getTextContent(),
-                "fn" => $this->getFN(),
-                "isVisible" => $this->getIsVisible
+                "textContent" => $this->textContent,
+                "fn" => $this->fn,
+                "pending" => $this->pending
             ]);
             $query = ["successfullyExecuted" => true];
         } catch (\PDOException $e) {
@@ -81,5 +102,49 @@ class Comment extends Model
         }
 
         return $query;
+    }
+
+    public function extractEventsWithPendingComments(){
+        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 1)";
+        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+        try {
+            $preparedStmt->execute();
+        } catch (\PDOException $e) {
+            $errMsg = $e->getMessage();
+            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
+                return $query;
+        }
+
+        $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
+        if ($events_assoc) {
+            $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
+            "eventsWithPendingComments" => $events_assoc, "numberOfComments" => count($events_assoc)];
+            return $query;
+        } else {
+            $query = ["successfullyExecuted" => true, "thereAreEvents" => false];
+            return $query;
+        }
+        
+    }
+    public function extractEventsWithoutPendingComments(){
+        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0)";
+        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+        try {
+            $preparedStmt->execute();
+        } catch (\PDOException $e) {
+            $errMsg = $e->getMessage();
+            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
+                return $query;
+        }
+
+        $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
+        if ($events_assoc) {
+            $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
+            "eventsWithPendingComments" => $events_assoc];
+            return $query;
+        } else {
+            $query = ["successfullyExecuted" => true, "thereAreEvents" => false];
+            return $query;
+        }
     }
 }

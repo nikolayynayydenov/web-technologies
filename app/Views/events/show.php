@@ -68,6 +68,38 @@
         }
     }
     ?>
+
+    <!-- следващият див да се визуализира само ако потребителят е преподавател -->
+
+    <div id="pending_comments">
+        <?php foreach($data['comments'] as $comment) : ?>
+            <?php if($comment->getPending() == true) : ?>
+                <h5><?=$comment->getFN()?></h5>
+                <p><?=$comment->getTextContent()?></p>
+                <button class="btn_accept">Приеми</button>
+                <button class="btn_delete">Изтрий</button>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+
+    <div id="visible_comments">
+        <?php foreach($data['comments'] as $comment) : ?>
+            <?php if($comment->getIsVisible() == true) : ?>
+                <h5><?=$comment->getFN()?></h5>
+                <p><?=$comment->getTextContent()?></p>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+
+    <div id="commentsForm">
+        <form action="enterCommentIntoDB" method="POST">
+            <label for="fn">Факултетен номер</label>
+            <input type="text" id="fn" name="fn" placeholder="81000">
+            <label for="textContent">Вашият коментар</label>
+            <textarea name="textContent" id="textContent" cols="30" rows="10" palceholder="Коментар"></textarea>
+        </form>
+    </div>
+
 </div>
 
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>

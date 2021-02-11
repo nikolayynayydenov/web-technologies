@@ -16,7 +16,7 @@
     if($_POST){
         $textContent = testInput($_POST['textContent']);
         $fn = testInput($_POST['fn']);
-        $isVisible = true; //не го взимаме от форма...
+        //$isVisible = true; //не го взимаме от форма...
 
         if(!$textContent){
             $errors[] = "Не сте въвели коментар!";
@@ -26,8 +26,8 @@
         }
 
         if($textContent && strlen($fn) == 5 && is_numeric($fn)){
-            $comment = new App\Models\Comment($textContent, $fn, $isVisible);
-            $exists = $comment->exists();
+            $comment = new App\Models\Comment($textContent, $fn);
+            $exists = $comment->comment_exists();
             if($exists["successfullyExecuted"] == false){
                 $errors[] = "Неуспешна заявка - error message: " . $exists["errMessage"];
             }

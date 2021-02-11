@@ -20,7 +20,11 @@
         <h1 id="name">
             <?= $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] ?>
         </h1>
+
         <div id="buttons">
+            <p id="undoneComments">
+                Нови коментари: <?php $_SESSION['numberOfNewComments']?>
+            </p>
             <a href="/event/create" id="createEventBtn">
                 Създай събитие
             </a>
@@ -30,7 +34,23 @@
 
     <section id="eventsStatistics">
         <h4>
-            Моите събития
+            Събития с нови коментари
+        </h4>
+        <ul>
+            <?php
+                $eventsWithPendingComments=\App\Models\Comment::extractEventsWithPendingComments();
+                if($eventsWithPendingComments["successfullyExecuted"] == true && 
+                    $eventsWithPendingComments["thereAreEvents"] == true){
+                        
+
+
+                }
+
+ 
+            ?>
+        </ul>
+        <h4>
+            Събития
         </h4>
         <ul id="eventsList">
             <?php foreach ($data['events'] as $event) :  ?>
