@@ -104,7 +104,7 @@ class Comment extends Model
         return $query;
     }
 
-    public function extractEventsWithPendingComments(){
+    public static function extractEventsWithPendingComments(){
         $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 1)";
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {

@@ -92,7 +92,7 @@
     </div>
 
     <div id="commentsForm">
-        <form action="enterCommentIntoDB" method="POST">
+        <form action="/event/<?= $data['event']->id ?>/comment" method="POST">
             <label for="fn">Факултетен номер</label>
             <input type="text" id="fn" name="fn" placeholder="81000">
             <label for="textContent">Вашият коментар</label>

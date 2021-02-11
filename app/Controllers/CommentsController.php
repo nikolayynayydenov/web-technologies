@@ -2,7 +2,12 @@
 
 namespace App\Controllers;
 
-class UsersController
+class CommentsController
 {
-    
+    public function store($eventId)
+    {
+        // TODO
+
+        echo 'dtasti, event id: ' . $eventId;
+    }
 }

@@ -17,6 +17,8 @@ $router->get('/event/create', 'EventsController@create');
 $router->post('/event', 'EventsController@store');
 $router->get('/event/{id}', 'EventsController@show');
 $router->post('/event/{id}/import', 'EventsController@import');
+$router->post('/event/{id}/comment', 'CommentsController@store'); // create new comment
+
 
 
 //Attendance

@@ -23,7 +23,9 @@
 
         <div id="buttons">
             <p id="undoneComments">
-                Нови коментари: <?php $_SESSION['numberOfNewComments']?>
+                <?php if (isset($_SESSION['numberOfNewComments'])) { ?>
+                    Нови коментари: <?php $_SESSION['numberOfNewComments'] ?>
+                <?php } ?>
             </p>
             <a href="/event/create" id="createEventBtn">
                 Създай събитие
@@ -38,15 +40,14 @@
         </h4>
         <ul>
             <?php
-                $eventsWithPendingComments=\App\Models\Comment::extractEventsWithPendingComments();
-                if($eventsWithPendingComments["successfullyExecuted"] == true && 
-                    $eventsWithPendingComments["thereAreEvents"] == true){
-                        
+            $eventsWithPendingComments = \App\Models\Comment::extractEventsWithPendingComments();
+            if (
+                $eventsWithPendingComments["successfullyExecuted"] == true &&
+                $eventsWithPendingComments["thereAreEvents"] == true
+            ) {
+            }
 
 
-                }
-
- 
             ?>
         </ul>
         <h4>
