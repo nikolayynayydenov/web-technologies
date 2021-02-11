@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Core\Model;
+use Core\Database;
+
 
 class Comment extends Model
 {
@@ -15,7 +17,7 @@ class Comment extends Model
 
    // private $conn;
 
-    public function __construct($textContent, $fn)
+    public function __construct($textContent = null, $fn = null)
     {
         $this->textContent = $textContent;
         $this->fn = $fn;
@@ -63,7 +65,7 @@ class Comment extends Model
     public function comment_exists()
     {
         $query = [];
-        $sql = "SELECT * FROM comments WHERE textContent=:textContent AND fn=:fn";
+        $sql = "SELECT * FROM comments WHERE content=:textContent AND faculty_number=:fn";
         $preparedStmt = $this->getConn()->prepare($sql);
         try {
             $preparedStmt->execute(["textContent" => $this->getTextContent(), "fn" => $this->getFN()]);
@@ -84,16 +86,16 @@ class Comment extends Model
 
     public function createComment($eventID)
     {
-        $sql = "INSERT INTO `comments`(`content`, `event_id`, `fn`, `pending`)
-                VALUE(:textContent, :eventID :fn, :pending)";
-        $preparedStmt = $this->getConn()->prepare($sql);
+        $sql = "INSERT INTO `comments` (`content`, `event_id`, `faculty_number`, `pending`) 
+        VALUE(:content, :event_id, :faculty_number, :pending)";
+        $preparedStmt = Database::getConnection()->prepare($sql);
         $query = [];
 
         try {
             $preparedStmt->execute([
-                "textContent" => $this->textContent,
+                "content" => $this->textContent,
                 "event_id" => $eventID,
-                "fn" => $this->fn,
+                "faculty_number" => $this->fn,
                 "pending" => 1
             ]);
             $query = ["successfullyExecuted" => true];
