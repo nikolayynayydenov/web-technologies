@@ -40,6 +40,7 @@ a:hover {
     outline: none;
     display: inline;
     cursor: pointer;
+    padding: 2px;
 }
 
 .btn-info {
@@ -49,7 +50,17 @@ a:hover {
 
 .btn-info:hover {
     color: white;
-    background: #00b7ff
+    background: #00b7ff;
+}
+
+.btn-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    color: white;
+    background: #dc3545;
 }
 
 hr {

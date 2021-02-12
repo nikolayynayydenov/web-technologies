@@ -96,7 +96,8 @@ abstract class Model
      */
     public static function get($columns)
     {
-        $sql = self::generateWhereSql($columns);
+        $sql = 'SELECT * FROM ' . self::getTableName();
+        $sql .=  self::generateWhereSql($columns);
         $stmt = Database::getConnection()->prepare($sql);
 
         $stmt->execute($columns);
@@ -113,14 +114,60 @@ abstract class Model
         return null;
     }
 
+    /**
+     * Update a given model
+     * 
+     * @param array $data The new values
+     */
     public function update(array $data): void
     {
-        //
+        $sql = 'UPDATE ' . self::getTableName() . ' SET ';
+        $i = 0;
+        $colLen = count($data);
+
+        foreach ($data as $column => $value) {
+            $sql .= "$column = :$column";
+
+            if ($i !== $colLen - 1) {
+                $sql .= ", ";
+            }
+
+            $i++;
+        }
+        $sql .= ' WHERE id = :id;';
+
+        $stmt = Database::getConnection()->prepare($sql);
+
+        if (!$stmt) {
+            throw new DbException('DB problem');
+        }
+
+        $result = $stmt->execute(array_merge($data, [
+            'id' => $this->id
+        ]));
+
+        if (!$result) {
+            throw new DbException('DB problem');
+        }
     }
 
     public function delete(): void
     {
-        //
+        $stmt = $this->conn->prepare(
+            'DELETE FROM ' . self::getTableName() . ' WHERE id = :id;'
+        );
+
+        if (!$stmt) {
+            throw new DbException('DB problem');
+        }
+
+        $result = $stmt->execute([
+            'id' => $this->id
+        ]);
+
+        if (!$result) {
+            throw new DbException('DB problem');
+        }
     }
 
     /**
@@ -131,7 +178,8 @@ abstract class Model
      */
     public static function getMany($columns)
     {
-        $sql = self::generateWhereSql($columns);
+        $sql = 'SELECT * FROM ' . self::getTableName();
+        $sql .=  self::generateWhereSql($columns);
         $stmt = Database::getConnection()->prepare($sql);
 
         $stmt->execute($columns);
@@ -165,7 +213,7 @@ abstract class Model
      */
     protected static function generateWhereSql(array $columns)
     {
-        $sql = 'SELECT * FROM ' . self::getTableName() . ' WHERE ';
+        $sql = ' WHERE ';
         $colLen = count($columns);
 
         $i = 0;
