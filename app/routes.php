@@ -19,6 +19,7 @@ $router->get('/event/{id}', 'EventsController@show');
 $router->post('/event/{id}/import', 'EventsController@import');
 $router->get('/event/{id}/edit', 'EventsController@edit');
 $router->put('/event/{id}', 'EventsController@update');
+$router->delete('/event/{id}', 'EventsController@delete');
 
 
 //Attendance

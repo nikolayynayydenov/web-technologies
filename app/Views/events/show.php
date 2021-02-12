@@ -1,7 +1,17 @@
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/header.php')); ?>
 
 <div class="container">
-    <h4><?= $data['event']->name ?></h4>
+    <div>
+        <h4><?= $data['event']->name ?></h4>
+    </div>
+    <div style="float:right;">
+        <a href="/event/<?= $data['event']->id ?>/edit" class="btn btn-info">Промяна</a>
+        <form action="/event/<?= $data['event']->id ?>" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" class="btn btn-danger" value="Изтриване">
+        </form>
+    </div>
+
 
 
     <p>
@@ -71,37 +81,37 @@
 
     <!-- следващият див да се визуализира само ако потребителят е преподавател -->
     <div id="messages">
-        <?php if(isset($_SESSION["message"])) : ?>
+        <?php if (isset($_SESSION["message"])) : ?>
             <?php echo $_SESSION["message"]; ?>
             <?php unset($_SESSION["message"]); ?>
         <?php endif; ?>
     </div>
 
-    <?php if(\App\Services\Auth::check()) : ?>
+    <?php if (\App\Services\Auth::check()) : ?>
         <div id="pending_comments">
-        <?php foreach($data['comments'] as $comment) : ?>
-            <?php if($comment->getPending() == true) : ?>
-                <div class="pendingComments">
-                    <h5><?=$comment->getFN()?></h5>
-                    <p><?=$comment->getTextContent()?></p>
-                    <button class="btn_accept">Приеми</button>
-                    <button class="btn_delete">Изтрий</button>
-                </div>
-                <form action="" method="">
-                    <input type="hidden" value="<?=$comment->id?>">
-                </form>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </div>
+            <?php foreach ($data['comments'] as $comment) : ?>
+                <?php if ($comment->getPending() == true) : ?>
+                    <div class="pendingComments">
+                        <h5><?= $comment->getFN() ?></h5>
+                        <p><?= $comment->getTextContent() ?></p>
+                        <button class="btn_accept">Приеми</button>
+                        <button class="btn_delete">Изтрий</button>
+                    </div>
+                    <form action="" method="">
+                        <input type="hidden" value="<?= $comment->id ?>">
+                    </form>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 
 
     <div id="visible_comments">
-        <?php foreach($data['comments'] as $comment) : ?>
-            <?php if($comment->getIsVisible() == true) : ?>
+        <?php foreach ($data['comments'] as $comment) : ?>
+            <?php if ($comment->getIsVisible() == true) : ?>
                 <div class="visibleComments">
-                    <h5><?=$comment->getFN()?></h5>
-                    <p><?=$comment->getTextContent()?></p>
+                    <h5><?= $comment->getFN() ?></h5>
+                    <p><?= $comment->getTextContent() ?></p>
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>

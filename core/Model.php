@@ -153,7 +153,21 @@ abstract class Model
 
     public function delete(): void
     {
-        //
+        $stmt = $this->conn->prepare(
+            'DELETE FROM ' . self::getTableName() . ' WHERE id = :id;'
+        );
+
+        if (!$stmt) {
+            throw new DbException('DB problem');
+        }
+
+        $result = $stmt->execute([
+            'id' => $this->id
+        ]);
+
+        if (!$result) {
+            throw new DbException('DB problem');
+        }
     }
 
     /**

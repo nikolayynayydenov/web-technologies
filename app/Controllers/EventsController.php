@@ -234,4 +234,25 @@ class EventsController
         $_SESSION['message'] = 'Успешна промяна';
         redirect("/event/$id/edit");
     }
+
+    public function delete($id)
+    {
+        Auth::guard();
+
+        $event = Event::getById($id);
+
+        if (is_null($event)) {
+            throw new NotFoundException('Не е намерено събитие с id: ' . $id);
+        }
+
+        if ($_SESSION['teacherId'] != $event->teacher_id) {
+            throw new Exception('You can only delete own events');
+        }
+
+        $event->delete();
+
+        $_SESSION['message'] = 'Успешно изтриване';
+
+        redirect('/dashboard');
+    }
 }
