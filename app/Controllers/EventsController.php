@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Comment;
 use App\Services\Auth;
 use Core\Database;
+use Core\Exceptions\NotFoundException;
 
 class EventsController
 {
@@ -92,6 +93,10 @@ class EventsController
     {
         $event = Event::getById($id);
 
+        if (is_null($event)) {
+            throw new NotFoundException('Не е намерено събитие с id: ' . $id);
+        }
+
         $comments = Comment::getMany([
             'event_id' => $event->id
         ]);
@@ -160,5 +165,54 @@ class EventsController
         } else {
             response('Event not found', 404);
         }
+    }
+
+    /**
+     * Show the edit form
+     * 
+     * @param int $id
+     */
+    public function edit($id)
+    {
+        Auth::guard();
+
+        $event = Event::getById($id);
+
+        if (is_null($event)) {
+            throw new NotFoundException('Не е намерено събитие с id: ' . $id);
+        }
+
+        view('events/edit', [
+            'event' => $event
+        ]);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function update($id)
+    {
+        // TODO: validate
+        // TODO: check if own event
+        // TODO: check if overlaps
+        Auth::guard();
+
+        $event = Event::getById($id);
+
+        if (is_null($event)) {
+            throw new NotFoundException('Не е намерено събитие с id: ' . $id);
+        }
+
+        $event->update([
+            'name' => $_POST['name'],
+            'description' => $_POST['description'],
+            'date' => $_POST['date'],
+            'start' => $_POST['start'],
+            'end' => $_POST['end'],
+            'teacher_id' => $_SESSION['teacherId'],
+        ]);
+
+        $_SESSION['message'] = 'Успешна промяна';
+        redirect("/event/$id/edit");
     }
 }

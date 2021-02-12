@@ -12,14 +12,13 @@ $router->get('/register', 'AuthController@showRegister');
 $router->post('/enter-teacher', 'AuthController@register');
 $router->get('/logout', 'AuthController@logout');
 
-
 // Events
 $router->get('/event/create', 'EventsController@create');
 $router->post('/event', 'EventsController@store');
 $router->get('/event/{id}', 'EventsController@show');
 $router->post('/event/{id}/import', 'EventsController@import');
-//$router->post('/event/{id}/comment', 'CommentsController@store'); // create new comment
-
+$router->get('/event/{id}/edit', 'EventsController@edit');
+$router->put('/event/{id}', 'EventsController@update');
 
 
 //Attendance
@@ -35,8 +34,8 @@ $router->get('/dashboard', 'HomeController@showDashboard');
 $router->post('/dashboard', 'HomeController@dashboard_method');
 
 //Comments
-$router->post('/event/{id}/delete-comment/{commentId}', 'CommentsController@delete');//delete
-$router->post('/event/{id}/accept-comment/{commentId}', 'CommentsController@accept');//accept
+$router->post('/event/{id}/delete-comment/{commentId}', 'CommentsController@delete'); //delete
+$router->post('/event/{id}/accept-comment/{commentId}', 'CommentsController@accept'); //accept
 $router->post('/event/{id}/comment', 'CommentsController@enterCommentIntoDB');
 
 $router->fallback();

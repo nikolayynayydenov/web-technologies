@@ -116,3 +116,13 @@ function testInput($input)
     $input = stripslashes($input);
     return $input;
 }
+
+/**
+ * Add leading zero
+ * 
+ * @param string $value
+ */
+function lz($value)
+{
+    return sprintf("%02d", $value);
+}
