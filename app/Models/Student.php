@@ -1,5 +1,5 @@
 <?php
-//namespace App\Models;
+namespace App\Models;
 
 use Core\Model;
 use Core\Database;
@@ -14,7 +14,7 @@ class Student{
     public function __construct($fn)
     {
         $this->faculty_number = $fn;
-        $this->conn = Core\Database::getConnection();
+        $this->conn = \Core\Database::getConnection();
     }
     public function getId(){
         return $this->id;

@@ -3,7 +3,8 @@
 
 <h1>Проверка на присъствия</h1>
 <hr>
-<form action="/attendance" method="GET">
+<form action="/studentsLogin" method="POST">
+    <?php flashErrors(); ?>
     <div>
         <label for="fn">Факултетен номер</label>
         <input type="text" id="fn" placeholder="81000" name="fn">

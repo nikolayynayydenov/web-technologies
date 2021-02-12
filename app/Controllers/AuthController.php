@@ -50,17 +50,21 @@ class AuthController
         }
     }
 
+    public function showStudentsLogin(){
+        view('attendance/check-form');
+    }
+
     public function studentsLogin(){
         session_start();
         $errors = [];
 
-        $fn = isset($_POST["faculty_number"]) ? testInput($_POST["faculty_number"]) : "";
+        $fn = isset($_POST["fn"]) ? testInput($_POST["fn"]) : "";
 
         if(!$fn){
             $errors[] = "Моля, въведете факултетен номер!";
         }
         if(is_numeric($fn) /*&& strlen($fn) == 5*/){
-            $student = new \Student($fn);
+            $student = new Student($fn);
             $isStudentValid = $student->isValid();
             if($isStudentValid["successfullyExecuted"] == true){
                 if($isStudentValid["isValid"] == true){
