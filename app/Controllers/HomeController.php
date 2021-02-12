@@ -21,7 +21,7 @@ class HomeController
     {
         Auth::guard();
 
-        $eventsWithPendingCommentsQuery = \App\Models\Comment::extractEventsWithPendingComments();
+        $eventsWithPendingCommentsQuery = \App\Models\Comment::extractEventsWithPendingComments($_SESSION['teacherId']);
         if (
             $eventsWithPendingCommentsQuery["successfullyExecuted"] == true &&
             $eventsWithPendingCommentsQuery["thereAreEvents"] == true
@@ -29,6 +29,16 @@ class HomeController
             $eventsWithPendingComments = $eventsWithPendingCommentsQuery['eventsWithPendingComments'];
         } else {
             $eventsWithPendingComments = [];
+        }
+
+        $eventsWithoutPendingCommentsQuery = \App\Models\Comment::extractEventsWithoutPendingComments($_SESSION['teacherId']);
+        if (
+            $eventsWithoutPendingCommentsQuery["successfullyExecuted"] == true &&
+            $eventsWithoutPendingCommentsQuery["thereAreEvents"] == true
+        ) {
+            $eventsWithoutPendingComments = $eventsWithoutPendingCommentsQuery['eventsWithoutPendingComments'];
+        } else {
+            $eventsWithoutPendingComments = [];
         }
 
         $events = Auth::checkTeacher()
@@ -48,6 +58,7 @@ class HomeController
         view('dashboard', [
             'events' => $events,
             'eventsWithPendingComments' => $eventsWithPendingComments,
+            'eventsWithoutPendingComments' => $eventsWithoutPendingComments,
             'students' => $students
         ]);
     }

@@ -88,30 +88,32 @@
 #eventsStatistics li{
     margin: 1%;
     padding: 1%;
-    border: 1px solid blue;
-    border-radius: 10px;
+    border: 1px solid rgb(0, 139, 245);
+    border-radius: 2px;
     text-align: left;
 }
 
 #eventsStatistics li:hover{
-    background: rgb(149, 163, 186);
+    background: rgb(154, 206, 245);
+    /*background: rgb(149, 163, 186);
     text-decoration: underline;
-    color: white;
+    color: white;*/
 }
 
 
 #studentsStatistics li{
     margin: 1%;
     padding: 1%;
-    border: 1px solid blue;
-    border-radius: 10px;
+    border: 1px solid rgb(0, 139, 245);
+    border-radius: 2px;
     text-align: left;
 }
 
 #studentsStatistics li:hover{
-    background: rgb(149, 163, 186);
+    background: rgb(154, 206, 245);
+    /*background: rgb(149, 163, 186);
     text-decoration: underline;
-    color:white;
+    color:white;*/
 }
 
 .event div{
@@ -120,4 +122,8 @@
 
 .student div{
     /* background: red; */
+}
+
+h3{
+    color: rgb(0, 139, 245);
 }

@@ -107,11 +107,11 @@ class Comment extends Model
         return $query;
     }
 
-    public static function extractEventsWithPendingComments(){
-        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 1)";
+    public static function extractEventsWithPendingComments($teacherId){
+        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 1) AND teacher_id=:teacherId";
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {
-            $preparedStmt->execute();
+            $preparedStmt->execute(["teacherId" => $teacherId]);
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
@@ -129,11 +129,11 @@ class Comment extends Model
         }
         
     }
-    public function extractEventsWithoutPendingComments(){
-        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0)";
+    public static function extractEventsWithoutPendingComments($teacherId){
+        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0) OR (id IN (SELECT event_id FROM comments WHERE pending = 1) AND NOT(teacher_id=:teacherId))";
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {
-            $preparedStmt->execute();
+            $preparedStmt->execute(["teacherId" => $teacherId]);
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
@@ -143,7 +143,7 @@ class Comment extends Model
         $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
         if ($events_assoc) {
             $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
-            "eventsWithPendingComments" => $events_assoc];
+            "eventsWithoutPendingComments" => $events_assoc];
             return $query;
         } else {
             $query = ["successfullyExecuted" => true, "thereAreEvents" => false];

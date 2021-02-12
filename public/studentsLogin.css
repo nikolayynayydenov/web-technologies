@@ -12,13 +12,13 @@ form {
     border-radius: 10px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     width: 100%;
     padding: 2%;
     margin: 8px 0;
     box-sizing: border-box;
 }
-input[type=text]:focus{
+input[type=text]:focus, input[type=password]:focus{
     outline: none;
     border: 3px solid rgb(137, 55, 191);
 }

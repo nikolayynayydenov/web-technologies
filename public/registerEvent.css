@@ -12,6 +12,7 @@ form{
     padding: 2rem;
     border: 4px solid rgb(255, 138, 36);
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 input[type=text], textarea, input[type=date] {
