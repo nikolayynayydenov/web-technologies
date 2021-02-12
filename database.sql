@@ -1,17 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Generation Time: Feb 12, 2021 at 04:38 PM
+-- Generation Time: Feb 12, 2021 at 08:01 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
-=======
--- Generation Time: Feb 12, 2021 at 04:23 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,7 +50,8 @@ INSERT INTO `attendance` (`id`, `faculty_number`, `logged_at`, `event_id`, `thru
 (6, 4524, '2020-12-31 10:15:00', 1, 100, 'направена от инструктор\r\n', 'Ръчна проверка'),
 (7, 24233, '2020-12-31 10:15:00', 1, 100, 'списък -  всеки се записва (на хартия) - и после р', 'Ръчна проверка'),
 (8, 5453, NULL, 1, 0, NULL, 'Самозаписване в системата(доброволно)\r\n'),
-(9, 212, NULL, 1, 0, NULL, 'Самозаписване по даден код (QR/текст) - проверка, ');
+(9, 212, NULL, 1, 0, NULL, 'Самозаписване по даден код (QR/текст) - проверка, '),
+(10, 81580, NULL, 5, 100, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -73,6 +68,13 @@ CREATE TABLE `comments` (
   `pending` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `content`, `event_id`, `is_visible`, `faculty_number`, `pending`) VALUES
+(1, 'Много добър урок!', 5, NULL, 81580, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -83,9 +85,9 @@ CREATE TABLE `events` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` text DEFAULT NULL,
-  `date` date NOT NULL,
-  `start` time DEFAULT NULL,
-  `end` time DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `start` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
   `teacher_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -94,12 +96,11 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `description`, `date`, `start`, `end`, `teacher_id`) VALUES
-<<<<<<< HEAD
 (1, 'JavaScript', 'Основи за javascript', '2021-01-20 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
 (2, 'Представяне на знания', 'Кратко описание на събитието', '2021-02-11 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 12),
 (3, 'na pesho sybitieto', 'opisanie', '2021-02-11 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13),
 (4, 'Събитие на Стефан', 'описание', '2021-02-11 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 14),
-(5, 'Второ събитие', 'това е второто събитие', '2021-02-12 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13);
+(5, 'Второ събитие', 'това е второто събитие на Петър', '2021-02-12 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13);
 
 -- --------------------------------------------------------
 
@@ -125,9 +126,6 @@ INSERT INTO `student` (`id`, `first_name`, `last_name`, `faculty_number`) VALUES
 (4, 'Радостина', 'Кръстева', 81112),
 (5, 'Кристиян', 'Господинов', 81113),
 (6, 'Михаил', 'Петков', 81114);
-=======
-(1, 'JavaScript', 'Основи за javascript', '2021-01-20', '00:00:00', '00:00:00', 1);
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
 
 -- --------------------------------------------------------
 
@@ -149,23 +147,9 @@ CREATE TABLE `teachers` (
 
 INSERT INTO `teachers` (`id`, `email`, `password`, `first_name`, `last_name`) VALUES
 (1, 'Петър', '$2y$10$.8BaN/YZD4pWd7IMPuqZpObJS/tH566js8r6xq/k9l9OHOnfBtVJK', NULL, NULL),
-<<<<<<< HEAD
 (12, 'todor@gmail.com', '$2y$10$.9a7t3HleAoyoLzxZv3MHuE6utL2RdDsDQ0Mz.6GID.s8sv4Y0MyO', 'Тодор', 'Тодоров'),
 (13, 'peter@abv.bg', '$2y$10$KdFLWtu2ZWA2BRZUp.ahCuZn4qWUMiKhps8xX46vm1vVDRM7Oa6Ka', 'Петър', 'Иванов'),
 (14, 'stef@abv.bg', '$2y$10$QlF3xwQYizGB1FejieYFIO8FEdvFggYeGKEqRihYr2sPBCFtxR8sC', 'Стефан', 'Стефанов');
-=======
-(2, 'Тодор', '$2y$10$ejkxGaT1CJmRZAsl8zbx8.ouxvGg.o5wGSzhm5Py6zdTMeWFPILhm', NULL, NULL),
-(3, 'Име', '$2y$10$Sp5IaLxe1MxNc6NzDIJC.uIsur2vXfSwC7wC/tTo77vW03B7M19yW', NULL, NULL),
-(4, 'Иван', '$2y$10$NB0Sx9BWXq6TWS.HzIW3fe0AM9hBEHFypzjrmwMtCQKLN7gqaSbN6', NULL, NULL),
-(5, 'email@gmail.com', 'abvgde$/$H23423425Gjhgjh', 'Петя', 'Петрова'),
-(6, 'siqna@abv.bg', '$2y$10$Lvz5Om9t3myxo7Pw7I4cweYiZk1InBO6OfcoFe28SlIAP0oKU8Z/a', 'Сияна', 'Стоянова'),
-(7, 'petya@gmail.com', '$2y$10$aU5FPQg4352WEFmTHOjS5eQJEqUp8VMnB1BHoRz3Sima3/QLfPLLe', 'Петя', 'Петрова'),
-(8, 'ivana@gmail.com', '$2y$10$lbzCMJ08Q5Q/OgT5/IJ.fuW38xw1pyq8tUFuumSQX.2qqwez1yQiq', 'Ивана', 'Тодорова'),
-(9, 'stef@abv.bg', '$2y$10$JSVC/qfIVtyCuEinJIFGGOR56mkJvq.IDrEJlENDFQznlW3k8EXG6', 'Стефан', 'Стефанов'),
-(10, 'strahil@abv.bg', '$2y$10$IxRcvyP3B9m3ymSeszjpT.MqtgoDH29v2JddGyomuHIzVqjQscsYu', 'Страхил', 'Страхилов'),
-(11, 'dimityr@abv.bg', '$2y$10$Hcf34z9UHSIHfIgXFe....SyJQPrczEia.a8LJgIE5okvXG8IMAOu', 'dimityr', 'ivanov'),
-(12, 'tijexeca@mailinator.com', '$2y$10$GdgfHtFeMgaZEsM5y2ULquvMnZVau34ubuirSH3uJBoFd79TIJClu', 'Macy', 'Melton');
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
 
 --
 -- Indexes for dumped tables
@@ -212,23 +196,18 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-<<<<<<< HEAD
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-=======
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-<<<<<<< HEAD
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
@@ -236,19 +215,12 @@ ALTER TABLE `events`
 --
 ALTER TABLE `student`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-=======
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-<<<<<<< HEAD
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-=======
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
 
 --
 -- Constraints for dumped tables
@@ -258,13 +230,13 @@ ALTER TABLE `teachers`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`);
 
 --
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `FK_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`);
 
 --
 -- Constraints for table `events`
