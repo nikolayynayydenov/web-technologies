@@ -4,9 +4,8 @@
     <h1>Регистрация на преподаватели</h1>
     <hr>
 
-    <?php flashErrors() ?>
-
     <form action="/enter-teacher" method="POST">
+        <?php flashErrors() ?>
         <div>
             <label for="firstName">Име</label>
             <input type="text" name="firstName" id="firstName">
@@ -17,7 +16,7 @@
         </div>
         <div>
             <label for="email">Имейл</label>
-            <input type="text" name="email" id="email">
+            <input type="email" name="email" id="email">
         </div>
         <div>
             <label for="password">Парола</label>

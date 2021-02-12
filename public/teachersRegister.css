@@ -54,3 +54,9 @@ input[type=submit]:hover{
     background: rgb(235, 64, 52);
     /* background: rgb(149, 163, 186); */
 }
+
+li .list-item{
+    width: 100%;
+    border: 2px solid rgb(235, 64, 52);
+    background-color: rgb(253, 198, 183);
+}

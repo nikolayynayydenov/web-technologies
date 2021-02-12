@@ -9,7 +9,7 @@
         <input type="text" id="fn" placeholder="81000" name="fn">
     </div>
     <div>
-        <input type="submit" value="Проверка">
+        <input type="submit" value="Влез">
     </div>
 </form>
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>

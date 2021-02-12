@@ -23,7 +23,7 @@
             <li class="nav_li1" id="li3"><a href="/dashboard">Основна страница</a></li>
         <?php endif ?>
 
-        <li class="nav_li1" id="li4"><a href="/attendance/check">Проверка на присъствия</a></li>
+        <li class="nav_li1" id="li4"><a href="/attendance/check">Вход за студенти</a></li>
 
         <?php if (App\Services\Auth::check()) : ?>
             <li class="nav_li2" id="li5"><a href="#"><?= $_SESSION['firstName'] . '  ' . $_SESSION['lastName'] ?></a></li>

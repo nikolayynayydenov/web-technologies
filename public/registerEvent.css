@@ -14,7 +14,7 @@ form{
     border-radius: 10px;
 }
 
-input[type=text], textarea {
+input[type=text], textarea, input[type=date] {
     width: 100%;
     padding: 1%;
     margin: 8px 0;
@@ -25,7 +25,7 @@ input[type=text], textarea {
     border: 3px solid #555;
 } */
 
-input[type=text]:focus, select:focus, textarea:focus {
+input[type=text]:focus, input[type=date]:focus, select:focus, textarea:focus {
     outline: none;
     border: 3px solid rgb(255, 138, 36);
 }

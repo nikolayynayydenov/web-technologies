@@ -11,6 +11,7 @@ $router->post('/login', 'AuthController@login');
 $router->get('/register', 'AuthController@showRegister');
 $router->post('/enter-teacher', 'AuthController@register');
 $router->get('/logout', 'AuthController@logout');
+$router->get('/studentsLogin', 'UsersController@showStudentsLogin');
 
 
 // Events

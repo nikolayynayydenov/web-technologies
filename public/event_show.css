@@ -1,0 +1,61 @@
+.container{
+    width: 80%;
+
+}
+h2{
+    color: rgb(18, 76, 176);
+    text-align: center;
+}
+h4{
+    color: rgb(18, 76, 176);
+}
+p{
+    text-align: center;
+}
+strong{
+    color: rgb(18, 76, 176);
+    text-align: center;
+}
+#import{
+    width: 50%;
+    
+}
+input[type=submit]{
+    display: inline-block;
+    /* width: 60%;
+    margin: 0%, 20%; */
+    
+}
+input[type=file]{
+    display: inline-block;
+    width: 60%;
+    margin: 0%, 20%;
+}
+input[type=text], textarea{
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+input[type=text]:focus, textarea:focus{
+    outline: none;
+    border: 2px solid rgb(18, 76, 176);
+}
+input[type=submit]{
+    /* margin: 0% 35%;
+    width: 30%; */
+    padding: 0% 1%;
+    background: white;
+    color: rgb(18, 76, 176);
+    /* color: rgb(18, 76, 176); */
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid rgb(18, 76, 176);
+    /* border: 2px solid rgb(18, 76, 176); */
+    border-radius: 10px;
+    outline: none;
+}
+input[type=submit]:hover {
+    color: white;
+    background: rgb(18, 76, 176);
+    /* background: rgb(149, 163, 186); */
+}

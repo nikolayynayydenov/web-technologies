@@ -1,17 +1,18 @@
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/header.php')); ?>
+<link rel="stylesheet" href="/event_show.css">
 
 <div class="container">
-    <h4><?= $data['event']->name ?></h4>
+    <h2><?= $data['event']->name ?></h4>
 
 
     <p>
-        <?= $data['event']->description ?>
+        <strong>Описание: </strong> <?= $data['event']->description ?>
 
         <hr>
 
-        <strong>Дата: </strong> <?= $data['event']->date ?>
-        <strong>Начало: </strong> <?= $data['event']->start ?>
-        <strong>Край: </strong> <?= $data['event']->end ?>
+        <strong>Дата: </strong> <?= $data['event']->date ?><br>
+        <strong>Начало: </strong> <?= $data['event']->start ?><br>
+        <strong>Край: </strong> <?= $data['event']->end ?><br>
     </p>
 
     <p>
@@ -19,7 +20,7 @@
     </p>
 
     <?php if (App\Services\Auth::check()) : ?>
-        <form action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
+        <form id="import" action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
             <input type="file" name="attendance_file">
 
             <br />
@@ -107,12 +108,21 @@
         <?php endforeach; ?>
     </div>
 
+
     <div id="commentsForm">
+        <h4>Напишете коментар:</h4>
         <form action="/event/<?php echo $data['event']->id; ?>/comment" method="POST">
-            <label for="fn">Факултетен номер</label>
-            <input type="text" id="fn" name="fn" placeholder="81000">
-            <label for="textContent">Вашият коментар</label>
-            <textarea name="textContent" id="textContent" cols="30" rows="10" palceholder="Коментар"></textarea>
+            <div>
+                <label for="fn">Факултетен номер</label>
+                <input type="text" id="fn" name="fn" placeholder="81000">
+            </div>
+            <div>
+                <label for="textContent">Вашият коментар</label>
+                <textarea name="textContent" id="textContent" cols="30" rows="10" palceholder="Коментар"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Запиши коментар">
+            </div>
         </form>
     </div>
 

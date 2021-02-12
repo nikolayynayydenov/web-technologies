@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Teacher;
 use App\Services\Auth;
+use App\Models\Student;
+//require_once "App\Models\Student";
 
 class AuthController
 {
@@ -45,6 +47,42 @@ class AuthController
             redirect('/dashboard');
         } else {
             redirectWithErrors('/login', $errors);
+        }
+    }
+
+    public function studentsLogin(){
+        session_start();
+        $errors = [];
+
+        $fn = isset($_POST["faculty_number"]) ? testInput($_POST["faculty_number"]) : "";
+
+        if(!$fn){
+            $errors[] = "Моля, въведете факултетен номер!";
+        }
+        if(is_numeric($fn) /*&& strlen($fn) == 5*/){
+            $student = new \Student($fn);
+            $isStudentValid = $student->isValid();
+            if($isStudentValid["successfullyExecuted"] == true){
+                if($isStudentValid["isValid"] == true){
+                    $_SESSION["studentId"] = $student->getId();
+                    $_SESSION["first_name"] = $student->getFirstName();
+                    $_SESSION["last_name"] = $student->getLastName();
+                    $_SESSION["fn"] = $student->getFN();
+                }
+                else{
+                    $errors[] = "Не съществува студент с този факултетен номер!";
+                }
+            }
+            else{
+                $errors[] = "Неуспешна заявка, error: " . $isStudentValid["errMessage"];
+            }
+        }
+        if(count($errors) === 0){
+            $_SESSION['message'] = 'Добре дошли, ' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
+            redirect('/dashboard');
+        }
+        else{
+            redirectWithErrors('/studentsLogin', $errors);
         }
     }
 
