@@ -50,42 +50,41 @@ class AuthController
         }
     }
 
-    public function showStudentsLogin(){
+    public function showStudentsLogin()
+    {
         view('attendance/check-form');
     }
 
-    public function studentsLogin(){
+    public function studentsLogin()
+    {
         session_start();
         $errors = [];
 
         $fn = isset($_POST["fn"]) ? testInput($_POST["fn"]) : "";
 
-        if(!$fn){
+        if (!$fn) {
             $errors[] = "Моля, въведете факултетен номер!";
         }
-        if(is_numeric($fn) /*&& strlen($fn) == 5*/){
+        if (is_numeric($fn) /*&& strlen($fn) == 5*/) {
             $student = new Student($fn);
             $isStudentValid = $student->isValid();
-            if($isStudentValid["successfullyExecuted"] == true){
-                if($isStudentValid["isValid"] == true){
+            if ($isStudentValid["successfullyExecuted"] == true) {
+                if ($isStudentValid["isValid"] == true) {
                     $_SESSION["studentId"] = $student->getId();
-                    $_SESSION["first_name"] = $student->getFirstName();
-                    $_SESSION["last_name"] = $student->getLastName();
+                    // $_SESSION["first_name"] = $student->getFirstName();
+                    // $_SESSION["last_name"] = $student->getLastName();
                     $_SESSION["fn"] = $student->getFN();
-                }
-                else{
+                } else {
                     $errors[] = "Не съществува студент с този факултетен номер!";
                 }
-            }
-            else{
+            } else {
                 $errors[] = "Неуспешна заявка, error: " . $isStudentValid["errMessage"];
             }
         }
-        if(count($errors) === 0){
-            $_SESSION['message'] = 'Добре дошли, ' . $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
+        if (count($errors) === 0) {
+            $_SESSION['message'] = 'Добре дошли!';
             redirect('/dashboard');
-        }
-        else{
+        } else {
             redirectWithErrors('/studentsLogin', $errors);
         }
     }

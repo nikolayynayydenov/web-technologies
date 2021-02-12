@@ -1,7 +1,7 @@
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/header.php')); ?>
 <link rel="stylesheet" href="/studentsLogin.css">
 
-<h1>Проверка на присъствия</h1>
+<h1>Вход за студенти</h1>
 <hr>
 <form action="/studentsLogin" method="POST">
     <?php flashErrors(); ?>

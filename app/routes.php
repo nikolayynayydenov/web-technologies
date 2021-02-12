@@ -25,7 +25,7 @@ $router->delete('/event/{id}', 'EventsController@delete');
 
 
 //Attendance
-$router->get('/attendance/check', 'AttendanceController@checkForm');
+// $router->get('/attendance/check', 'AttendanceController@checkForm');
 $router->get('/attendance', 'AttendanceController@show');
 
 

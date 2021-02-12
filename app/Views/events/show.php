@@ -2,9 +2,6 @@
 <link rel="stylesheet" href="/event_show.css">
 
 <div class="container">
-<<<<<<< HEAD
-    <h2><?= $data['event']->name ?></h4>
-=======
     <div>
         <h4><?= $data['event']->name ?></h4>
     </div>
@@ -16,7 +13,6 @@
         </form>
     </div>
 
->>>>>>> 2d7a9ff1441f346c607831eac219704fec6afbf2
 
 
     <p>
@@ -33,7 +29,7 @@
         <?= sessionFlash('message') ?>
     </p>
 
-    <?php if (App\Services\Auth::check()) : ?>
+    <?php if (App\Services\Auth::checkTeacher()) : ?>
         <form id="import" action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
             <input type="file" name="attendance_file">
 
@@ -78,7 +74,7 @@
     <?php foreach ($data['comments'] as $comment) {
         if ($comment->is_approved) {
         } else {
-            if (\App\Services\Auth::check()) {
+            if (\App\Services\Auth::checkTeacher()) {
             }
         }
     }
@@ -92,7 +88,7 @@
         <?php endif; ?>
     </div>
 
-    <?php if (\App\Services\Auth::check()) : ?>
+    <?php if (\App\Services\Auth::checkTeacher()) : ?>
         <div id="pending_comments">
             <?php foreach ($data['comments'] as $comment) : ?>
                 <?php if ($comment->getPending() == true) : ?>

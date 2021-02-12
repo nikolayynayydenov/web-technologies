@@ -17,13 +17,28 @@ class Auth
     }
 
     /**
-     * Check if a user has logged
+     * Check if a teacher has logged
      * 
      * @return bool
      */
+    public static function checkTeacher()
+    {
+        return array_key_exists('teacherId', $_SESSION) && is_numeric($_SESSION['teacherId']) && !self::checkStudent();
+    }
+
+    /**
+     * Check if a student has logged
+     * 
+     * @return bool
+     */
+    public static function checkStudent()
+    {
+        return array_key_exists('fn', $_SESSION) && is_numeric($_SESSION['fn']) && !self::checkTeacher();
+    }
+
     public static function check()
     {
-        return array_key_exists('teacherId', $_SESSION) && is_numeric($_SESSION['teacherId']);
+        return self::checkTeacher() || self::checkStudent();
     }
 
 
@@ -39,11 +54,11 @@ class Auth
     }
 
     /**
-     * If a user is not authenticated, redirect to login
+     * If neither a teacher nor a student has been authenticated, redirect to login
      */
     public static function guard()
     {
-        if (!self::check()) {
+        if (!self::checkTeacher() && !self::checkStudent()) {
             redirect('/login');
         }
     }
