@@ -2,9 +2,10 @@
 <link rel="stylesheet" href="/registerEvent.css">
 
 <main>
-    <h1>Промна на събитие <strong><?= $data['event']->name ?></strong></h1>
+    <h1>Промяна на събитие <strong><?= $data['event']->name ?></strong></h1>
     <hr>
     <form action="/event/<?= $data['event']->id ?>" method="POST">
+        <?php flashErrors() ?>
         <input type="hidden" name="_method" value="PUT">
 
         <div class="field">
@@ -46,7 +47,7 @@
             <textarea name="description" id="description" cols="50" rows="7" placeholder="Кратко описание на събитието"><?= $data['event']->description ?></textarea>
         </div>
 
-        <input type="submit" value="Добави събитието!">
+        <input type="submit" value="Промяна">
     </form>
 </main>
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>

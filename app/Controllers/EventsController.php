@@ -6,8 +6,10 @@ use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\Comment;
 use App\Services\Auth;
+use App\Services\Validator;
 use Core\Database;
 use Core\Exceptions\NotFoundException;
+use \Exception;
 
 class EventsController
 {
@@ -19,6 +21,7 @@ class EventsController
 
     public function store()
     {
+        // TODO: check if start > end
         Auth::guard();
 
         $errors = [];
@@ -42,7 +45,7 @@ class EventsController
         if (!$eventName) {
             $errors[] = "Името на събитието е задължително поле!";
         }
-        if (strlen($eventName) > 150) {
+        if (mb_strlen($eventName) > 150) {
             $errors[] = "Името не трябва да е по-дълго от 150 символа! 
                         Използвайте полето за описание, за да дадете повече информация за събитието!";
         }
@@ -56,13 +59,13 @@ class EventsController
             $errors[] = "Крайният час на събитието е задължително поле!";
         }
 
-        if ($eventName && strlen($eventName) <= 150 && $eventDate && $eventStart && $eventEnd) {
+        if ($eventName && mb_strlen($eventName) <= 150 && $eventDate && $eventStart && $eventEnd) {
             $event = new Event([
                 'name' => $eventName,
                 'teacher_id' => $teacher,
                 'date' => $eventDate,
-                'start' => "$eventStart:15:00",
-                'end' => "$eventEnd:15:00",
+                'start' => $eventStart,
+                'end' => $eventEnd,
                 'description' => $description
             ]);
 
@@ -192,8 +195,6 @@ class EventsController
      */
     public function update($id)
     {
-        // TODO: validate
-        // TODO: check if own event
         // TODO: check if overlaps
         Auth::guard();
 
@@ -201,6 +202,24 @@ class EventsController
 
         if (is_null($event)) {
             throw new NotFoundException('Не е намерено събитие с id: ' . $id);
+        }
+
+        if ($_SESSION['teacherId'] != $event->teacher_id) {
+            throw new Exception('You can only update own events');
+        }
+
+        $v = new Validator($_POST);
+        $v->validate([
+            'name' => ['required', 'min:5', 'max:300'],
+            'description' => ['required', 'min:5'],
+            'date' => ['required', 'date'],
+            'start' => ['required', 'time'],
+            'end' => ['required', 'time'],
+        ]);
+
+        if (!$v->isValid()) {
+            $_SESSION['errors'] = $v->errors;
+            redirect("/event/$id/edit");
         }
 
         $event->update([

@@ -73,13 +73,13 @@ class AuthController
         if (!$firstName) {
             $errors[] = "Иметo е задължително поле!";
         }
-        if (strlen($firstName) > 50) {
+        if (mb_strlen($firstName) > 50) {
             $errors[] = "Името не трябва да е по-дълго от 50 символа!";
         }
         if (!$lastName) {
             $errors[] = "Фамилията е задължително поле!";
         }
-        if (strlen($lastName) > 50) {
+        if (mb_strlen($lastName) > 50) {
             $errors[] = "Фамилията не трябва да е по-дълга от 50 символа!";
         }
         if (!$email) {

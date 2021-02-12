@@ -59,11 +59,11 @@ class CommentsController
             if(!$textContent){
                 $errors[] = "Не сте въвели коментар!";
             }
-            if(!is_numeric($fn) || strlen($fn) != 5){
+            if(!is_numeric($fn) || mb_strlen($fn) != 5){
                 $errors[] = "Некоректен факултетен номер!";
             }
     
-            if($textContent && strlen($fn) == 5 && is_numeric($fn)){
+            if($textContent && mb_strlen($fn) == 5 && is_numeric($fn)){
                 echo "hello";
                 echo '<br>';
                 $comment = new Comment($textContent, $fn);
