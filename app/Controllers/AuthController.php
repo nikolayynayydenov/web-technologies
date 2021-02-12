@@ -41,6 +41,13 @@ class AuthController
 
         if (count($errors) === 0) {
             Auth::login($teacher);
+
+            if (isset($_POST['remember_me']) && $_POST['remember_me'] === 'on') {
+                Auth::rememberMe($_POST['email'], $_POST['password']);
+            } else {
+                Auth::forgetMe();
+            }
+
             $_SESSION['message'] = 'Добре дошли, ' . $_SESSION['firstName'] . ' ' . $_SESSION['lastName'];
             redirect('/dashboard');
         } else {

@@ -22,7 +22,7 @@ class EventsController
 
         $errors = [];
 
-        $conn = Database::getConnection();
+        $conn = \Core\Database::getConnection();
 
         function testInput($input)
         {

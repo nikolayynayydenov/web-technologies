@@ -47,4 +47,30 @@ class Auth
             redirect('/login');
         }
     }
+
+    /**
+     * Remember an already logged user
+     * 
+     * @param string $email
+     * @param string $password
+     */
+    public static function rememberMe($email, $password)
+    {
+        $time = time() + 2629746;
+        setcookie('email', $email, $time);
+        setcookie('password', $password, $time);
+    }
+
+    /**
+     * Forget an already logged user
+     * 
+     * @param string $email
+     * @param string $password
+     */
+    public static function forgetMe()
+    {
+        $time = time() - 1;
+        setcookie('email', '', $time);
+        setcookie('password', '', $time);
+    }
 }
