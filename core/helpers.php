@@ -126,3 +126,10 @@ function lz($value)
 {
     return sprintf("%02d", $value);
 }
+
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($str, $substr)
+    {
+        return strpos($str, $substr) === 0;
+    }
+}
