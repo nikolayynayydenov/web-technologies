@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2021 at 02:47 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.11
+-- Generation Time: Feb 13, 2021 at 02:56 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -53,14 +53,6 @@ CREATE TABLE `comments` (
   `teacher_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `content`, `event_id`, `is_visible`, `faculty_number`, `pending`, `teacher_id`) VALUES
-(1, 'Много добър урок!', 5, NULL, 81580, 1, NULL),
-(2, 'Моят коментар!', 5, NULL, 81580, 1, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -77,7 +69,7 @@ CREATE TABLE `events` (
   `teacher_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `student`
@@ -121,10 +113,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `email`, `password`, `first_name`, `last_name`) VALUES
-(1, 'Петър', '$2y$10$.8BaN/YZD4pWd7IMPuqZpObJS/tH566js8r6xq/k9l9OHOnfBtVJK', NULL, NULL),
-(12, 'todor@gmail.com', '$2y$10$.9a7t3HleAoyoLzxZv3MHuE6utL2RdDsDQ0Mz.6GID.s8sv4Y0MyO', 'Тодор', 'Тодоров'),
-(13, 'peter@abv.bg', '$2y$10$KdFLWtu2ZWA2BRZUp.ahCuZn4qWUMiKhps8xX46vm1vVDRM7Oa6Ka', 'Петър', 'Иванов'),
-(14, 'stef@abv.bg', '$2y$10$QlF3xwQYizGB1FejieYFIO8FEdvFggYeGKEqRihYr2sPBCFtxR8sC', 'Стефан', 'Стефанов');
+(15, 'wuzuhi@mailinator.com', '$2y$10$xWGn.68.yWfFbaX3AShzVORrUmTEnmHohak6UP9R7qCLWzZ6Omdnu', 'Hakeem', 'Noel');
 
 --
 -- Indexes for dumped tables
@@ -171,7 +160,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -183,7 +172,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -195,7 +184,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -205,13 +194,13 @@ ALTER TABLE `teachers`
 -- Constraints for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`);
+  ADD CONSTRAINT `FK_attendance_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `FK_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`);
+  ADD CONSTRAINT `FK_event_id_events_id` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `events`
