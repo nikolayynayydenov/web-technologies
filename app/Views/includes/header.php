@@ -16,11 +16,13 @@
 
 <body>
     <ul id="nav_ul">
-        <li class="nav_li1" id="li1"><a href="/">Начало</a></li>
+        <?php if (!App\Services\Auth::check()) : ?>
+            <li class="nav_li1" id="li1"><a href="/">Начало</a></li>
+        <?php endif ?>
 
         <?php if (App\Services\Auth::checkTeacher()) : ?>
-            <li class="nav_li1" id="li2"><a href="/event/create">Създаване на събитие</a></li>
-            <li class="nav_li1" id="li3"><a href="/dashboard">Основна страница</a></li>
+            <li class="nav_li1" id="li2"><a href="/dashboard">Основна страница</a></li>
+            <li class="nav_li1" id="li3"><a href="/event/create">Създаване на събитие</a></li>
         <?php endif ?>
 
         <?php if (App\Services\Auth::checkStudent()) : ?>
