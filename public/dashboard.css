@@ -116,14 +116,62 @@
     color:white;*/
 }
 
-.event div{
-    /* background: red; */
+/* .event div{
+    background: red;
 }
 
 .student div{
-    /* background: red; */
+    background: red;
+} */
+
+.hidden_event, .hidden_student{
+    display: none;
 }
+
 
 h3{
     color: rgb(0, 139, 245);
+    float:left;
+    display: inline-block;
+}
+.showEvents{
+    float:right;
+    display: inline-block;
+    margin: 0px 10px;
+    padding: 5px 10px;
+    background: white;
+    color: rgb(0, 139, 245);
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid rgb(0, 139, 245);
+    border-radius: 10px;
+    outline: none;
+}
+
+.showStudents{
+    float:right;
+    display: inline-block;
+    margin: 0px 10px;
+    padding: 5px 10px;
+    background: white;
+    color: rgb(0, 139, 245);
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid rgb(0, 139, 245);
+    border-radius: 10px;
+    outline: none;
+}
+
+.showEvents:hover, .showStudents:hover{
+    color: white;
+    background: rgb(0, 139, 245);
+    outline: none;
+}
+
+.event{
+    overflow: hidden;
+}
+
+.student{
+    overflow: hidden;
 }

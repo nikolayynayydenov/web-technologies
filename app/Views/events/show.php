@@ -88,7 +88,7 @@
         <?php endif; ?>
     </div>
 
-    <?php if (\App\Services\Auth::checkTeacher()) : ?>
+    <?php if (\App\Services\Auth::checkTeacher() && $data['event']->teacher_id == $_SESSION['teacherId']) : ?>
         <div id="pending_comments">
             <?php foreach ($data['comments'] as $comment) : ?>
                 <?php if ($comment->getPending() == true) : ?>
