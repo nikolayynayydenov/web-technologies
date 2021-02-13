@@ -56,7 +56,7 @@ class Student extends Model
     public function isValid()
     {
         $sql = "SELECT * FROM student WHERE faculty_number=:fn";
-        $preparedStmt = $this->getConn()->prepare($sql);
+        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         $query = [];
         try {
             $preparedStmt->execute(["fn" => $this->getFN()]);
