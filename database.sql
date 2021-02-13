@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2021 at 08:01 PM
+-- Generation Time: Feb 13, 2021 at 02:47 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -51,7 +51,15 @@ INSERT INTO `attendance` (`id`, `faculty_number`, `logged_at`, `event_id`, `thru
 (7, 24233, '2020-12-31 10:15:00', 1, 100, 'списък -  всеки се записва (на хартия) - и после р', 'Ръчна проверка'),
 (8, 5453, NULL, 1, 0, NULL, 'Самозаписване в системата(доброволно)\r\n'),
 (9, 212, NULL, 1, 0, NULL, 'Самозаписване по даден код (QR/текст) - проверка, '),
-(10, 81580, NULL, 5, 100, NULL, NULL);
+(10, 81580, NULL, 5, 100, NULL, NULL),
+(11, 1234, '2020-12-31 11:15:00', 6, 100, 'проверено от инструктор\r\n', 'save-users-list-1609407912138.txt'),
+(12, 929, '2020-12-31 10:15:00', 6, 90, 'добавен от студент-помагач\r\n', 'save-users-list-2.txt'),
+(13, 421, '2020-12-31 10:15:00', 6, 100, NULL, 'Проверени от инструктор на място'),
+(14, 2340, '2020-12-31 10:15:00', 6, 50, NULL, 'През линк за вход'),
+(15, 4524, '2020-12-31 10:15:00', 6, 100, 'направена от инструктор\r\n', 'Ръчна проверка'),
+(16, 24233, '2020-12-31 10:15:00', 6, 100, 'списък -  всеки се записва (на хартия) - и после р', 'Ръчна проверка'),
+(17, 5453, NULL, 6, 0, NULL, 'Самозаписване в системата(доброволно)\r\n'),
+(18, 212, NULL, 6, 0, NULL, 'Самозаписване по даден код (QR/текст) - проверка, ');
 
 -- --------------------------------------------------------
 
@@ -65,15 +73,17 @@ CREATE TABLE `comments` (
   `event_id` int(10) UNSIGNED NOT NULL,
   `is_visible` tinyint(4) DEFAULT NULL,
   `faculty_number` mediumint(8) UNSIGNED DEFAULT NULL,
-  `pending` tinyint(1) DEFAULT NULL
+  `pending` tinyint(1) DEFAULT NULL,
+  `teacher_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `content`, `event_id`, `is_visible`, `faculty_number`, `pending`) VALUES
-(1, 'Много добър урок!', 5, NULL, 81580, 1);
+INSERT INTO `comments` (`id`, `content`, `event_id`, `is_visible`, `faculty_number`, `pending`, `teacher_id`) VALUES
+(1, 'Много добър урок!', 5, NULL, 81580, 1, NULL),
+(2, 'Моят коментар!', 5, NULL, 81580, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -100,7 +110,8 @@ INSERT INTO `events` (`id`, `name`, `description`, `date`, `start`, `end`, `teac
 (2, 'Представяне на знания', 'Кратко описание на събитието', '2021-02-11 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 12),
 (3, 'na pesho sybitieto', 'opisanie', '2021-02-11 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13),
 (4, 'Събитие на Стефан', 'описание', '2021-02-11 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 14),
-(5, 'Второ събитие', 'това е второто събитие на Петър', '2021-02-12 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13);
+(5, 'Второ събитие', 'това е второто събитие на Петър', '2021-02-12 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13),
+(6, 'Трето събитие на Петър', 'Ранно събитие', '2021-02-13 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 13);
 
 -- --------------------------------------------------------
 
@@ -196,19 +207,19 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student`

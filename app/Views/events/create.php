@@ -17,11 +17,13 @@
 
         <div class="field" id="selectFields">
             <label for="start">Начало</label>
+            <!-- <input type="time" id="start" name="start"> -->
             <select name="start" id="start">
                 <?php require('partials/start-hours.php') ?>
             </select>
 
             <label for="end">Край</label>
+            <!-- <input type="time" id="end" name="end"> -->
             <select name="end" id="end">
                 <?php require('partials/end-hours.php') ?>
             </select>

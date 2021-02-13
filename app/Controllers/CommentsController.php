@@ -21,7 +21,6 @@ class CommentsController
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
         }
 
-        //echo 'dtasti, event id: ' . $eventId;
     }
     public function accept($eventId, $commentId){
         $sql = "UPDATE comments SET is_visible, pending VALUES(1, 0) WHERE id=:commentId";
@@ -53,20 +52,20 @@ class CommentsController
     
         if($_POST){
             $textContent = testInput($_POST['textContent']);
-            $fn = testInput($_POST['fn']);
+            //$fn = testInput($_POST['fn']);
             //$isVisible = true; //не го взимаме от форма...
     
             if(!$textContent){
                 $errors[] = "Не сте въвели коментар!";
             }
-            if(!is_numeric($fn) || mb_strlen($fn) != 5){
-                $errors[] = "Некоректен факултетен номер!";
-            }
+            // if(!is_numeric($fn) || mb_strlen($fn) != 5){
+            //     $errors[] = "Некоректен факултетен номер!";
+            // }
     
-            if($textContent && mb_strlen($fn) == 5 && is_numeric($fn)){
+            if($textContent && $_SESSION['fn']/* && mb_strlen($fn) == 5 && is_numeric($fn)*/){
                 echo "hello";
                 echo '<br>';
-                $comment = new Comment($textContent, $fn);
+                $comment = new Comment($textContent, $_SESSION['fn']);
                 $exists = $comment->comment_exists();
                 if($exists["successfullyExecuted"] == false){
                     $errors[] = "Неуспешна заявка - error message: " . $exists["errMessage"];
@@ -81,6 +80,14 @@ class CommentsController
                             $errors[] = "Неуспешна заявка за добавяне в базата данни - error message: " . $create["errMessage"];
                         }
                     }
+                }
+            }
+
+            if($textContent && !$_SESSION['fn'] && \App\Services\Auth::checkTeacher()){
+                $comment = new Comment($textContent, $_SESSION['fn']);
+                $create = $comment->createTeacherComment($eventID, $_SESSION['teacherId']);
+                if($create["successfullyExecuted"] == false){
+                    $errors[] = "Неуспешна заявка за добавяне в базата данни - error message: " . $create["errMessage"];
                 }
             }
     

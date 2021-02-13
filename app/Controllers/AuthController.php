@@ -73,6 +73,7 @@ class AuthController
                     $_SESSION["studentId"] = $student->getId();
                     // $_SESSION["first_name"] = $student->getFirstName();
                     // $_SESSION["last_name"] = $student->getLastName();
+                    //$_SESSION["studentNames"] = $student->getFirstName() . " " . $student->getLastName();
                     $_SESSION["fn"] = $student->getFN();
                 } else {
                     $errors[] = "Не съществува студент с този факултетен номер!";

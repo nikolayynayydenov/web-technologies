@@ -23,6 +23,10 @@
             <li class="nav_li1" id="li3"><a href="/dashboard">Основна страница</a></li>
         <?php endif ?>
 
+        <?php if (App\Services\Auth::checkStudent()) : ?>
+            <li class="nav_li1" id="li3"><a href="/dashboard">Основна страница</a></li>
+        <?php endif ?>
+
 
         <?php if (!App\Services\Auth::check()) : ?>
             <li class="nav_li1" id="li4"><a href="/studentsLogin">Вход за студенти</a></li>

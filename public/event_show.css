@@ -1,16 +1,16 @@
 .container{
-    width: 80%;
+    width: 100%;
 
 }
 h2{
     color: rgb(18, 76, 176);
-    text-align: center;
+    /* text-align: center; */
 }
 h4{
     color: rgb(18, 76, 176);
 }
 p{
-    text-align: center;
+    /* text-align: center; */
 }
 strong{
     color: rgb(18, 76, 176);
@@ -53,6 +53,7 @@ input[type=submit]{
     /* border: 2px solid rgb(18, 76, 176); */
     border-radius: 10px;
     outline: none;
+    margin-bottom: 20px;
 }
 input[type=submit]:hover {
     color: white;

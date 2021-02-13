@@ -20,25 +20,26 @@ class HomeController
     public function showDashboard()
     {
         Auth::guard();
-
-        $eventsWithPendingCommentsQuery = \App\Models\Comment::extractEventsWithPendingComments($_SESSION['teacherId']);
-        if (
-            $eventsWithPendingCommentsQuery["successfullyExecuted"] == true &&
-            $eventsWithPendingCommentsQuery["thereAreEvents"] == true
-        ) {
-            $eventsWithPendingComments = $eventsWithPendingCommentsQuery['eventsWithPendingComments'];
-        } else {
-            $eventsWithPendingComments = [];
-        }
-
-        $eventsWithoutPendingCommentsQuery = \App\Models\Comment::extractEventsWithoutPendingComments($_SESSION['teacherId']);
-        if (
-            $eventsWithoutPendingCommentsQuery["successfullyExecuted"] == true &&
-            $eventsWithoutPendingCommentsQuery["thereAreEvents"] == true
-        ) {
-            $eventsWithoutPendingComments = $eventsWithoutPendingCommentsQuery['eventsWithoutPendingComments'];
-        } else {
-            $eventsWithoutPendingComments = [];
+        if (\App\Services\Auth::checkTeacher()){
+            $eventsWithPendingCommentsQuery = \App\Models\Comment::extractEventsWithPendingComments($_SESSION['teacherId']);
+            if (
+                $eventsWithPendingCommentsQuery["successfullyExecuted"] == true &&
+                $eventsWithPendingCommentsQuery["thereAreEvents"] == true
+            ) {
+                $eventsWithPendingComments = $eventsWithPendingCommentsQuery['eventsWithPendingComments'];
+            } else {
+                $eventsWithPendingComments = [];
+            }
+    
+            $eventsWithoutPendingCommentsQuery = \App\Models\Comment::extractEventsWithoutPendingComments($_SESSION['teacherId']);
+            if (
+                $eventsWithoutPendingCommentsQuery["successfullyExecuted"] == true &&
+                $eventsWithoutPendingCommentsQuery["thereAreEvents"] == true
+            ) {
+                $eventsWithoutPendingComments = $eventsWithoutPendingCommentsQuery['eventsWithoutPendingComments'];
+            } else {
+                $eventsWithoutPendingComments = [];
+            }
         }
 
         $events = Auth::checkTeacher()
@@ -55,12 +56,22 @@ class HomeController
             throw new \Exception("Problem with the database!");
         }
 
-        view('dashboard', [
-            'events' => $events,
-            'eventsWithPendingComments' => $eventsWithPendingComments,
-            'eventsWithoutPendingComments' => $eventsWithoutPendingComments,
-            'students' => $students
-        ]);
+        if (\App\Services\Auth::checkTeacher()){
+            view('dashboard', [
+                'events' => $events,
+                'eventsWithPendingComments' => $eventsWithPendingComments,
+                'eventsWithoutPendingComments' => $eventsWithoutPendingComments,
+                'students' => $students
+            ]);
+        }
+        if(\App\Services\Auth::checkStudent()){
+            view('dashboard', [
+                'events' => $events,
+                'students' => $students
+            ]);
+        }
+
+        
     }
 
     public function dashboard_method()

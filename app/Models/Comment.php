@@ -14,15 +14,16 @@ class Comment extends Model
     private $fn;
     private $isVisible;
     private $pending;
+    private $teacherId;
 
    // private $conn;
 
-    public function __construct($textContent = null, $fn = null)
+    public function __construct($textContent = null/*, $fn = null*/)
     {
         $this->textContent = $textContent;
-        $this->fn = $fn;
+        //$this->fn = $fn;
         //$this->isVisible = $isVisible;
-        $this->conn = \Core\Database::getConnection();
+        //$this->conn = \Core\Database::getConnection();
     }
 
     public function getTextContent()
@@ -37,13 +38,17 @@ class Comment extends Model
     {
         return $this->isVisible;
     }
-    public function getConn()
-    {
-        return $this->conn;
-    }
+    // public function getConn()
+    // {
+    //     return $this->conn;
+    // }
     public function getPending()
     {
         return $this->pending;
+    }
+    public function getTeacherId()
+    {
+        return $this->teacherId;
     }
     public function setIsVisible($is_visible)
     {
@@ -61,12 +66,15 @@ class Comment extends Model
     {
         $this->fn = $facultyNumber;
     }
+    public function setTeacherId($teacherID){
+        $this->teacherId = $teacherID;
+    }
 
     public function comment_exists()
     {
         $query = [];
         $sql = "SELECT * FROM comments WHERE content=:textContent AND faculty_number=:fn";
-        $preparedStmt = $this->getConn()->prepare($sql);
+        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {
             $preparedStmt->execute(["textContent" => $this->getTextContent(), "fn" => $this->getFN()]);
         } catch (\PDOException $e) {
@@ -82,6 +90,27 @@ class Comment extends Model
             $query = ["successfullyExecuted" => true, "commentExists" => false];
             return $query;
         }
+    }
+
+    public function createTeacherComment($eventID, $teacherID){
+        $sql = "INSERT INTO `comments` (`content`, `event_id`, `teacher_id`, `pending`, `is_visible`) 
+                VALUE(:content, :event_id, :teacherId, :pending, :isVisible)";
+        $preparedStmt = Database::getConnection()->prepare($sql);
+        $query = [];
+        try{
+            $preparedStmt->execute([
+                "content" => $this->getTextContent(),
+                "event_id" => $eventID,
+                "teacher_id" => $teacherID,
+                "pending" => 0,
+                "is_visible" => 1
+            ]);
+            $query = ["successfullyExecuted" => true];
+        }catch(\PDOException $e){
+            $errMsg = $e->getMessage();
+            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
+        }
+        return $query;
     }
 
     public function createComment($eventID)
@@ -129,6 +158,8 @@ class Comment extends Model
         }
         
     }
+
+
     public static function extractEventsWithoutPendingComments($teacherId){
         $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0) OR (id IN (SELECT event_id FROM comments WHERE pending = 1) AND NOT(teacher_id=:teacherId))";
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
