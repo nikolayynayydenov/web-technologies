@@ -31,20 +31,12 @@ class Event extends Model
             teacher_id = :teacherId";
         $preparedStmt = $this->getConn()->prepare($sql);
 
-        try {
-            $results = $preparedStmt->execute([
-                "eventDate" => $this->date,
-                "eventStart" => $this->start,
-                "eventEnd" => $this->end,
-                "teacherId" => $_SESSION['teacherId'],
-            ]);
-
-            
-        } catch (\PDOException $e) {
-            $errMsg = $e->getMessage();
-            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
-            return $query;
-        }
+        $preparedStmt->execute([
+            "eventDate" => $this->date,
+            "eventStart" => $this->start,
+            "eventEnd" => $this->end,
+            "teacherId" => $_SESSION['teacherId'],
+        ]);
 
         $event_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
         if ($event_assoc) {
