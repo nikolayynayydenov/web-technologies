@@ -36,11 +36,13 @@
             <?php endif; ?>
 
             <!-- защо това не работи?? -->
-            <!-- <?php //if (\App\Services\Auth::checkStudent()) : ?>
+            <!-- <?php //if (\App\Services\Auth::checkStudent()) : 
+                    ?>
                 <h1 id="name">
                 <?php//$_SESSION["studentNames"] ?>
                 </h1>
-            <?php //endif; ?> -->
+            <?php //endif; 
+            ?> -->
         </div>
         <hr>
     </div>
@@ -80,63 +82,63 @@
                 <?php endforeach; ?>
             </ul>
 
-        
 
-        <h2>
-            Събития
-        </h2>
-        <ul id="eventsList">
-            <?php foreach ($data['eventsWithoutPendingComments'] as $event) : ?>
-                <li class="event">
-                    <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
-                    <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
 
-                    <h4>Списък със студенти, които са участвали</h4>
-                    <div class="hidden">
-                        <ol>
-                            <?php
-                            $sql = "SELECT * FROM student WHERE faculty_number IN 
+            <h2>
+                Събития
+            </h2>
+            <ul id="eventsList">
+                <?php foreach ($data['eventsWithoutPendingComments'] as $event) : ?>
+                    <li class="event">
+                        <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
+                        <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
+
+                        <h4>Списък със студенти, които са участвали</h4>
+                        <div class="hidden">
+                            <ol>
+                                <?php
+                                $sql = "SELECT * FROM student WHERE faculty_number IN 
                                     (SELECT faculty_number FROM attendance WHERE event_id=:eventId)";
-                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                            $preparedStmt->execute(['eventId' => $event['id']]);
-                            $studentsWhoParticipated = $preparedStmt->fetchAll();
-                            if ($studentsWhoParticipated === false) {
-                                throw new \Exception();
-                            }
-                            ?>
-                            <?php foreach ($studentsWhoParticipated as $student) : ?>
-                                <li>
-                                    <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
-                                        <?= $student['faculty_number'] ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ol>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-            
-            <!-- това са всички събития, а ние искаме да разделим, pending от не-pending -->
-            <?php foreach ($data['events'] as $event) :  ?>
-                <li class="event">
-                    <h3><a href="/event/<?= $event->id ?>" class="link"><?= $event->name ?></a></h3>
+                                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+                                $preparedStmt->execute(['eventId' => $event['id']]);
+                                $studentsWhoParticipated = $preparedStmt->fetchAll();
+                                if ($studentsWhoParticipated === false) {
+                                    throw new \Exception();
+                                }
+                                ?>
+                                <?php foreach ($studentsWhoParticipated as $student) : ?>
+                                    <li>
+                                        <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
+                                            <?= $student['faculty_number'] ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ol>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
 
-                    <?= $event->date . ', ' . $event->start . ' - ' . $event->end ?>
-                    <h4>Списък със студенти, които са участвали</h4>
-                    <div class="hidden">
-                        <ol>
-                            <?php foreach ($event->attendances as $attendance) : ?>
-                                <li>
-                                    <a href="/attendance?fn=<?= $attendance->faculty_number ?>" class="link">
-                                        <?= $attendance->faculty_number ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ol>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+                <!-- това са всички събития, а ние искаме да разделим, pending от не-pending -->
+                <?php foreach ($data['events'] as $event) :  ?>
+                    <li class="event">
+                        <h3><a href="/event/<?= $event->id ?>" class="link"><?= $event->name ?></a></h3>
+
+                        <?= $event->date . ', ' . $event->start . ' - ' . $event->end ?>
+                        <h4>Списък със студенти, които са участвали</h4>
+                        <div class="hidden">
+                            <ol>
+                                <?php foreach ($event->attendances as $attendance) : ?>
+                                    <li>
+                                        <a href="/attendance?fn=<?= $attendance->faculty_number ?>" class="link">
+                                            <?= $attendance->faculty_number ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ol>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
 
         <?php endif; ?>
 
@@ -145,11 +147,11 @@
             <h2>Събитията, в които съм участвал</h2>
             <ul id="eventsList">
                 <?php
-                $sql="SELECT * FROM events WHERE id IN (SELECT event_id FROM attendance WHERE faculty_number=:fn)";
-                $preparedStmt=\Core\Database::getConnection()->prepare($sql);
+                $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM attendance WHERE faculty_number=:fn)";
+                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
                 $preparedStmt->execute(["fn" => $_SESSION['fn']]);
                 $eventsOfStudent = $preparedStmt->fetchAll();
-                if($eventsOfStudent===false){
+                if ($eventsOfStudent === false) {
                     throw new \Exception();
                 }
                 ?>
@@ -181,17 +183,17 @@
                             </ol>
                         </div>
                     </li>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </ul>
 
             <h2>Всички останали събития</h2>
             <ul>
                 <?php
-                $sql="SELECT * FROM events WHERE id IN (SELECT event_id FROM attendance WHERE NOT (faculty_number=:fn))";
-                $preparedStmt=\Core\Database::getConnection()->prepare($sql);
+                $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM attendance WHERE NOT (faculty_number=:fn))";
+                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
                 $preparedStmt->execute(["fn" => $_SESSION['fn']]);
                 $eventsOfStudent = $preparedStmt->fetchAll();
-                if($eventsOfStudent===false){
+                if ($eventsOfStudent === false) {
                     throw new \Exception();
                 }
                 ?>
@@ -223,7 +225,7 @@
                             </ol>
                         </div>
                     </li>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </ul>
         <?php endif; ?>
 
@@ -242,32 +244,32 @@
                         echo $student['first_name'] . ' ';
                         echo $student['last_name'];
                         ?>
-                        </h3>
-                        <h4>Списък със събития, в които е участвал</h4>
-                            <div class="hidden">
-                                <ol>
-                                    <?php
-                                    $sql = "SELECT * FROM events WHERE id IN 
+                    </h3>
+                    <h4>Списък със събития, в които е участвал</h4>
+                    <div class="hidden">
+                        <ol>
+                            <?php
+                            $sql = "SELECT * FROM events WHERE id IN 
                                             (SELECT event_id FROM attendance WHERE faculty_number=:fn)";
-                                    $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                                    try {
-                                        $preparedStmt->execute(["fn" => $student['faculty_number']]);
-                                    } catch (\PDOException $e) {
-                                        $errMsg = $e->getMessage();
-                                    }
-                                    $eventsForStudent = $preparedStmt->fetchAll();
-                                    if ($eventsForStudent === false) {
-                                        throw new \Exception();
-                                    }
-                                    ?>
-                                    <?php foreach ($eventsForStudent as $event) : ?>
-                                        <li>
-                                            <a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a>
-                                            <?php echo $event['name'] . " " . $event['date'] . " " . $event['start'] . "-" . $event['end']; ?>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ol>
-                            </div>
+                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+                            try {
+                                $preparedStmt->execute(["fn" => $student['faculty_number']]);
+                            } catch (\PDOException $e) {
+                                $errMsg = $e->getMessage();
+                            }
+                            $eventsForStudent = $preparedStmt->fetchAll();
+                            if ($eventsForStudent === false) {
+                                throw new \Exception();
+                            }
+                            ?>
+                            <?php foreach ($eventsForStudent as $event) : ?>
+                                <li>
+                                    <a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a>
+                                    <?php echo $event['name'] . " " . $event['date'] . " " . $event['start'] . "-" . $event['end']; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ol>
+                    </div>
                 </li>
             <?php endforeach; ?>
         </ol>

@@ -101,9 +101,9 @@ class Comment extends Model
             $preparedStmt->execute([
                 "content" => $this->getTextContent(),
                 "event_id" => $eventID,
-                "teacher_id" => $teacherID,
+                "teacherId" => $teacherID,
                 "pending" => 0,
-                "is_visible" => 1
+                "isVisible" => 1
             ]);
             $query = ["successfullyExecuted" => true];
         }catch(\PDOException $e){

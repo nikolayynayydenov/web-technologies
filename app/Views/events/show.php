@@ -115,28 +115,28 @@
             "eventID" => $data['event']->id
         ]);
         $visibleComments = $preparedStmt->fetchAll();
-        if($visibleComments === false){
+        if ($visibleComments === false) {
             throw new \Exception();
         }
         ?>
         <?php foreach ($visibleComments as $comment) : ?>
             <?php if ($comment['is_visible'] == true) : ?>
                 <div class="visibleComments">
-                    <?php if ($_SESSION['fn']) : ?>
+                    <?php if (\App\Services\Auth::checkStudent()) : ?>
                         <h4><?= $comment['fn'] ?></h4>
                     <?php endif; ?>
                     <?php if (App\Services\Auth::checkTeacher()) : ?>
-                        <?php $sql="SELECT first_name, last_name FROM teachers WHERE id=:teacherId";
+                        <?php $sql = "SELECT first_name, last_name FROM teachers WHERE id=:teacherId";
                         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                        $preparedStmt->execute(["teacherId" => $comment['teacherId']]);
-                        $names=$preparedStmt->fetchAll();
-                        if($names===false){
+                        $preparedStmt->execute(["teacherId" => $comment['teacher_id']]);
+                        $names = $preparedStmt->fetchAll();
+                        if ($names === false) {
                             throw new \Exception();
                         }
                         ?>
-                        <h4><?=$names?></h4>
+                        <h4><?= $names[0]['first_name'] . ' ' . $names[0]['last_name'] ?></h4>
                     <?php endif; ?>
-                    <p><?= $comment['textContent'] ?></p>
+                    <p><?= $comment['content'] ?></p>
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>

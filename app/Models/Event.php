@@ -23,18 +23,23 @@ class Event extends Model
     public function eventOverlapsWithAnotherEvent()
     {
         $query = [];
-        $sql = "SELECT * FROM events WHERE date=:eventDate AND 
-        ((start <= :eventStart AND end > :eventStart) OR (start >= :eventStart AND start < :eventEnd))";
+        $sql = "SELECT * FROM `events` 
+            WHERE date = :eventDate AND
+            (start > :eventStart && start < :eventEnd OR
+            end > :eventStart && end < :eventEnd OR
+            start <= :eventStart && end >= :eventEnd) AND
+            teacher_id = :teacherId";
         $preparedStmt = $this->getConn()->prepare($sql);
 
         try {
-            $preparedStmt->execute([
+            $results = $preparedStmt->execute([
                 "eventDate" => $this->date,
                 "eventStart" => $this->start,
-                "eventEnd" => $this->end
+                "eventEnd" => $this->end,
+                "teacherId" => $_SESSION['teacherId'],
             ]);
 
-            //$query = ["sucessfullyExecuted" => true];
+            
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
@@ -120,7 +125,7 @@ class Event extends Model
 
         return $results;
     }
-    
+
     /**
      * @param array $columns  
      * @return array
