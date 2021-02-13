@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Comment;
 use App\Models\Teacher;
 use App\Services\Auth;
+use Core\Database;
 
 class CommentsController
 {
@@ -44,14 +45,17 @@ class CommentsController
 
         $errors = [];
 
-        $conn = \Core\Database::getConnection();
-
         function testInput($input)
         {
             $input = trim($input);
             $input = htmlspecialchars($input);
             $input = stripslashes($input);
             return $input;
+        }
+
+        if (!Auth::check()) {
+            $_SESSION["message"] = "Трябва да влезете в системата, за да пишете коментари";
+            redirect('/studentsLogin');
         }
 
         if ($_POST) {
@@ -91,7 +95,7 @@ class CommentsController
                 if ($create["successfullyExecuted"] == false) {
                     $errors[] = "Неуспешна заявка за добавяне в базата данни - error message: " . $create["errMessage"];
                 }
-            }
+            }           
 
             if ($errors) {
                 foreach ($errors as $error) {
