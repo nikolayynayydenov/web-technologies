@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `attendance` (
   `id` int(10) UNSIGNED NOT NULL,
   `faculty_number` mediumint(8) UNSIGNED NOT NULL,
-  `logged_at` datetime DEFAULT NULL,
+  `logged_at` time DEFAULT NULL,
   `event_id` int(10) UNSIGNED NOT NULL,
   `thrust` tinyint(3) UNSIGNED DEFAULT NULL,
   `check_description` varchar(50) DEFAULT NULL,
