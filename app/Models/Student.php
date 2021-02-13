@@ -17,6 +17,7 @@ class Student extends Model
 
     public function __construct($fn = null)
     {
+        parent::__construct();
         $this->faculty_number = $fn;
     }
     public function getId()

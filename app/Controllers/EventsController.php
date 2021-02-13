@@ -130,7 +130,7 @@ class EventsController
      */
     public function edit($id)
     {
-        Auth::guard();
+        Auth::onlyTeacher();
 
         $event = Event::getById($id);
 

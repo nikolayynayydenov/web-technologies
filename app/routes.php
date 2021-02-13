@@ -41,8 +41,8 @@ $router->get('/dashboard', 'HomeController@showDashboard');
 $router->post('/dashboard', 'HomeController@dashboard_method');
 
 //Comments
-$router->post('/event/{id}/delete-comment/{commentId}', 'CommentsController@delete'); //delete
-$router->post('/event/{id}/accept-comment/{commentId}', 'CommentsController@accept'); //accept
+$router->patch('/event/{id}/delete-comment/{commentId}', 'CommentsController@delete'); //delete
+$router->patch('/event/{id}/accept-comment/{commentId}', 'CommentsController@accept'); //accept
 $router->post('/event/{id}/comment', 'CommentsController@enterCommentIntoDB');
 
 $router->fallback();

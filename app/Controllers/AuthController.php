@@ -57,7 +57,6 @@ class AuthController
 
     public function studentsLogin()
     {
-        session_start();
         $errors = [];
 
         $fn = isset($_POST["fn"]) ? testInput($_POST["fn"]) : "";

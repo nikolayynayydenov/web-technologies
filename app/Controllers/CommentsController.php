@@ -11,33 +11,29 @@ class CommentsController
 {
     public function delete($eventId, $commentId)
     {
-        $sql = "UPDATE comments SET is_visible, pending VALUES(0, 0) WHERE id=:commentId";
-        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-        $query = [];
-        try {
-            $preparedStmt->execute();
-            $query = ["successfullyExecuted" => true];
-            $_SESSION["message"] = "succesfully deleted comment with id: " . $commentId;
-            redirect("/event/$eventId");
-        } catch (\PDOException $e) {
-            $errMsg  = $e->getMessage();
-            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
-        }
+        $sql = "UPDATE comments SET is_visible = 0, pending = 0 WHERE id = :commentId;";
+
+        $preparedStmt = Database::getConnection()->prepare($sql);
+
+        $preparedStmt->execute([
+            'commentId' => $commentId
+        ]);
+
+        $_SESSION["message"] = 'Коментатър е изтрит успешно!';
+        redirect("/event/$eventId");
     }
     public function accept($eventId, $commentId)
     {
-        $sql = "UPDATE comments SET is_visible, pending VALUES(1, 0) WHERE id=:commentId";
-        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-        $query = [];
-        try {
-            $preparedStmt->execute();
-            $query = ["successfullyExecuted" => true];
-            $_SESSION["message"] = "succesfully accepted comment with id: " . $commentId;
-            redirect("/event/$eventId");
-        } catch (\PDOException $e) {
-            $errMsg  = $e->getMessage();
-            $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
-        }
+        $sql = "UPDATE comments SET is_visible = 1, pending = 0 WHERE id = :commentId;";
+
+        $preparedStmt = Database::getConnection()->prepare($sql);
+
+        $preparedStmt->execute([
+            'commentId' => $commentId
+        ]);
+
+        $_SESSION["message"] = 'Коментатър е приет успешно!';
+        redirect("/event/$eventId");
     }
 
     public function enterCommentIntoDB($eventID)
@@ -95,7 +91,7 @@ class CommentsController
                 if ($create["successfullyExecuted"] == false) {
                     $errors[] = "Неуспешна заявка за добавяне в базата данни - error message: " . $create["errMessage"];
                 }
-            }           
+            }
 
             if ($errors) {
                 foreach ($errors as $error) {
@@ -104,7 +100,9 @@ class CommentsController
                 }
                 //echo "<a href='register.php'>Кликни тук, за да се върнеш към формата</a>";
             } else {
-                $_SESSION["message"] = "Коментарът е добавен успешно!";
+                $_SESSION["message"] = Auth::checkTeacher()
+                    ? "Коментарът е добавен успешно!"
+                    : "Коментарът е добавен успешно! Той ще бъде видим, след като бъде одобрен от преподавател.";
                 redirect('/event/' . $eventID);
                 //echo "<a href='register.php'>Кликни тук, за да се върнеш към формата</a>";
             }

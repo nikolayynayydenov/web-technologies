@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\Event;
+use App\Models\Comment;
 use App\Services\Auth;
+use Core\Database;
 
 class HomeController
 {
@@ -20,8 +22,9 @@ class HomeController
     public function showDashboard()
     {
         Auth::guard();
-        if (\App\Services\Auth::checkTeacher()){
-            $eventsWithPendingCommentsQuery = \App\Models\Comment::extractEventsWithPendingComments($_SESSION['teacherId']);
+
+        if (Auth::checkTeacher()) {
+            $eventsWithPendingCommentsQuery = Comment::extractEventsWithPendingComments($_SESSION['teacherId']);
             if (
                 $eventsWithPendingCommentsQuery["successfullyExecuted"] == true &&
                 $eventsWithPendingCommentsQuery["thereAreEvents"] == true
@@ -30,8 +33,8 @@ class HomeController
             } else {
                 $eventsWithPendingComments = [];
             }
-    
-            $eventsWithoutPendingCommentsQuery = \App\Models\Comment::extractEventsWithoutPendingComments($_SESSION['teacherId']);
+
+            $eventsWithoutPendingCommentsQuery = Comment::extractEventsWithoutPendingComments($_SESSION['teacherId']);
             if (
                 $eventsWithoutPendingCommentsQuery["successfullyExecuted"] == true &&
                 $eventsWithoutPendingCommentsQuery["thereAreEvents"] == true
@@ -49,14 +52,14 @@ class HomeController
             : [];
 
         $sql = "SELECT * FROM student";
-        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+        $preparedStmt = Database::getConnection()->prepare($sql);
         $preparedStmt->execute();
         $students = $preparedStmt->fetchAll();
         if ($students === false) {
             throw new \Exception("Problem with the database!");
         }
 
-        if (\App\Services\Auth::checkTeacher()){
+        if (Auth::checkTeacher()) {
             view('dashboard', [
                 'events' => $events,
                 'eventsWithPendingComments' => $eventsWithPendingComments,
@@ -64,14 +67,12 @@ class HomeController
                 'students' => $students
             ]);
         }
-        if(\App\Services\Auth::checkStudent()){
+        if (Auth::checkStudent()) {
             view('dashboard', [
                 'events' => $events,
                 'students' => $students
             ]);
         }
-
-        
     }
 
     public function dashboard_method()

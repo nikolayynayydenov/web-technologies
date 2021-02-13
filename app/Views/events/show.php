@@ -90,19 +90,40 @@
 
     <?php if (\App\Services\Auth::checkTeacher()) : ?>
         <div id="pending_comments">
-            <?php foreach ($data['comments'] as $comment) : ?>
-                <?php if ($comment->getPending() == true) : ?>
-                    <div class="pendingComments">
-                        <h5><?= $comment->getFN() ?></h5>
-                        <p><?= $comment->getTextContent() ?></p>
-                        <button class="btn_accept">Приеми</button>
-                        <button class="btn_delete">Изтрий</button>
-                    </div>
-                    <form action="" method="">
-                        <input type="hidden" value="<?= $comment->id ?>">
-                    </form>
-                <?php endif; ?>
-            <?php endforeach; ?>
+
+            <?php
+            if (count($data['comments']) > 0) {
+                echo '<h4>Коментари</h4>';
+            }
+
+            echo '<ul>';
+
+            foreach ($data['comments'] as $comment) :
+                if ($comment->pending) :
+            ?>
+                    <li class="list-item">
+                        <div class="pendingComments">
+                            <h5><?= $comment->faculty_number ?></h5>
+                            <p><?= $comment->content ?></p>
+                            <form id="accept-<?= $comment->id ?>" action="/event/<?= $data['event']->id ?>/accept-comment/<?= $comment->id ?>" method="POST">
+                                <input type="hidden" name="_method" value="PATCH">
+                            </form>
+
+                            <form id="delete-<?= $comment->id ?>" action="/event/<?= $data['event']->id ?>/delete-comment/<?= $comment->id ?>" method="POST">
+                                <input type="hidden" name="_method" value="PATCH">
+                            </form>
+                            <button form="accept-<?= $comment->id ?>" class="btn btn-info" type="submit">Приеми</button>
+                            <button form="delete-<?= $comment->id ?>" class="btn btn-danger" type="submit">Изтрий</button>
+                        </div>
+                        <form action="" method="">
+                            <input type="hidden" value="<?= $comment->id ?>">
+                        </form>
+                    </li>
+            <?php
+                endif;
+            endforeach;
+            echo '</ul>';
+            ?>
         </div>
     <?php endif; ?>
 
@@ -122,10 +143,9 @@
         <?php foreach ($visibleComments as $comment) : ?>
             <?php if ($comment['is_visible'] == true) : ?>
                 <div class="visibleComments">
-                    <?php if (\App\Services\Auth::checkStudent()) : ?>
-                        <h4><?= $comment['fn'] ?></h4>
-                    <?php endif; ?>
-                    <?php if (App\Services\Auth::checkTeacher()) : ?>
+                    <?php if (isset($comment['faculty_number'])) : ?>
+                        <h4><?= $comment['faculty_number'] ?></h4>
+                    <?php elseif ($comment['teacher_id']) : ?>
                         <?php $sql = "SELECT first_name, last_name FROM teachers WHERE id=:teacherId";
                         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
                         $preparedStmt->execute(["teacherId" => $comment['teacher_id']]);
@@ -144,6 +164,7 @@
 
 
     <div id="commentsForm">
+        </br>
         <h4>Напишете коментар:</h4>
         <form action="/event/<?php echo $data['event']->id; ?>/comment" method="POST">
             <div>

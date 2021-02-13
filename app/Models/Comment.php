@@ -10,18 +10,18 @@ class Comment extends Model
 {
     protected static $table = 'comments';
 
-    private $textContent;
+    // private $textContent;
     private $fn;
-    private $isVisible;
-    private $pending;
-    private $teacherId;
+    // private $isVisible;
+    // private $pending;
+    // private $teacherId;
 
    // private $conn;
 
-    public function __construct($textContent = null/*, $fn = null*/)
+    public function __construct($textContent = null, $fn = null)
     {
         $this->textContent = $textContent;
-        //$this->fn = $fn;
+        $this->fn = $fn;
         //$this->isVisible = $isVisible;
         //$this->conn = \Core\Database::getConnection();
     }
@@ -74,7 +74,7 @@ class Comment extends Model
     {
         $query = [];
         $sql = "SELECT * FROM comments WHERE content=:textContent AND faculty_number=:fn";
-        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+        $preparedStmt = Database::getConnection()->prepare($sql);
         try {
             $preparedStmt->execute(["textContent" => $this->getTextContent(), "fn" => $this->getFN()]);
         } catch (\PDOException $e) {
