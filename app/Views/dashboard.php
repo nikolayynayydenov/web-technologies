@@ -57,19 +57,23 @@
                     <li class="event">
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
-                        <button class="showStudents">Покажи студенти</button>
-                        <div class="hidden_event">
-                        <h4>Списък със студенти, които са участвали</h4>
-                            <ol>
-                                <?php
-                                $sql = "SELECT * FROM student WHERE faculty_number IN (SELECT faculty_number FROM attendance WHERE event_id=:eventId)";
-                                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                                $preparedStmt->execute(['eventId' => $event['id']]);
-                                $studentsWhoParticipated = $preparedStmt->fetchAll();
-                                if ($studentsWhoParticipated === false) {
-                                    throw new \Exception();
-                                }
-                                ?>
+                        <button class="showStudents" data-show="">Покажи студенти</button>
+                        <div class="hidden_students"></br>
+                            </br>
+                            <!-- <h4>Списък със студенти, които са участвали</h4> -->
+                            <?php
+                            $sql = "SELECT * FROM student WHERE faculty_number IN (SELECT faculty_number FROM attendance WHERE event_id=:eventId)";
+                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+                            $preparedStmt->execute(['eventId' => $event['id']]);
+                            $studentsWhoParticipated = $preparedStmt->fetchAll();
+                            if ($studentsWhoParticipated === false) {
+                                throw new \Exception();
+                            }
+                            ?>
+                            <?php if (count($studentsWhoParticipated) === 0) : ?>
+                                За това събития няма записани присъствия
+                            <?php endif; ?>
+                            <ul>
                                 <?php foreach ($studentsWhoParticipated as $student) : ?>
                                     <li>
                                         <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
@@ -77,7 +81,7 @@
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -93,21 +97,26 @@
                     <li class="event">
                         <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
-                        <button class="showStudents">Покажи студенти</button>
+                        <button class="showStudents" data-show="">Покажи студенти</button>
 
-                        <div class="hidden_event">
-                        <h4>Списък със студенти, които са участвали</h4>
-                            <ol>
-                                <?php
-                                $sql = "SELECT * FROM student WHERE faculty_number IN 
+                        <div class="hidden_students"></br>
+                            </br>
+                            <!-- <h4>Списък със студенти, които са участвали</h4> -->
+
+                            <?php
+                            $sql = "SELECT * FROM student WHERE faculty_number IN 
                                     (SELECT faculty_number FROM attendance WHERE event_id=:eventId)";
-                                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                                $preparedStmt->execute(['eventId' => $event['id']]);
-                                $studentsWhoParticipated = $preparedStmt->fetchAll();
-                                if ($studentsWhoParticipated === false) {
-                                    throw new \Exception();
-                                }
-                                ?>
+                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+                            $preparedStmt->execute(['eventId' => $event['id']]);
+                            $studentsWhoParticipated = $preparedStmt->fetchAll();
+                            if ($studentsWhoParticipated === false) {
+                                throw new \Exception();
+                            }
+                            ?>
+                            <?php if (count($studentsWhoParticipated) === 0) : ?>
+                                За това събития няма записани присъствия
+                            <?php endif; ?>
+                            <ul>
                                 <?php foreach ($studentsWhoParticipated as $student) : ?>
                                     <li>
                                         <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
@@ -115,7 +124,7 @@
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -125,11 +134,15 @@
                     <li class="event">
                         <h3><a href="/event/<?= $event->id ?>" class="link"><?= $event->name ?></a></h3>
                         <?= $event->date . ', ' . $event->start . ' - ' . $event->end ?>
-                        <button class="showStudents">Покажи студенти</button>
+                        <button class="showStudents" data-show="">Покажи студенти</button>
 
-                        <div class="hidden_event">
-                        <h4>Списък със студенти, които са участвали</h4>
-                            <ol>
+                        <div class="hidden_students"></br>
+                            </br>
+                            <!-- <h4>Списък със студенти, които са участвали</h4> -->
+                            <?php if (count($event->attendances) === 0) : ?>
+                                За това събития няма записани присъствия
+                            <?php endif; ?>
+                            <ul>
                                 <?php foreach ($event->attendances as $attendance) : ?>
                                     <li>
                                         <a href="/attendance?fn=<?= $attendance->faculty_number ?>" class="link">
@@ -137,7 +150,7 @@
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -162,21 +175,26 @@
                     <li class="event">
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
                         <?= $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
-                        <button class="showStudents">Покажи студенти</button>
+                        <button class="showStudents" data-show="">Покажи студенти</button>
 
-                        <div class="hidden_event">
-                        <h4>Списък със студенти, които са участвали</h4>
-                            <ol>
-                                <?php
-                                $sql = "SELECT * FROM student WHERE faculty_number IN 
+                        <div class="hidden_students"></br>
+                            </br>
+                            <!-- <h4>Списък със студенти, които са участвали</h4> -->
+
+                            <?php
+                            $sql = "SELECT * FROM student WHERE faculty_number IN 
                                         (SELECT faculty_number FROM attendance WHERE event_id=:eventId)";
-                                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                                $preparedStmt->execute(['eventId' => $event['id']]);
-                                $studentsWhoParticipated = $preparedStmt->fetchAll();
-                                if ($studentsWhoParticipated === false) {
-                                    throw new \Exception();
-                                }
-                                ?>
+                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+                            $preparedStmt->execute(['eventId' => $event['id']]);
+                            $studentsWhoParticipated = $preparedStmt->fetchAll();
+                            if ($studentsWhoParticipated === false) {
+                                throw new \Exception();
+                            }
+                            ?>
+                            <?php if (count($studentsWhoParticipated) === 0) : ?>
+                                За това събития няма записани присъствия
+                            <?php endif; ?>
+                            <ul>
                                 <?php foreach ($studentsWhoParticipated as $student) : ?>
                                     <li>
                                         <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
@@ -184,7 +202,7 @@
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -205,22 +223,25 @@
                     <li class="event">
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
                         <?= $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
-                        <button class="showStudents">Покажи студенти</button>
+                        <button class="showStudents" data-show="">Покажи студенти</button>
 
-                        
-                        <div class="hidden_event">
-                        <h4>Списък със студенти, които са участвали</h4>
-                            <ol>
-                                <?php
-                                $sql = "SELECT * FROM student WHERE faculty_number IN 
+                        <div class="hidden_students"></br>
+                            </br>
+                            <!-- <h4>Списък със студенти, които са участвали</h4> -->
+                            <?php
+                            $sql = "SELECT * FROM student WHERE faculty_number IN 
                                         (SELECT faculty_number FROM attendance WHERE event_id=:eventId)";
-                                $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                                $preparedStmt->execute(['eventId' => $event['id']]);
-                                $studentsWhoParticipated = $preparedStmt->fetchAll();
-                                if ($studentsWhoParticipated === false) {
-                                    throw new \Exception();
-                                }
-                                ?>
+                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+                            $preparedStmt->execute(['eventId' => $event['id']]);
+                            $studentsWhoParticipated = $preparedStmt->fetchAll();
+                            if ($studentsWhoParticipated === false) {
+                                throw new \Exception();
+                            }
+                            ?>
+                            <?php if (count($eventsForStudent) === 0) : ?>
+                                Този студент не участва в никакви събития
+                            <?php endif; ?>
+                            <ul>
                                 <?php foreach ($studentsWhoParticipated as $student) : ?>
                                     <li>
                                         <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
@@ -228,7 +249,7 @@
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -251,31 +272,34 @@
                         echo $student['last_name'];
                         ?>
                     </h3>
-                    <button class="showEvents">Покажи събития</button>
-                    <div class="hidden_student">
-                    <h4>Списък със събития, в които е участвал</h4>
-                        <ol>
-                            <?php
-                            $sql = "SELECT * FROM events WHERE id IN 
+                    <button class="showEvents" data-show="">Покажи събития</button>
+                    <div class="hidden_events">
+                        </br>
+                        </br>
+                        <!-- <h4>Списък със събития, в които е участвал</h4> -->
+                        <?php
+                        $sql = "SELECT * FROM events WHERE id IN 
                                             (SELECT event_id FROM attendance WHERE faculty_number=:fn)";
-                            $preparedStmt = \Core\Database::getConnection()->prepare($sql);
-                            try {
-                                $preparedStmt->execute(["fn" => $student['faculty_number']]);
-                            } catch (\PDOException $e) {
-                                $errMsg = $e->getMessage();
-                            }
-                            $eventsForStudent = $preparedStmt->fetchAll();
-                            if ($eventsForStudent === false) {
-                                throw new \Exception();
-                            }
-                            ?>
+                        $preparedStmt = \Core\Database::getConnection()->prepare($sql);
+
+                        $preparedStmt->execute(["fn" => $student['faculty_number']]);
+
+                        $eventsForStudent = $preparedStmt->fetchAll();
+                        if ($eventsForStudent === false) {
+                            throw new \Exception();
+                        }
+                        ?>
+                        <?php if (count($eventsForStudent) === 0) : ?>
+                            Този студент не участва в никакви събития
+                        <?php endif; ?>
+                        <ul>
                             <?php foreach ($eventsForStudent as $event) : ?>
                                 <li>
                                     <a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a>
                                     <?php echo $event['name'] . " " . $event['date'] . " " . $event['start'] . "-" . $event['end']; ?>
                                 </li>
                             <?php endforeach; ?>
-                        </ol>
+                        </ul>
                     </div>
                 </li>
             <?php endforeach; ?>
@@ -285,54 +309,8 @@
 
 </main>
 
-<script>
-    (function() {
-    var buttonsStudents = document.getElementsByClassName('showEvents');
-    for(var i=0; i<buttonsStudents.length; i++){
-        buttonsStudents[i].addEventListener('click', toggleStatisticsStudents(i, buttonsStudents[i]));
-        console.log(buttonsStudents[i]);
-    }
-    var buttonsEvents = document.getElementsByClassName('showStudents');
-    for(var i=0; i<buttonsEvents.length; i++){
-        buttonsEvents[i].addEventListener('click', toggleStatisticsEvents(i, buttonsEvents[i]));
-        console.log(buttonsEvents[i]);
-        console.log(i);
-    }
 
-})();
-
-
-function toggleStatisticsStudents(i, button) {
-    var eventsForStudent = document.getElementsByClassName('.hidden_student');
-    console.log(eventsForStudent);
-    var count=0;
-    if(count%2==0){
-        eventsForStudent[i].style.display="block";
-        button.innerHTML="Скрий събития";
-
-    }
-    if(count%2==1){
-        eventsForStudent[i].style.display="none";
-        button.innerHTML = "Покажи събития";
-    }
-}
-
-function toggleStatisticsEvents(i, button){
-    var studentsForEvent = document.getElementsByClassName('.hidden_event');
-    console.log(studentsForEvent);
-    var count=0;
-    if(count%2==0){
-        studentsForEvent[i].style.display="block";
-        button.innerHTML="Скрий студенти";
-    }
-    if(count%2==1){
-        studentsForEvent[i].style.display="none";
-        button.innerHTML="Покажи студенти";
-    }
-}
-</script>
-
-<!-- <script src="/dashboard.js"></script> -->
+<script src="/dashboard.js"></script>
 
 </body>
 

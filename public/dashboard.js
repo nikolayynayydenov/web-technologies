@@ -1,44 +1,42 @@
-(function() {
-    var buttonsStudents = document.getElementsByClassName('showEvents');
-    for(var i=0; i<buttonsStudents.length; i++){
-        buttonsStudents[i].addEventListener('click', toggleStatisticsStudents(i, buttonsStudents[i]));
-        console.log(buttonsStudents[i]);
-    }
-    var buttonsEvents = document.getElementsByClassName('showStudents');
-    for(var i=0; i<buttonsEvents.length; i++){
-        buttonsEvents[i].addEventListener('click', toggleStatisticsEvents(i, buttonsEvents[i]));
-        console.log(buttonsEvents[i]);
-        console.log(i);
-    }
+var buttonsStudents = document.getElementsByClassName('showEvents');
+for (var i = 0; i < buttonsStudents.length; i++) {
+    buttonsStudents[i].addEventListener('click', toggleStatisticsStudents);
+}
 
-})();
+var buttonsEvents = document.getElementsByClassName('showStudents');
+for (var i = 0; i < buttonsEvents.length; i++) {
+    buttonsEvents[i].addEventListener('click', toggleStatisticsEvents);
+}
 
 
-function toggleStatisticsStudents(i, button) {
-    var eventsForStudent = document.getElementsByClassName('.hidden_student');
-    console.log(eventsForStudent);
-    var count=0;
-    if(count%2==0){
-        eventsForStudent[i].style.display="block";
-        button.innerHTML="Скрий събития";
+function toggleStatisticsStudents(event) {
+    let btn = event.target
+    let show = Boolean(btn.getAttribute('data-show'));
+    let events = btn.parentElement.getElementsByClassName('hidden_events')[0];
 
-    }
-    if(count%2==1){
-        eventsForStudent[i].style.display="none";
-        button.innerHTML = "Покажи събития";
+    if (show) {
+        events.style.display = "none";
+        btn.innerHTML = "Покажи събития";
+        btn.setAttribute('data-show', '');
+    } else {
+        events.style.display = "block";
+        btn.innerHTML = "Скрий събития";
+        btn.setAttribute('data-show', '1');
     }
 }
 
-function toggleStatisticsEvents(i, button){
-    var studentsForEvent = document.getElementsByClassName('.hidden_event');
-    console.log(studentsForEvent);
-    var count=0;
-    if(count%2==0){
-        studentsForEvent[i].style.display="block";
-        button.innerHTML="Скрий студенти";
-    }
-    if(count%2==1){
-        studentsForEvent[i].style.display="none";
-        button.innerHTML="Покажи студенти";
+function toggleStatisticsEvents(event) {
+    let btn = event.target
+    let show = Boolean(btn.getAttribute('data-show'));
+    let events = btn.parentElement.getElementsByClassName('hidden_students')[0];
+
+    if (show) {
+        events.style.display = "none";
+        btn.innerHTML = "Покажи студенти";
+        btn.setAttribute('data-show', '');
+    } else {
+        events.style.display = "block";
+        btn.innerHTML = "Скрий студенти";
+        btn.setAttribute('data-show', '1');
     }
 }
