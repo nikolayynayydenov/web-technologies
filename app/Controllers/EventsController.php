@@ -59,6 +59,10 @@ class EventsController
             $errors[] = "Крайният час на събитието е задължително поле!";
         }
 
+        if (strtotime($eventStart) > strtotime($eventEnd)) {
+            $errors[] = "Началният час трябва да е преди крайният";
+        }
+
         if ($eventName && mb_strlen($eventName) <= 150 && $eventDate && $eventStart && $eventEnd) {
             $event = new Event([
                 'name' => $eventName,
@@ -213,7 +217,7 @@ class EventsController
             'name' => ['required', 'min:5', 'max:300'],
             'description' => ['required', 'min:5'],
             'date' => ['required', 'date'],
-            'start' => ['required', 'time'],
+            'start' => ['required', 'time', 'before:end'],
             'end' => ['required', 'time'],
         ]);
 

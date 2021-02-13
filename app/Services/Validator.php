@@ -78,6 +78,16 @@ class Validator
                     } elseif (mb_strlen($value) > intval($segments[1])) {
                         $this->errors[] = "Полето $column трябва да е с максимална дължина " . $segments[1];
                     }
+                } elseif (str_starts_with($rule, 'before')) {
+                    $segments = explode(':', $rule);
+
+                    if (count($segments) !== 2) {
+                        throw new Exception('Invalid rule before');
+                    }
+
+                    if (strtotime($value) > strtotime($this->data[$segments[1]])) {
+                        $this->errors[] = "Полето $column трябва да е по-ранен час от " . $segments[1];
+                    }
                 } else {
                     throw new Exception('Invalid rule: ' . $rule);
                 }
