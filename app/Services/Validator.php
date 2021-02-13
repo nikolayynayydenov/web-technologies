@@ -14,7 +14,7 @@ class Validator
     /**
      * @var array Validated data
      */
-    protected $validated;
+    public $validated;
 
     public $errors = [];
 
@@ -37,8 +37,9 @@ class Validator
                 break;
             }
 
+            $value = $this->data[$column];
+
             foreach ($rules as $rule) {
-                $value = $this->data[$column];
 
                 if ($rule === 'required') {
                     if ($value === '') {
@@ -52,18 +53,37 @@ class Validator
                     if (!preg_match('/\d{4}-\d{2}-\d{2}/', $value)) {
                         $this->errors[] = "Полето $column трябва да е във формат xx-xx-xx";
                     }
-                } else if (str_starts_with($rule, 'min')) {
+                } else if (str_starts_with($rule, 'minLen')) {
                     $segments = explode(':', $rule);
                     if (count($segments) !== 2) {
                         throw new Exception('Invalid rule min');
                     }
 
-                    if (is_numeric($value)) {
-                        if (intval($value) < intval($segments[1])) {
-                            $this->errors[] = "Полето $column трябва да е с минимална стойност " . $segments[1];
-                        }
-                    } elseif (mb_strlen($value) < intval($segments[1])) {
+                    if (mb_strlen($value) < intval($segments[1])) {
                         $this->errors[] = "Полето $column трябва да е с минимална дължина " . $segments[1];
+                    }
+                } else if (str_starts_with($rule, 'maxLen')) {
+                    $segments = explode(':', $rule);
+                    if (count($segments) !== 2) {
+                        throw new Exception('Invalid rule min');
+                    }
+                    
+                    if (mb_strlen($value) > intval($segments[1])) {
+                        $this->errors[] = "Полето $column трябва да е с максимална дължина " . $segments[1];
+                    }
+                } else if (str_starts_with($rule, 'min')) {
+                    // For numeric values
+                    $segments = explode(':', $rule);
+                    if (count($segments) !== 2) {
+                        throw new Exception('Invalid rule min');
+                    }
+
+                    if (!is_numeric($value)) {
+                        $this->errors[] = "Полето $column трябва да е с числена стойност " . $segments[1];
+                    }
+
+                    if (intval($value) < intval($segments[1])) {
+                        $this->errors[] = "Полето $column трябва да е с минимална стойност " . $segments[1];
                     }
                 } else if (str_starts_with($rule, 'max')) {
                     $segments = explode(':', $rule);
@@ -71,12 +91,12 @@ class Validator
                         throw new Exception('Invalid rule min');
                     }
 
-                    if (is_numeric($value)) {
-                        if (intval($value) > intval($segments[1])) {
-                            $this->errors[] = "Полето $column трябва да е с м максимална стойност " . $segments[1];
-                        }
-                    } elseif (mb_strlen($value) > intval($segments[1])) {
-                        $this->errors[] = "Полето $column трябва да е с максимална дължина " . $segments[1];
+                    if (!is_numeric($value)) {
+                        $this->errors[] = "Полето $column трябва да е с числена стойност " . $segments[1];
+                    }
+
+                    if (intval($value) > intval($segments[1])) {
+                        $this->errors[] = "Полето $column трябва да е с м максимална стойност " . $segments[1];
                     }
                 } elseif (str_starts_with($rule, 'before')) {
                     $segments = explode(':', $rule);
@@ -92,6 +112,8 @@ class Validator
                     throw new Exception('Invalid rule: ' . $rule);
                 }
             }
+
+            $this->validated[$column] = $value;
         }
     }
 

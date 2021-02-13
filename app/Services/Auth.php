@@ -62,4 +62,11 @@ class Auth
             redirect('/login');
         }
     }
+
+    public static function onlyTeacher()
+    {
+        if (!self::checkTeacher()) {
+            redirect('/login');
+        }
+    }
 }

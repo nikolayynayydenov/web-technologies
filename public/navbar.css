@@ -1,4 +1,4 @@
-#nav_ul{
+#nav_ul {
     /* list-style-type: none;
     margin: 0;
     padding: 0;
@@ -13,18 +13,19 @@
     width: 100%;
     margin: 0 auto;
 }
-.nav_li1{
+
+.nav_li1 {
     display: inline;
-    float:left;
+    float: left;
 }
 
-.nav_li2{
+.nav_li2 {
     display: inline;
-    float:right;
+    float: right;
 }
 
-
-.nav_li1 a, .nav_li2 a {
+.nav_li1 a,
+.nav_li2 a {
     /* display: block; */
     /* padding: 8px;
     background-color: #dddddd; */
@@ -35,31 +36,35 @@
     text-decoration: none;
 }
 
+
 /* .nav_li1 a:hover, .nav_li2 a:hover {
     background-color: #111;
 } */
 
-
-#li1 a:hover{
-    background-color:rgb(247, 82, 49);
+#li1 a:hover {
+    background-color: rgb(247, 82, 49);
 }
 
-#li2 a:hover{
-    background-color:rgb(255, 173, 20);
+#li2 a:hover {
+    background-color: rgb(255, 173, 20);
 }
 
-#li3 a:hover{
-    background-color:rgb(0, 166, 8);
+#li3 a:hover {
+    background-color: rgb(0, 166, 8);
 }
 
-#li4 a:hover{
-    background-color:rgb(0, 176, 212);
+#li4 a:hover {
+    background-color: rgb(0, 176, 212);
 }
 
-#li5 a:hover{
-    background-color:rgb(255, 120, 250);
+#li5 a:hover {
+    background-color: rgb(255, 120, 250);
 }
 
-#li6 a:hover{
-    background-color:rgb(214, 13, 53);
+#li6 a:hover {
+    background-color: rgb(214, 13, 53);
+}
+
+#li7 a:hover {
+    background-color: rgb(170, 0, 248);
 }

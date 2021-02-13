@@ -36,10 +36,11 @@
         <?php if (App\Services\Auth::check()) : ?>
             <?php if (App\Services\Auth::checkTeacher()) : ?>
                 <li class="nav_li2" id="li5"><a href="#"><?= $_SESSION['firstName'] . '  ' . $_SESSION['lastName'] ?></a></li>
+                <li class="nav_li2" id="li6"><a href="/student/create">Добавяне на студент</a></li>
             <?php else : ?>
                 <li class="nav_li2" id="li5"><a href="#"><?= $_SESSION['fn'] ?></a></li>
             <?php endif ?>
-            <li class="nav_li2" id="li6"><a href="/logout">Изход</a></li>
+            <li class="nav_li2" id="li7"><a href="/logout">Изход</a></li>
         <?php else : ?>
             <li class="nav_li2" id="li5"><a href="/login">Вход</a></li>
             <li class="nav_li2" id="li6"><a href="/register">Регистрация</a></li>

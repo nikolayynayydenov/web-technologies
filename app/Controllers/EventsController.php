@@ -163,8 +163,8 @@ class EventsController
 
         $v = new Validator($_POST);
         $v->validate([
-            'name' => ['required', 'min:5', 'max:300'],
-            'description' => ['required', 'min:5'],
+            'name' => ['required', 'minLen:5', 'maxLen:300'],
+            'description' => ['required', 'minLen:5'],
             'date' => ['required', 'date'],
             'start' => ['required', 'time', 'before:end'],
             'end' => ['required', 'time'],

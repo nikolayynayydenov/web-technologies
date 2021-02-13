@@ -23,6 +23,10 @@ $router->get('/event/{id}/edit', 'EventsController@edit');
 $router->put('/event/{id}', 'EventsController@update');
 $router->delete('/event/{id}', 'EventsController@delete');
 
+// Students
+$router->get('/student/create', 'StudentsController@create');
+$router->post('/student', 'StudentsController@store');
+
 
 //Attendance
 // $router->get('/attendance/check', 'AttendanceController@checkForm');
