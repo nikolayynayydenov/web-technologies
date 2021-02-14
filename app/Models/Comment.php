@@ -161,7 +161,8 @@ class Comment extends Model
 
 
     public static function extractEventsWithoutPendingComments($teacherId){
-        $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0) OR (id IN (SELECT event_id FROM comments WHERE pending = 1) AND NOT(teacher_id=:teacherId))";
+        $sql = "
+        SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0) OR NOT (id IN (SELECT event_id FROM comments WHERE pending = 1) AND (teacher_id=14))";
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {
             $preparedStmt->execute(["teacherId" => $teacherId]);

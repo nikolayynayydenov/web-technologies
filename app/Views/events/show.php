@@ -29,7 +29,7 @@
         <?= sessionFlash('message') ?>
     </p>
 
-    <?php if (App\Services\Auth::checkTeacher() && isset($_SESSION['importedAttendances'])) : ?>
+    <?php if (App\Services\Auth::checkTeacher()) : ?>
         <form id="import" action="/event/<?= $data['event']->id ?>/import" method="post" enctype="multipart/form-data">
             <input type="file" name="attendance_file">
 
@@ -38,9 +38,6 @@
 
             <input id="importBtn" class="btn btn-info" type="submit" value="Импортиране на присъствия">
         </form>
-
-    <?php else : ?>
-
     <?php endif; ?>
 
     <hr>
@@ -50,7 +47,6 @@
     <?php if (count($data['attendances']) === 0) : ?>
         <h5>Няма импортирани присъствия</h5>
     <?php else : ?>
-        <?php $_SESSION['importedAttendances'] = true; ?>
         <table>
             <thead>
                 <tr>

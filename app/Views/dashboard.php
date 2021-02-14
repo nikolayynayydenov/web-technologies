@@ -55,11 +55,7 @@
             <ul>
                 <?php foreach ($data['eventsWithPendingComments'] as $event) : ?>
                     <li class="event">
-<<<<<<< HEAD
-                        <h3><a href="/event/<?php echo $event['id'] ?>" class="link"><?php echo $event['name'] ?></a></h3>
-=======
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
->>>>>>> 29a57d3f94f495cd7e0216b87ea62a7d4c6574a1
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
                         <div class="hidden_students"></br>
@@ -99,11 +95,7 @@
             <ul id="eventsList">
                 <?php foreach ($data['eventsWithoutPendingComments'] as $event) : ?>
                     <li class="event">
-<<<<<<< HEAD
-                        <h3><a href="/event/<?php echo $event['id'] ?>" class="link"><?php echo $event['name'] ?></a></h3>
-=======
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
->>>>>>> 29a57d3f94f495cd7e0216b87ea62a7d4c6574a1
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
 
@@ -138,30 +130,6 @@
                 <?php endforeach; ?>
 
                 <!-- това са всички събития, а ние искаме да разделим, pending от не-pending -->
-                <?php foreach ($data['events'] as $event) :  ?>
-                    <li class="event">
-                        <h3><a href="/event/<?= $event->id ?>" class="link"><?= $event->name ?></a></h3>
-                        <?= $event->date . ', ' . $event->start . ' - ' . $event->end ?>
-                        <button class="showStudents" data-show="">Покажи студенти</button>
-
-                        <div class="hidden_students"></br>
-                            </br>
-                            <!-- <h4>Списък със студенти, които са участвали</h4> -->
-                            <?php if (count($event->attendances) === 0) : ?>
-                                За това събития няма записани присъствия
-                            <?php endif; ?>
-                            <ul>
-                                <?php foreach ($event->attendances as $attendance) : ?>
-                                    <li>
-                                        <a href="/attendance?fn=<?= $attendance->faculty_number ?>" class="link">
-                                            <?= $attendance->faculty_number ?>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
             </ul>
 
         <?php endif; ?>
