@@ -117,11 +117,7 @@ CREATE TABLE `events` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` text DEFAULT NULL,
-<<<<<<< HEAD
-  `date` datetime NOT NULL,
-=======
   `date` date NOT NULL,
->>>>>>> 29a57d3f94f495cd7e0216b87ea62a7d4c6574a1
   `start` time DEFAULT NULL,
   `end` time DEFAULT NULL,
   `teacher_id` int(10) UNSIGNED NOT NULL
