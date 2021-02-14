@@ -25,7 +25,7 @@
         <div id="buttons">
             <p id="undoneComments">
                 <?php if (isset($_SESSION['numberOfNewComments'])) { ?>
-                    Нови коментари: <?php $_SESSION['numberOfNewComments'] ?>
+                    Нови коментари: <?= $_SESSION['numberOfNewComments'] ?>
                 <?php } ?>
             </p>
             <?php if (\App\Services\Auth::checkTeacher()) : ?>
@@ -55,7 +55,7 @@
             <ul>
                 <?php foreach ($data['eventsWithPendingComments'] as $event) : ?>
                     <li class="event">
-                        <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
+                        <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
                         <div class="hidden_students"></br>
@@ -95,7 +95,7 @@
             <ul id="eventsList">
                 <?php foreach ($data['eventsWithoutPendingComments'] as $event) : ?>
                     <li class="event">
-                        <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
+                        <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
 
