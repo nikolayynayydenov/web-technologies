@@ -55,7 +55,7 @@
             <ul>
                 <?php foreach ($data['eventsWithPendingComments'] as $event) : ?>
                     <li class="event">
-                        <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
+                        <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
                         <div class="hidden_students"></br>
@@ -114,7 +114,7 @@
                             }
                             ?>
                             <?php if (count($studentsWhoParticipated) === 0) : ?>
-                                За това събития няма записани присъствия
+                                За това събитиe няма записани присъствия
                             <?php endif; ?>
                             <ul>
                                 <?php foreach ($studentsWhoParticipated as $student) : ?>

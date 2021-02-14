@@ -29,6 +29,22 @@ class Validator
     /**
      * @param array $rules
      */
+
+    public function str_starts_with($string, $official_string){
+        $cnt=0;
+        for($i=0; $i<mb_strlen($string); $i++){
+            if($string[$i]==$official_string[$i]){
+                $cnt++;
+            }
+        }
+        if($cnt==mb_strlen($string)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function validate(array $columns)
     {
         foreach ($columns as $column => $rules) {
