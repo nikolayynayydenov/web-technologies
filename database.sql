@@ -118,8 +118,8 @@ CREATE TABLE `events` (
   `name` varchar(50) NOT NULL,
   `description` text DEFAULT NULL,
   `date` datetime NOT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
+  `start` time DEFAULT NULL,
+  `end` time DEFAULT NULL,
   `teacher_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

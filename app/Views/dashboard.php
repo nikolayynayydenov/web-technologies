@@ -55,7 +55,7 @@
             <ul>
                 <?php foreach ($data['eventsWithPendingComments'] as $event) : ?>
                     <li class="event">
-                        <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
+                        <h3><a href="/event/<?php echo $event['id'] ?>" class="link"><?php echo $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
                         <div class="hidden_students"></br>
@@ -95,7 +95,7 @@
             <ul id="eventsList">
                 <?php foreach ($data['eventsWithoutPendingComments'] as $event) : ?>
                     <li class="event">
-                        <h3><a href="/event/<?php $event['id'] ?>" class="link"><?php $event['name'] ?></a></h3>
+                        <h3><a href="/event/<?php echo $event['id'] ?>" class="link"><?php echo $event['name'] ?></a></h3>
                         <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
 
@@ -211,7 +211,7 @@
             <h2>Всички останали събития</h2>
             <ul>
                 <?php
-                $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM attendance WHERE NOT (faculty_number=:fn))";
+                $sql = "SELECT * FROM events WHERE id NOT IN (SELECT event_id FROM attendance WHERE faculty_number=:fn)";
                 $preparedStmt = \Core\Database::getConnection()->prepare($sql);
                 $preparedStmt->execute(["fn" => $_SESSION['fn']]);
                 $eventsOfStudent = $preparedStmt->fetchAll();
@@ -221,8 +221,8 @@
                 ?>
                 <?php foreach ($eventsOfStudent as $event) : ?>
                     <li class="event">
-                        <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
-                        <?= $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
+                        <h3><a href="/event/<?php echo $event['id'] ?>" class="link"><?php echo $event['name'] ?></a></h3>
+                        <?php echo $event['date'] . ', ' . $event['start'] . ' - ' . $event['end'] ?>
                         <button class="showStudents" data-show="">Покажи студенти</button>
 
                         <div class="hidden_students"></br>
@@ -238,14 +238,14 @@
                                 throw new \Exception();
                             }
                             ?>
-                            <?php if (count($eventsForStudent) === 0) : ?>
+                            <?php if (count($studentsWhoParticipated) === 0) : ?>
                                 Този студент не участва в никакви събития
                             <?php endif; ?>
                             <ul>
                                 <?php foreach ($studentsWhoParticipated as $student) : ?>
                                     <li>
                                         <a href="/attendance?fn=<?= $student['faculty_number'] ?>" class="link">
-                                            <?= $student['faculty_number'] ?>
+                                            <?php echo $student['faculty_number'] ?>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>
