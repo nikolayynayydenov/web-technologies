@@ -147,7 +147,7 @@ class Comment extends Model
                 return $query;
         }
 
-        $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
+        $events_assoc = $preparedStmt->fetchAll(\PDO::FETCH_ASSOC);
         if ($events_assoc) {
             $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
             "eventsWithPendingComments" => $events_assoc, "numberOfComments" => count($events_assoc)];
@@ -171,7 +171,7 @@ class Comment extends Model
                 return $query;
         }
 
-        $events_assoc = $preparedStmt->fetch(\PDO::FETCH_ASSOC);
+        $events_assoc = $preparedStmt->fetchAll(\PDO::FETCH_ASSOC);
         if ($events_assoc) {
             $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
             "eventsWithoutPendingComments" => $events_assoc];
