@@ -285,7 +285,7 @@
                             <?php foreach ($eventsForStudent as $event) : ?>
                                 <li>
                                     <a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a>
-                                    <?php echo $event['name'] . " " . $event['date'] . " " . $event['start'] . "-" . $event['end']; ?>
+                                    <?php echo " " . $event['date'] . " " . $event['start'] . "-" . $event['end']; ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
