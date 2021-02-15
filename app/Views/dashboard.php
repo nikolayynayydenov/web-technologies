@@ -142,7 +142,7 @@
 
 
         <?php if (\App\Services\Auth::checkStudent()) : ?>
-            <h2>Събитията, в които съм участвал</h2>
+            <h2>Събития, в които съм участвал</h2>
             <ul id="eventsList">
                 <?php
                 $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM attendance WHERE faculty_number=:fn)";
@@ -153,6 +153,10 @@
                     throw new \Exception();
                 }
                 ?>
+
+                <?php if (count($eventsOfStudent) === 0) : ?>
+                    Няма такива събития
+                <?php endif; ?>
                 <?php foreach ($eventsOfStudent as $event) : ?>
                     <li class="event">
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
@@ -201,6 +205,9 @@
                     throw new \Exception();
                 }
                 ?>
+                <?php if (count($eventsOfStudent) === 0) : ?>
+                    В системата не са регистрирани събития
+                <?php endif; ?>
                 <?php foreach ($eventsOfStudent as $event) : ?>
                     <li class="event">
                         <h3><a href="/event/<?php echo $event['id'] ?>" class="link"><?php echo $event['name'] ?></a></h3>
