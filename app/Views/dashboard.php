@@ -53,6 +53,9 @@
                 Събития с нови коментари
             </h2>
             <ul>
+                <?php if (count($data['eventsWithPendingComments']) === 0) : ?>
+                    В момента няма такива събития.
+                <?php endif; ?>
                 <?php foreach ($data['eventsWithPendingComments'] as $event) : ?>
                     <li class="event">
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
@@ -90,9 +93,12 @@
 
 
             <h2>
-                Събития
+                Събития без нови коментари
             </h2>
             <ul id="eventsList">
+                <?php if (count($data['eventsWithoutPendingComments']) === 0) : ?>
+                    В момента няма такива събития.
+                <?php endif; ?>
                 <?php foreach ($data['eventsWithoutPendingComments'] as $event) : ?>
                     <li class="event">
                         <h3><a href="/event/<?= $event['id'] ?>" class="link"><?= $event['name'] ?></a></h3>
@@ -237,7 +243,7 @@
 
 
     <section id="studentsStatistics">
-        <h2>Студенти</h2>
+        <h2>Всички студенти</h2>
         <ol id="studentsList">
             <?php foreach ($data['students'] as $student) : ?>
                 <li class="student">

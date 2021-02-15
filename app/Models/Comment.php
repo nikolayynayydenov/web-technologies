@@ -166,11 +166,10 @@ class Comment extends Model
 
     public static function extractEventsWithoutPendingComments($teacherId)
     {
-        $sql = "SELECT * FROM events 
-                WHERE id IN ( 
-                    SELECT event_id FROM comments 
-                    WHERE pending != 1 
-                ) AND teacher_id = :teacherId";
+        $sql = "SELECT events.* FROM events 
+                LEFT JOIN comments ON events.id = comments.event_id 
+                WHERE events.teacher_id = :teacherId AND 
+                (comments.pending != 1 OR comments.pending IS NULL)";
         
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {

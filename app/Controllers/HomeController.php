@@ -49,7 +49,7 @@ class HomeController
             ? Event::getManyWithAttendance([
                 'teacher_id' => $_SESSION['teacherId'],
             ])
-            : [];
+            : []; // TODO: remake
 
         $sql = "SELECT * FROM student";
         $preparedStmt = Database::getConnection()->prepare($sql);
