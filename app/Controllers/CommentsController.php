@@ -67,8 +67,6 @@ class CommentsController
             // }
 
             if ($textContent && Auth::checkStudent()/* && mb_strlen($fn) == 5 && is_numeric($fn)*/) {
-                echo "hello";
-                echo '<br>';
                 $comment = new Comment($textContent, $_SESSION['fn']);
                 $exists = $comment->comment_exists();
                 if ($exists["successfullyExecuted"] == false) {
@@ -76,6 +74,7 @@ class CommentsController
                 } else if ($exists["successfullyExecuted"] == true) {
                     if ($exists["commentExists"] == true) {
                         $errors[] = "Коментарът вече е въведен!";
+                        
                     } else if ($exists["commentExists"] == false) {
                         $create = $comment->createComment($eventID);
                         if ($create["successfullyExecuted"] == false) {

@@ -12,7 +12,7 @@
 
         <div class="field">
             <label for="date">Дата</label>
-            <input type="date" id="date" placeholder="01/01/2021" name="date">
+            <input type="date" id="date" placeholder="01-01-2021" name="date">
         </div>
 
         <div class="field" id="selectFields">
