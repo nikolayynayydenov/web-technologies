@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/event_show.css">
 
 <div class="container">
+    <?php flashErrors(); ?>
     <div>
         <h4><?= $data['event']->name ?></h4>
     </div>

@@ -2,7 +2,9 @@
 
 namespace Core;
 
+use Core\Exceptions\DbException;
 use PDO;
+use PDOStatement;
 
 class Database
 {
@@ -30,5 +32,42 @@ class Database
         }
 
         return self::$instance->connection;
+    }
+
+    public static function inst()
+    {
+        if (self::$instance == null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * @param string $sql
+     * @return PDOStatement
+     */
+    public function query($sql, $params = [])
+    {
+        $stmt = $this->connection->prepare($sql);
+
+        $result = $stmt->execute($params);
+
+        if ($result === false) {
+            throw new DbException('Query exception');
+        }
+
+        return $stmt;
+    }
+
+    /**
+     * Perform a select query 
+     * @param string $sql
+     */
+    public function select($sql, $params = [])
+    {
+        $stmt = $this->query('SELECT ' . $sql, $params);
+
+        return $stmt->fetchAll();
     }
 }

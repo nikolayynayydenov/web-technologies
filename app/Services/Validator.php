@@ -67,7 +67,7 @@ class Validator
                     }
                 } else if ($rule === 'date') {
                     if (!preg_match('/\d{4}-\d{2}-\d{2}/', $value)) {
-                        $this->errors[] = "Полето $column трябва да е във формат xx-xx-xx";
+                        $this->errors[] = "Полето $column трябва да е във формат xxxx-xx-xx";
                     }
                 } else if (str_starts_with($rule, 'minLen')) {
                     $segments = explode(':', $rule);

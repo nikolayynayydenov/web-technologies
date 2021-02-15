@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Event;
+use Core\Database;
 
 class AttendanceController
 {
+    const SEPARATOR = '/\s{3,}/';
+
     public function checkForm()
     {
         view('attendance/check-form');
@@ -32,18 +35,32 @@ class AttendanceController
         $event = Event::getById($id);
 
         if ($event) {
-            // Validation            
+            // Validation          
+            $errors = [];
             if (!is_uploaded_file($_FILES['attendance_file']['tmp_name'])) {
-                $_SESSION['message'] = 'Моля, изберете файл';
-                redirect("/event/$id");
+                $errors[] = 'Моля, изберете файл';
             }
 
             if ($_FILES['attendance_file']['type'] !== 'text/plain') {
-                $_SESSION['message'] = 'Файлът трябва да е с разширение txt';
-                redirect("/event/$id");
-            }
+                $errors[] = 'Файлът трябва да е с разширение txt';
+            }   
 
             $lines = file($_FILES['attendance_file']['tmp_name']);
+
+            $missingFns = $this->missingStudentsFns($lines);
+
+            if (count($missingFns) > 0) {
+                $msg = 'Следните студенти не съществуват в системата: ';
+                $msg .= implode(', ', $missingFns);
+                $msg .= '. Можете да ги добавите от ';
+                $msg .= '<a href="/student/create">тук</a>.';
+                $errors[] = $msg;
+            }
+
+            if (count($errors) > 0) {
+                $_SESSION['errors'] = $errors;
+                redirect("/event/$id");
+            }
 
             /**
              * @var array import mapping
@@ -75,5 +92,57 @@ class AttendanceController
         } else {
             response('Event not found', 404);
         }
+    }
+
+    /**
+     * @param array $lines
+     * 
+     * @return array
+     */
+    protected function missingStudentsFns(array $lines)
+    {
+        $fns = array_map(function ($line) {
+            $line = preg_split(self::SEPARATOR, $line);
+            return $line[0];
+        }, $lines);
+
+        $students = Database::inst()->select(
+            '* FROM student WHERE faculty_number IN (' .
+                implode(
+                    ', ',
+                    array_fill(0, count($fns), '?')
+                ) .
+                ')',
+            $fns
+        );
+
+        $missingFns = [];
+
+        if (count($students) !== count($fns)) {
+            foreach ($fns as $fn) {
+                if (!$this->fnExists($students, $fn)) {
+                    $missingFns[] = $fn;
+                }
+            }
+        }
+
+        return $missingFns;
+    }
+
+    /**
+     * @param array $students
+     * @param int $fn
+     * 
+     * @return bool
+     */
+    protected function fnExists($students, $fn)
+    {
+        foreach ($students as $student) {
+            if ($fn == $student['faculty_number']) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
