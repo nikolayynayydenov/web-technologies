@@ -80,7 +80,9 @@ class EventsController
                 if ($overlaps["eventOverlapsWithAnotherEvent"] == true) {
                     $errors[] = "Събитието се припокрива с друго събитие!";
                 } else if ($overlaps["eventOverlapsWithAnotherEvent"] == false) {
-                    $event->save();
+                    if (count($errors) === 0) {
+                        $event->save();
+                    }
                 }
             }
         }

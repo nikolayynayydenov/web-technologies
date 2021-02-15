@@ -16,7 +16,7 @@ class Comment extends Model
     // private $pending;
     // private $teacherId;
 
-   // private $conn;
+    // private $conn;
 
     public function __construct($textContent = null, $fn = null)
     {
@@ -66,7 +66,8 @@ class Comment extends Model
     {
         $this->fn = $facultyNumber;
     }
-    public function setTeacherId($teacherID){
+    public function setTeacherId($teacherID)
+    {
         $this->teacherId = $teacherID;
     }
 
@@ -92,12 +93,13 @@ class Comment extends Model
         }
     }
 
-    public function createTeacherComment($eventID, $teacherID){
+    public function createTeacherComment($eventID, $teacherID)
+    {
         $sql = "INSERT INTO `comments` (`content`, `event_id`, `teacher_id`, `pending`, `is_visible`) 
                 VALUE(:content, :event_id, :teacherId, :pending, :isVisible)";
         $preparedStmt = Database::getConnection()->prepare($sql);
         $query = [];
-        try{
+        try {
             $preparedStmt->execute([
                 "content" => $this->getTextContent(),
                 "event_id" => $eventID,
@@ -106,7 +108,7 @@ class Comment extends Model
                 "isVisible" => 1
             ]);
             $query = ["successfullyExecuted" => true];
-        }catch(\PDOException $e){
+        } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
         }
@@ -136,7 +138,8 @@ class Comment extends Model
         return $query;
     }
 
-    public static function extractEventsWithPendingComments($teacherId){
+    public static function extractEventsWithPendingComments($teacherId)
+    {
         $sql = "SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 1) AND teacher_id=:teacherId";
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {
@@ -144,38 +147,46 @@ class Comment extends Model
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
-                return $query;
+            return $query;
         }
 
         $events_assoc = $preparedStmt->fetchAll(\PDO::FETCH_ASSOC);
         if ($events_assoc) {
-            $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
-            "eventsWithPendingComments" => $events_assoc, "numberOfComments" => count($events_assoc)];
+            $query = [
+                "successfullyExecuted" => true, "thereAreEvents" => true,
+                "eventsWithPendingComments" => $events_assoc, "numberOfComments" => count($events_assoc)
+            ];
             return $query;
         } else {
             $query = ["successfullyExecuted" => true, "thereAreEvents" => false];
             return $query;
         }
-        
     }
 
 
-    public static function extractEventsWithoutPendingComments($teacherId){
-        $sql = "
-        SELECT * FROM events WHERE id IN (SELECT event_id FROM comments WHERE pending = 0) OR NOT (id IN (SELECT event_id FROM comments WHERE pending = 1) AND (teacher_id=14))";
+    public static function extractEventsWithoutPendingComments($teacherId)
+    {
+        $sql = "SELECT * FROM events 
+                WHERE id IN ( 
+                    SELECT event_id FROM comments 
+                    WHERE pending != 1 
+                ) AND teacher_id = :teacherId";
+        
         $preparedStmt = \Core\Database::getConnection()->prepare($sql);
         try {
             $preparedStmt->execute(["teacherId" => $teacherId]);
         } catch (\PDOException $e) {
             $errMsg = $e->getMessage();
             $query = ["successfullyExecuted" => false, "errMessage" => $errMsg];
-                return $query;
+            return $query;
         }
 
         $events_assoc = $preparedStmt->fetchAll(\PDO::FETCH_ASSOC);
         if ($events_assoc) {
-            $query = ["successfullyExecuted" => true, "thereAreEvents" => true, 
-            "eventsWithoutPendingComments" => $events_assoc];
+            $query = [
+                "successfullyExecuted" => true, "thereAreEvents" => true,
+                "eventsWithoutPendingComments" => $events_assoc
+            ];
             return $query;
         } else {
             $query = ["successfullyExecuted" => true, "thereAreEvents" => false];
