@@ -83,4 +83,34 @@ class Auth
             redirect('/login');
         }
     }
+
+    public static function getAvatarName()
+    {
+        self::guard();
+
+        return self::checkTeacher()
+            ? $_SESSION['teacherId'] . '-teacher'
+            : $_SESSION['fn'] . '-student';
+    }
+
+    public static function getAvatarPath()
+    {
+        return '/images/avatars/' . self::getAvatarName() . '.jpg';
+    }
+
+    public static function hasAvatar()
+    {
+        $files = scandir(__DIR__ . '/../../public/images/avatars');
+        $dir = __DIR__;
+        $avatarName = self::getAvatarName();
+
+        foreach ($files as $file) {
+            if (preg_match('/^' . $avatarName . '\..+/', $file)) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 }

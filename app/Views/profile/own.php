@@ -2,7 +2,7 @@
 
 <div class="container">
     <div>
-        <img src="/images/from_s3.png" alt="" height="200" width="200">
+        <img src="<?= \App\Services\Auth::getAvatarPath() ?>" alt="" height="200" width="200">
         <?= \App\Services\Auth::userLabel() ?>
     </div>
 

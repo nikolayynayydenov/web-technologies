@@ -22,10 +22,11 @@ class S3
 
     public function get($key)
     {
+        $path = __DIR__ . '/../../public/images/avatars/' . $key;
         return $this->s3Client->getObject([
             'Bucket' => 'photo-output',
             'Key' => $key,
-            'SaveAs' => '/images/avatars/' . $key
+            'SaveAs' => $path
         ]);
     }
 

@@ -5,13 +5,19 @@ namespace App\Controllers;
 use App\Services\Auth;
 use App\Services\S3;
 use App\Services\Validator;
+use Aws\S3\Exception\S3Exception;
+
 
 class ProfileController
 {
     public function showOwn()
     {
         Auth::guard();
-
+        $s3 = new S3();
+        try {
+            $result = $s3->get(Auth::getAvatarName() . '.jpg');
+        } catch (S3Exception $exception) {
+        }
 
 
         return view('profile/own');
@@ -30,17 +36,10 @@ class ProfileController
             $_SESSION['errors'] = $v->errors;
             redirect("/profile");
         }
-        
-        $fileName = pathinfo($_FILES['avatar']['name'])['filename'];
-        
-        if (Auth::checkStudent()) {
-            $fileName .= '-student';
-        } else {
-            $fileName .= '-teacher';
 
-        }
+        $fileName = Auth::getAvatarName();
 
-        $fileName .= '.' . pathinfo($_FILES['avatar']['name'])['extension'];        
+        $fileName .= '.' . pathinfo($_FILES['avatar']['name'])['extension'];
 
         $s3 = new S3();
         $s3->put($_FILES['avatar']['tmp_name'], $fileName);
@@ -48,6 +47,5 @@ class ProfileController
 
     public function saveAvatar()
     {
-        
     }
 }
