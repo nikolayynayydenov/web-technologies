@@ -6,11 +6,13 @@
         <?= \App\Services\Auth::userLabel() ?>
     </div>
 
-    <form action="/profile/avatar" method="post">
+    <form action="/profile/avatar" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="patch"/>
-        <input type="file" name="avatar" id="">
+        <input type="file" name="avatar">
         <input type="submit" value="Промяна на снимка">
     </form>
+
+    <?php flashErrors(); ?>
 </div>
 
 <?php require_once(realpath(dirname(__FILE__) . '/../includes/footer.php')); ?>

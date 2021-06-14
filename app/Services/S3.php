@@ -31,7 +31,7 @@ class S3
 
     public function put($file, $key)
     {
-        if (!preg_match('-.*\.', $key)) {
+        if (!preg_match('/-.*\./', $key)) {
             throw new Exception("key is in incorrent format");
         }
 

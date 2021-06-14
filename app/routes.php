@@ -37,6 +37,7 @@ $router->post('/front_page', 'HomeController@frontPage_method');
 $router->get('/dashboard', 'HomeController@showDashboard');
 $router->post('/dashboard', 'HomeController@dashboard_method');
 $router->get('/profile', 'ProfileController@showOwn');
+$router->patch('/profile/avatar', 'ProfileController@updateAvatar');
 
 
 //Comments
