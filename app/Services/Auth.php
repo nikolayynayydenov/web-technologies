@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Teacher;
+use Exception;
 
 class Auth
 {
@@ -14,6 +15,19 @@ class Auth
     public static function user()
     {
         // TODO
+    }
+
+    public static function userLabel()
+    {
+        if (self::checkStudent()) {
+            return $_SESSION['fn'];
+        }
+
+        if (self::checkTeacher()) {
+            return $_SESSION['firstName'] . '  ' . $_SESSION['lastName'];
+        }
+
+        throw new Exception('No user has logged in.');
     }
 
     /**

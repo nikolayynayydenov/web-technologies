@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="/Bootstrap/css/bootstrap-grid.min.css">
-    <!-- <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css"> -->
-    <!-- <link rel="icon" href="/NiRa logo.png"> -->
     <link rel="icon" href="/green_dot.png">
     <link rel="stylesheet" href="/navbar.css">
     <link rel="stylesheet" href="/css/app.css">
@@ -37,10 +35,10 @@
 
         <?php if (App\Services\Auth::check()) : ?>
             <?php if (App\Services\Auth::checkTeacher()) : ?>
-                <li class="nav_li2" id="li5"><a href="#"><?= $_SESSION['firstName'] . '  ' . $_SESSION['lastName'] ?></a></li>
+                <li class="nav_li2" id="li5"><a href="/profile"><?= $_SESSION['firstName'] . '  ' . $_SESSION['lastName'] ?></a></li>
                 <li class="nav_li2" id="li6"><a href="/student/create">Добавяне на студент</a></li>
             <?php else : ?>
-                <li class="nav_li2" id="li5"><a href="#"><?= $_SESSION['fn'] ?></a></li>
+                <li class="nav_li2" id="li5"><a href="/profile"><?= $_SESSION['fn'] ?></a></li>
             <?php endif ?>
             <li class="nav_li2" id="li7"><a href="/logout">Изход</a></li>
         <?php else : ?>

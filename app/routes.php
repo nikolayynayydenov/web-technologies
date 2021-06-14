@@ -1,6 +1,5 @@
 <?php
 
-use App\Controllers\CommentsController;
 use Core\Router;
 
 $router = new Router();
@@ -29,9 +28,7 @@ $router->post('/student', 'StudentsController@store');
 
 
 //Attendance
-// $router->get('/attendance/check', 'AttendanceController@checkForm');
 $router->get('/attendance', 'AttendanceController@show');
-
 
 
 //Other
@@ -39,6 +36,8 @@ $router->get('/', 'UsersController@showFrontPage');
 $router->post('/front_page', 'HomeController@frontPage_method');
 $router->get('/dashboard', 'HomeController@showDashboard');
 $router->post('/dashboard', 'HomeController@dashboard_method');
+$router->get('/profile', 'ProfileController@showOwn');
+
 
 //Comments
 $router->patch('/event/{id}/delete-comment/{commentId}', 'CommentsController@delete'); //delete

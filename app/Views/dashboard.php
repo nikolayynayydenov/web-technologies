@@ -1,17 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/dashboard.css">
-    <title>dashboard</title>
-</head>
-<body> -->
-
-<?php
-//session_start(); 
-?>
-
 <?php require_once('includes/header.php'); ?>
 <link rel="stylesheet" href="/dashboard.css">
 
@@ -34,15 +20,6 @@
                     Създай събитие
                 </a>
             <?php endif; ?>
-
-            <!-- защо това не работи?? -->
-            <!-- <?php //if (\App\Services\Auth::checkStudent()) : 
-                    ?>
-                <h1 id="name">
-                <?php//$_SESSION["studentNames"] ?>
-                </h1>
-            <?php //endif; 
-            ?> -->
         </div>
         <hr>
     </div>

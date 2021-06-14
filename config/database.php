@@ -1,8 +1,5 @@
 <?php
 
-/**
- * TODO: implement with env
- */
 return [
     'host' => 'localhost',
     'database' => 'web-technologies',
