@@ -17,17 +17,21 @@ class S3
             'profile' => 'default',
             'region' => 'us-east-1',
             'version' => '2006-03-01'
-        ]);        
+        ]);
     }
 
     public function getAndSave($key)
     {
         $path = __DIR__ . '/../../public/images/avatars/' . $key;
-        return $this->s3Client->getObject([
-            'Bucket' => 'photo-output',
-            'Key' => $key,
-            'SaveAs' => $path
-        ]);
+        $bucket = 'photo-output';
+
+        if ($this->s3Client->doesObjectExist($bucket, $key)) {
+            $this->s3Client->getObject([
+                'Bucket' => $bucket,
+                'Key' => $key,
+                'SaveAs' => $path
+            ]);
+        }
     }
 
     public function put($file, $key)
@@ -41,6 +45,5 @@ class S3
             'Key' => $key,
             'SourceFile' => $file,
         ]);
-      
     }
 }

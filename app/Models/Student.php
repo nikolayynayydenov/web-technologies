@@ -73,4 +73,13 @@ class Student extends Model
         }
         return $query;
     }
+
+    public static function getAvatarSrc($fn)
+    {
+        $src = '/images/avatars/' . $fn . '-student.jpg';
+
+        return file_exists(__DIR__ . '/../../public' . $src)
+            ? $src
+            : '/images/avatars/default.jpg';
+    }
 }

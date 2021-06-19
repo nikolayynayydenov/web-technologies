@@ -232,7 +232,9 @@
             <?php foreach ($data['students'] as $student) : ?>
                 <li class="student">
                     <h3>
+                        <img src="<?= \App\Models\Student::getAvatarSrc($student['faculty_number']) ?>" alt="" height="40" width="40">
                         <?php
+
                         echo $student['faculty_number'] . ' ';
                         echo $student['first_name'] . ' ';
                         echo $student['last_name'];

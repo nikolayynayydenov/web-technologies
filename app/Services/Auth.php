@@ -95,7 +95,9 @@ class Auth
 
     public static function getAvatarPath()
     {
-        return '/images/avatars/' . self::getAvatarName() . '.jpg';
+        return self::hasAvatar()
+            ? '/images/avatars/' . self::getAvatarName() . '.jpg'
+            : '/images/avatars/default.jpg';
     }
 
     public static function hasAvatar()
@@ -110,6 +112,5 @@ class Auth
         }
 
         return false;
-
     }
 }
