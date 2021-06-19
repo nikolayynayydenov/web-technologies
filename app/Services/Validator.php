@@ -65,9 +65,9 @@ class Validator
                     if (!preg_match('/\d{2}:\d{2}:\d{2}/', $value)) {
                         $this->errors[] = "Полето $column трябва да е във формат xx:xx:xx";
                     }
-                } else if ($rule === 'image') {
-                    if (!$this->isImage()) {                        
-                        $this->errors[] = "Полето $column трябва да е във изображение";
+                } else if ($rule === 'jpeg') {
+                    if (!$this->isJpeg($_FILES[$column]['tmp_name'])) {                        
+                        $this->errors[] = "Полето $column трябва да е във изображение във формат .jpg";
                     }
                 }
                  else if ($rule === 'date') {
@@ -146,31 +146,8 @@ class Validator
         return count($this->errors) === 0;
     }
 
-    public function isImage()
+    public function isJpeg($filepath)
     {
-        return true;
-
-        // $filename = '';
-        // $error = '';   
-        // $type = exif_imagetype( $filename );
-        // switch( $type ) {
-        //     case 1:
-        //     $isimage = @imagecreatefromgif( $filename );
-        //     $error .= ( !$isimage ) ? "extn - gif, but not a valid gif" : '  valid gif';
-        //     break;
-        //     case 2: 
-        //     $isimage = @imagecreatefromjpeg( $filename );
-        //     $error .= ( !$isimage ) ? "extn - jpg, but not a valid jpg" : '  valid jpg';
-        //     break;
-        //     case 3:
-        //     echo "png : ";
-        //     $isimage = @imagecreatefrompng( $filename );
-        //     $error .= ( !$isimage ) ? "extn - png, but not a valid png" : ' valid png';
-        //     break;
-        //     default: //if there is no exif data
-        //     $error .= "Not an image" ;
-
-        //     echo $error;
-        // }
+        return exif_imagetype($filepath) == IMAGETYPE_JPEG;
     }
 }

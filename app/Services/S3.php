@@ -20,7 +20,7 @@ class S3
         ]);        
     }
 
-    public function get($key)
+    public function getAndSave($key)
     {
         $path = __DIR__ . '/../../public/images/avatars/' . $key;
         return $this->s3Client->getObject([

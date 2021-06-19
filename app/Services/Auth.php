@@ -101,7 +101,6 @@ class Auth
     public static function hasAvatar()
     {
         $files = scandir(__DIR__ . '/../../public/images/avatars');
-        $dir = __DIR__;
         $avatarName = self::getAvatarName();
 
         foreach ($files as $file) {

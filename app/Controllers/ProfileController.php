@@ -15,10 +15,9 @@ class ProfileController
         Auth::guard();
         $s3 = new S3();
         try {
-            $result = $s3->get(Auth::getAvatarName() . '.jpg');
+            $s3->getAndSave(Auth::getAvatarName() . '.jpg');
         } catch (S3Exception $exception) {
         }
-
 
         return view('profile/own');
     }
@@ -29,7 +28,7 @@ class ProfileController
 
         $v = new Validator($_FILES);
         $v->validate([
-            'avatar' => ['required', 'image'],
+            'avatar' => ['required', 'jpeg'],
         ]);
 
         if (!$v->isValid()) {
@@ -43,6 +42,9 @@ class ProfileController
 
         $s3 = new S3();
         $s3->put($_FILES['avatar']['tmp_name'], $fileName);
+
+        $_SESSION['message'] = 'Профилната снимка беше сменена успешно. Промените ще бътат видими след известно време';
+        redirect('/profile');
     }
 
     public function saveAvatar()
